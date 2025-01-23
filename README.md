@@ -10,7 +10,7 @@ Code To Prompt is a modern web application that solves common frustrations when 
 
 **Code To Prompt** solves these issues by combining multiple files into a single, well-formatted prompt that you can use anywhere. It intelligently processes your project folders while skipping unnecessary files like dependencies and build artifacts.
 
-![Code To Prompt SCREENSHOT](public/code-to-prompt.png)
+![Code To Prompt SCREENSHOT](public/screenshots/code-to-prompt.png)
 
 ## ✨ Features
 

@@ -1,101 +1,303 @@
-import Image from "next/image";
+'use client'
+
+import { useState, useRef, useEffect } from 'react'
+import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Code2, Wand2, Copy, FileText, Download } from 'lucide-react'
+import { motion } from 'framer-motion'
+import toast, { Toaster } from 'react-hot-toast'
+
+import { FileUpload } from '@/components/FileUpload'
+import { FileList } from '@/components/FileList'
+import { FileWithContent } from '@/types'
+import { processFile, processEntry, generatePromptText, isPathIgnored, isFileAllowed } from '@/utils/files'
+
+// Add type declaration for webkitdirectory
+declare module 'react' {
+  interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
+    webkitdirectory?: string;
+    directory?: string;
+  }
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [prompt, setPrompt] = useState('')
+  const [files, setFiles] = useState<FileWithContent[]>([])
+  const [finalPrompt, setFinalPrompt] = useState('')
+  const [isDragging, setIsDragging] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  const handleFiles = async (fileList: FileList | null) => {
+    if (!fileList) return
+    
+    setIsLoading(true)
+    try {
+      const existingPaths = new Set(files.map(f => f.path))
+      const newFiles: { file: File; path: string }[] = []
+      const skippedFiles: string[] = []
+      const ignoredFiles: string[] = []
+
+      // Process all files
+      for (const file of Array.from(fileList)) {
+        const relativePath = file.webkitRelativePath || file.name
+
+        // Check if path should be ignored
+        if (isPathIgnored(relativePath)) {
+          ignoredFiles.push(relativePath)
+          continue
+        }
+
+        // Check if file type is allowed
+        if (!isFileAllowed(file)) {
+          skippedFiles.push(file.name)
+          continue
+        }
+
+        if (!existingPaths.has(relativePath)) {
+          newFiles.push({ file, path: relativePath })
+        }
+      }
+
+      if (ignoredFiles.length > 0) {
+        toast.success(`Skipped ${ignoredFiles.length} files from ignored directories`)
+      }
+
+      if (skippedFiles.length > 0) {
+        toast.error(`Skipped ${skippedFiles.length} unsupported file${skippedFiles.length === 1 ? '' : 's'}`)
+      }
+
+      if (newFiles.length === 0) {
+        if (skippedFiles.length === 0 && ignoredFiles.length === 0) {
+          toast.error('These files have already been added')
+        }
+        return
+      }
+
+      const results = await Promise.all(
+        newFiles.map(({ file, path }) => processFile(file, path))
+      )
+      
+      setFiles(prev => [...prev, ...results])
+      toast.success(`Added ${results.length} file${results.length === 1 ? '' : 's'}`)
+    } catch (error) {
+      toast.error('Failed to read some files')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(true)
+  }
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+  }
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+    
+    const items = Array.from(e.dataTransfer.items)
+    const entries = items.map(item => item.webkitGetAsEntry()).filter((entry): entry is FileSystemEntry => entry !== null)
+    
+    try {
+      const files = await Promise.all(entries.map(entry => processEntry(entry)))
+      const flattenedFiles = files.flat()
+      
+      if (flattenedFiles.length > 0) {
+        handleFiles(flattenedFiles as unknown as FileList)
+      }
+    } catch (error) {
+      toast.error('Failed to process some dropped items')
+    }
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleFiles(e.target.files)
+  }
+
+  const removeFile = (index: number) => {
+    setFiles(files.filter((_, i) => i !== index))
+  }
+
+  const generateFinalPrompt = () => {
+    const result = generatePromptText(prompt, files)
+    setFinalPrompt(result)
+    toast.success('Prompt generated successfully')
+  }
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(finalPrompt)
+      .then(() => toast.success('Copied to clipboard!'))
+      .catch(() => toast.error('Failed to copy to clipboard'))
+  }
+
+  const downloadPrompt = () => {
+    const blob = new Blob([finalPrompt], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'code-to-prompt.txt'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+    toast.success('Prompt downloaded successfully')
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
+      <div className="container mx-auto px-4 py-8">
+        <div className="space-y-8">
+          {/* Header */}
+          <div className="text-center space-y-4">
+            <div className="flex items-center justify-center space-x-2">
+              <Code2 className="h-12 w-12 text-primary animate-pulse" />
+              <h1 className="text-4xl font-bold tracking-tight">Code To Prompt</h1>
+            </div>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Transform your code files into AI-ready prompts effortlessly. Perfect for seamless interactions with AI assistants and LLMs.
+            </p>
+          </div>
+
+          {/* Main Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Input Section */}
+            <div className="space-y-6">
+              <Card className="p-6 transition-all hover:shadow-lg">
+                <CardHeader className="px-0 pt-0">
+                  <CardTitle className="text-2xl font-semibold">
+                    <div className="flex items-center gap-2">
+                      <FileText className="h-6 w-6" />
+                      Input
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-0 space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Your Prompt</label>
+                    <Textarea
+                      placeholder="Example: Analyze this code and suggest improvements for performance and readability..."
+                      value={prompt}
+                      onChange={(e) => setPrompt(e.target.value)}
+                      className="min-h-[100px] resize-none text-base leading-relaxed"
+                    />
+                  </div>
+
+                  <FileUpload
+                    isDragging={isDragging}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    onFileChange={handleFileChange}
+                    isDropdownOpen={isDropdownOpen}
+                    setIsDropdownOpen={setIsDropdownOpen}
+                    dropdownRef={dropdownRef}
+                  />
+
+                  <FileList
+                    files={files}
+                    onRemoveFile={removeFile}
+                  />
+
+                  <Button 
+                    onClick={generateFinalPrompt}
+                    className="w-full"
+                    disabled={files.length === 0 || !prompt.trim() || isLoading}
+                  >
+                    <motion.div
+                      animate={{ scale: isLoading ? [1, 1.02, 1] : 1 }}
+                      transition={{ repeat: Infinity, duration: 1 }}
+                      className="flex items-center gap-2"
+                    >
+                      <Wand2 className="h-4 w-4" />
+                      {isLoading ? 'Processing...' : 'Generate Prompt'}
+                    </motion.div>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Output Section */}
+            <div className="space-y-6">
+              <Card className="p-6 transition-all hover:shadow-lg">
+                <CardHeader className="px-0 pt-0">
+                  <CardTitle className="text-2xl font-semibold">
+                    <div className="flex items-center gap-2">
+                      <Code2 className="h-7 w-7" strokeWidth={2} />
+                      AI-ready Prompt
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-0 space-y-4">
+                  <ScrollArea className="h-[500px] rounded-md border p-4">
+                    <pre className="text-sm whitespace-pre-wrap font-mono">
+                      {finalPrompt || "Your AI-ready prompt will appear here..."}
+                    </pre>
+                  </ScrollArea>
+
+                  {finalPrompt && (
+                    <div className="flex gap-2">
+                      <Button
+                        className="w-full gap-2"
+                        onClick={copyToClipboard}
+                      >
+                        <Copy className="h-4 w-4" />
+                        Copy to Clipboard
+                      </Button>
+                      <Button
+                        className="w-full gap-2"
+                        onClick={downloadPrompt}
+                        variant="outline"
+                      >
+                        <Download className="h-4 w-4" />
+                        Download
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          duration: 2000,
+          style: {
+            background: 'hsl(var(--background))',
+            color: 'hsl(var(--foreground))',
+            border: '1px solid hsl(var(--border))',
+          },
+          success: {
+            iconTheme: {
+              primary: 'hsl(var(--primary))',
+              secondary: 'hsl(var(--primary-foreground))',
+            },
+          },
+        }}
+      />
     </div>
-  );
+  )
 }

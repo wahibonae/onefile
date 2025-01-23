@@ -3,7 +3,12 @@ export interface FileWithContent {
   content: string;
 }
 
-// Add webkitdirectory type declaration
+declare global {
+  interface Window {
+    webkitdirectory: string;
+  }
+}
+
 declare module 'react' {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
     webkitdirectory?: string;

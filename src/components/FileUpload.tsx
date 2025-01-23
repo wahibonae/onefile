@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Upload, FileText, Folder, ChevronDown } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-import { FileWithContent } from '@/types'
 
 interface FileUploadProps {
   isDragging: boolean;

@@ -1,6 +1,5 @@
 import { ALLOWED_EXTENSIONS, ALLOWED_MIME_TYPES, IGNORED_PATHS } from '@/constants/files'
 import { FileWithContent } from '@/types'
-import toast from 'react-hot-toast'
 
 export const isPathIgnored = (path: string): boolean => {
   const parts = path.split('/')

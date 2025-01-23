@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -49,7 +49,7 @@ export default function Home() {
     
     setIsLoading(true)
     try {
-      const existingPaths = new Set(files.map(f => f.path))
+      const existingPaths = new Set(files.map((f: FileWithContent) => f.path))
       const newFiles: { file: File; path: string }[] = []
       const skippedFiles: string[] = []
       const ignoredFiles: string[] = []
@@ -94,9 +94,10 @@ export default function Home() {
         newFiles.map(({ file, path }) => processFile(file, path))
       )
       
-      setFiles(prev => [...prev, ...results])
+      setFiles((prev: FileWithContent[]) => [...prev, ...results])
       toast.success(`Added ${results.length} file${results.length === 1 ? '' : 's'}`)
     } catch (error) {
+      console.error('Failed to read some files:', error)
       toast.error('Failed to read some files')
     } finally {
       setIsLoading(false)
@@ -128,6 +129,7 @@ export default function Home() {
         handleFiles(flattenedFiles as unknown as FileList)
       }
     } catch (error) {
+      console.error('Failed to process some dropped items:', error)
       toast.error('Failed to process some dropped items')
     }
   }
@@ -137,7 +139,7 @@ export default function Home() {
   }
 
   const removeFile = (index: number) => {
-    setFiles(files.filter((_, i) => i !== index))
+    setFiles(files.filter((_: FileWithContent, i: number) => i !== index))
   }
 
   const generateFinalPrompt = () => {

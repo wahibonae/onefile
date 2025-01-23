@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
         const slides: string[] = []
         
         // Read slides content
-        pptx.on('finalize', (written: number) => {
+        pptx.on('finalize', () => {
           console.log('Finished processing PPTX')
         })
 

@@ -13,6 +13,7 @@ import { FileUpload } from '@/components/FileUpload'
 import { FileList } from '@/components/FileList'
 import { FileWithContent } from '@/types'
 import { processFile, processEntry, generatePromptText, isPathIgnored, isFileAllowed } from '@/utils/files'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 // Add type declaration for webkitdirectory
 declare module 'react' {
@@ -30,6 +31,16 @@ export default function Home() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
+
+  useEffect(() => {
+    // Update the final prompt whenever prompt or files change
+    if (files.length > 0 && prompt.trim()) {
+      const result = generatePromptText(prompt, files)
+      setFinalPrompt(result)
+    } else {
+      setFinalPrompt('')
+    }
+  }, [prompt, files])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -142,12 +153,6 @@ export default function Home() {
     setFiles(files.filter((_: FileWithContent, i: number) => i !== index))
   }
 
-  const generateFinalPrompt = () => {
-    const result = generatePromptText(prompt, files)
-    setFinalPrompt(result)
-    toast.success('Prompt generated successfully')
-  }
-
   const copyToClipboard = () => {
     navigator.clipboard.writeText(finalPrompt)
       .then(() => toast.success('Copied to clipboard!'))
@@ -168,7 +173,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary dark:from-zinc-950 dark:to-zinc-900">
       <div className="container mx-auto px-4 py-8">
         <div className="space-y-8">
           {/* Header */}
@@ -180,6 +185,9 @@ export default function Home() {
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Transform your code files into AI-ready prompts effortlessly. Perfect for seamless interactions with AI assistants and LLMs.
             </p>
+            <div className="absolute top-4 right-4">
+              <ThemeToggle />
+            </div>
           </div>
 
           {/* Main Content */}
@@ -221,21 +229,6 @@ export default function Home() {
                     files={files}
                     onRemoveFile={removeFile}
                   />
-
-                  <Button 
-                    onClick={generateFinalPrompt}
-                    className="w-full"
-                    disabled={files.length === 0 || !prompt.trim() || isLoading}
-                  >
-                    <motion.div
-                      animate={{ scale: isLoading ? [1, 1.02, 1] : 1 }}
-                      transition={{ repeat: Infinity, duration: 1 }}
-                      className="flex items-center gap-2"
-                    >
-                      <Wand2 className="h-4 w-4" />
-                      {isLoading ? 'Processing...' : 'Generate Prompt'}
-                    </motion.div>
-                  </Button>
                 </CardContent>
               </Card>
             </div>

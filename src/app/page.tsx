@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Code2, Wand2, Copy, FileText, Download } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Code2, Copy, FileText, Download } from 'lucide-react'
 import toast, { Toaster } from 'react-hot-toast'
 
 import { FileUpload } from '@/components/FileUpload'
@@ -29,7 +28,6 @@ export default function Home() {
   const [finalPrompt, setFinalPrompt] = useState('')
   const [isDragging, setIsDragging] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
 
   useEffect(() => {
@@ -58,7 +56,6 @@ export default function Home() {
   const handleFiles = async (fileList: FileList | null) => {
     if (!fileList) return
     
-    setIsLoading(true)
     try {
       const existingPaths = new Set(files.map((f: FileWithContent) => f.path))
       const newFiles: { file: File; path: string }[] = []
@@ -110,8 +107,6 @@ export default function Home() {
     } catch (error) {
       console.error('Failed to read some files:', error)
       toast.error('Failed to read some files')
-    } finally {
-      setIsLoading(false)
     }
   }
 

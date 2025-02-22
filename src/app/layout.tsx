@@ -14,7 +14,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const title = "Code To Prompt - Turn Your Code FILES into ONE AI-Ready Prompt";
-const description = "Convert multiple code files into one AI-ready prompt effortlessly. Upload entire project folders, handle large files, and bypass AI platform upload limits. Perfect for people who want to use ChatGPT, Claude, and other AI platforms.";
+const description = "Convert multiple code files into one AI-ready prompt effortlessly. Upload entire project folders, bypass AI platform upload limits, generate once and use anywhere. Perfect for people who want to use ChatGPT, Claude, and other AI platforms.";
 const url = "https://code-to-prompt.vercel.app";
 
 export const metadata: Metadata = {

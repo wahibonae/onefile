@@ -57,7 +57,7 @@ export function InfoDialog() {
                 <p className="font-medium">Context Window Management</p>
                 <p className="text-sm text-muted-foreground">
                   Download large prompts as a single file to avoid context
-                  window limits, while maintaining all your code's context.
+                  window limits, while maintaining all your code&apos;s context.
                 </p>
               </div>
             </div>

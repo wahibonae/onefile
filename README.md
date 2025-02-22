@@ -2,7 +2,7 @@
 
 > Transform your code files into AI-ready prompts effortlessly.
 
-Code To Prompt is a modern web application that solves common frustrations when sharing code with AI platforms:
+Code To Prompt is an app that solves common frustrations when sharing code with AI platforms:
 
 - 😫 Tired of hitting file upload limits on AI platforms?
 - 🔄 Manually uploading the same files to different AI assistants?

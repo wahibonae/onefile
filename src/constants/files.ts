@@ -18,7 +18,7 @@ export const ALLOWED_EXTENSIONS = new Set([
   // Shell and script files
   '.ps1', '.psm1', '.bat', '.cmd', '.vbs', '.awk', '.sed',
   // Document formats
-  '.pdf', '.docx', '.pptx'
+  '.pdf', '.docx', '.doc', '.pptx', '.txt', '.rtf',
 ])
 
 export const ALLOWED_MIME_TYPES = new Set([
@@ -72,7 +72,10 @@ export const ALLOWED_MIME_TYPES = new Set([
   // Document formats
   'application/pdf',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  'text/rtf',
+  'application/rtf'
 ])
 
 export const IGNORED_PATHS = new Set([

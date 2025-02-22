@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf"
-import mammoth from 'mammoth'
-import officegen from 'officegen'
-import { Readable } from 'stream'
+import { DocxLoader } from "@langchain/community/document_loaders/fs/docx"
+import { PPTXLoader } from "@langchain/community/document_loaders/fs/pptx"
 import { writeFile, unlink } from 'fs/promises'
 import { join } from 'path'
 import os from 'os'
@@ -29,9 +28,9 @@ export async function POST(req: NextRequest) {
         await writeFile(tempFilePath, Buffer.from(buffer))
         
         // Load and process the PDF
-        const loader = new PDFLoader(tempFilePath)
-        const docs = await loader.load()
-        text = docs.map(doc => doc.pageContent).join('\n')
+        const pdfLoader = new PDFLoader(tempFilePath)
+        const pdfDocs = await pdfLoader.load()
+        text = pdfDocs.map(doc => doc.pageContent).join('\n')
         
         // Clean up
         await unlink(tempFilePath)
@@ -39,48 +38,33 @@ export async function POST(req: NextRequest) {
         break
 
       case 'docx':
-        const result = await mammoth.extractRawText({ arrayBuffer: buffer })
-        text = result.value
+        // Create a temporary file for the docx
+        tempFilePath = join(os.tmpdir(), `temp-${Date.now()}.docx`)
+        await writeFile(tempFilePath, Buffer.from(buffer))
+        
+        // Load and process the DOCX
+        const docxLoader = new DocxLoader(tempFilePath)
+        const docxDocs = await docxLoader.load()
+        text = docxDocs.map(doc => doc.pageContent).join('\n')
+        
+        // Clean up
+        await unlink(tempFilePath)
+        tempFilePath = null
         break
 
       case 'pptx':
-        // Convert buffer to readable stream for officegen
-        const stream = new Readable()
-        stream.push(Buffer.from(buffer))
-        stream.push(null)
-
-        const pptx = officegen('pptx')
+        // Create a temporary file for the pptx
+        tempFilePath = join(os.tmpdir(), `temp-${Date.now()}.pptx`)
+        await writeFile(tempFilePath, Buffer.from(buffer))
         
-        // Process the PPTX file
-        const slides: string[] = []
+        // Load and process the PPTX
+        const pptxLoader = new PPTXLoader(tempFilePath)
+        const pptxDocs = await pptxLoader.load()
+        text = pptxDocs.map(doc => doc.pageContent).join('\n\n')
         
-        // Read slides content
-        pptx.on('finalize', () => {
-          console.log('Finished processing PPTX')
-        })
-
-        pptx.on('error', (err: Error) => {
-          console.log(err)
-          throw err
-        })
-
-        // Extract text from each slide
-        for (const slide of pptx.getSlides()) {
-          const slideContent: string[] = []
-          
-          // Get text from shapes/textboxes
-          if (slide.data && Array.isArray(slide.data)) {
-            for (const item of slide.data) {
-              if (item.options && item.options.text) {
-                slideContent.push(item.options.text)
-              }
-            }
-          }
-          
-          slides.push(slideContent.join('\n'))
-        }
-        
-        text = slides.join('\n\n')
+        // Clean up
+        await unlink(tempFilePath)
+        tempFilePath = null
         break
 
       default:

@@ -10,14 +10,24 @@ export const isFileAllowed = (file: File): boolean => {
   // Check file extension
   const extension = `.${file.name.split('.').pop()?.toLowerCase()}`
   if (!ALLOWED_EXTENSIONS.has(extension)) {
+    console.log(`Extension not allowed: ${extension}`)
     return false
   }
 
   // Check MIME type
   const mimeType = file.type.toLowerCase()
+  
+  // For Python files, be more lenient with MIME type checks
+  if (extension === '.py') {
+    // Python files are often detected as text/plain or application/octet-stream
+    // or might have specific Python MIME types
+    return true
+  }
+  
   if (mimeType && !ALLOWED_MIME_TYPES.has(mimeType)) {
     // Some text files might have empty MIME type, so we only check if it's present
     if (mimeType !== '') {
+      console.log(`MIME type not allowed: ${mimeType} for file ${file.name}`)
       return false
     }
   }

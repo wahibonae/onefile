@@ -31,6 +31,12 @@ export const ALLOWED_MIME_TYPES = new Set([
   'text/x-markdown',
   // Programming languages
   'text/x-python',
+  'text/x-python-script',
+  'application/x-python',
+  'application/x-python-code',
+  'application/python',
+  'application/x-python-script',
+  'application/octet-stream',
   'text/x-java',
   'text/x-ruby',
   'text/x-php',

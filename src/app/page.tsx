@@ -16,9 +16,11 @@ import {
   generatePromptText,
   isPathIgnored,
   isFileAllowed,
+  skippedStats
 } from "@/utils/files";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { InfoDialog } from "@/components/InfoDialog";
+import { IGNORED_PATHS } from "@/constants/files";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -70,7 +72,9 @@ export default function Home() {
       const existingPaths = new Set(files.map((f: FileWithContent) => f.path));
       const newFiles: { file: File; path: string }[] = [];
       const skippedFiles: string[] = [];
+      const skippedImageFiles: string[] = [];
       const ignoredFiles: string[] = [];
+      const ignoredDirectories = new Map<string, number>();
 
       // Process all files
       for (const file of Array.from(fileList)) {
@@ -79,12 +83,29 @@ export default function Home() {
         // Check if path should be ignored
         if (isPathIgnored(relativePath)) {
           ignoredFiles.push(relativePath);
+          
+          // Track which directories are being skipped
+          const pathParts = relativePath.split('/');
+          for (const part of pathParts) {
+            if (part && IGNORED_PATHS.has(part)) {
+              const count = ignoredDirectories.get(part) || 0;
+              ignoredDirectories.set(part, count + 1);
+              break; // Only count the first ignored directory in the path
+            }
+          }
+          
           continue;
         }
 
         // Check if file type is allowed
         if (!isFileAllowed(file)) {
-          skippedFiles.push(file.name);
+          // Check if it's an image file
+          const isImage = file.type.startsWith('image/');
+          if (isImage) {
+            skippedImageFiles.push(file.name);
+          } else {
+            skippedFiles.push(file.name);
+          }
           continue;
         }
 
@@ -93,22 +114,59 @@ export default function Home() {
         }
       }
 
-      if (ignoredFiles.length > 0) {
-        toast.success(
-          `Skipped ${ignoredFiles.length} files from ignored directories`
-        );
-      }
+      // Get additional skipped directories from the directory traversal process
+      const skippedDirsFromTraversal = skippedStats.getDirectoryCounts();
+      skippedDirsFromTraversal.forEach((count, dir) => {
+        ignoredDirectories.set(dir, (ignoredDirectories.get(dir) || 0) + count);
+      });
+      
+      // Get any additional skipped images from the directory traversal
+      const additionalSkippedImages = skippedStats.getImageCount();
+      const totalSkippedImages = skippedImageFiles.length + additionalSkippedImages;
 
-      if (skippedFiles.length > 0) {
-        toast.error(
-          `Skipped ${skippedFiles.length} unsupported file${
-            skippedFiles.length === 1 ? "" : "s"
-          }`
-        );
+      // Handle both unsupported files, images, and ignored directories in one message
+      if (skippedFiles.length > 0 || totalSkippedImages > 0 || ignoredDirectories.size > 0) {
+        let message = '';
+        
+        const hasUnsupportedFiles = skippedFiles.length > 0;
+        const hasSkippedImages = totalSkippedImages > 0;
+        
+        if (hasUnsupportedFiles || hasSkippedImages) {
+          // Build message for skipped files
+          if (hasUnsupportedFiles) {
+            message = `Skipped ${skippedFiles.length} unsupported file${
+              skippedFiles.length === 1 ? "" : "s"
+            }`;
+          }
+          
+          // Add skipped images info if any
+          if (hasSkippedImages) {
+            if (message) {
+              message += `, ${totalSkippedImages} image${
+                totalSkippedImages === 1 ? "" : "s"
+              }`;
+            } else {
+              message = `Skipped ${totalSkippedImages} image${
+                totalSkippedImages === 1 ? "" : "s"
+              }`;
+            }
+          }
+          
+          // Add ignored directories info if any
+          if (ignoredDirectories.size > 0) {
+            const dirNames = Array.from(ignoredDirectories.keys()).join(', ');
+            message += ` + ${dirNames}`;
+          }
+        } else if (ignoredDirectories.size > 0) {
+          const dirNames = Array.from(ignoredDirectories.keys()).join(', ');
+          message = `Skipped files from: ${dirNames}`;
+        }
+        
+        toast.error(message);
       }
 
       if (newFiles.length === 0) {
-        if (skippedFiles.length === 0 && ignoredFiles.length === 0) {
+        if (skippedFiles.length === 0 && skippedImageFiles.length === 0 && ignoredFiles.length === 0) {
           toast.error("These files have already been added");
         }
         return;
@@ -148,11 +206,39 @@ export default function Home() {
       .filter((entry): entry is FileSystemEntry => entry !== null);
 
     try {
+      // Reset stats before processing
+      skippedStats.reset();
+      
+      // Process files without showing immediate feedback
       const files = await Promise.all(
         entries.map((entry) => processEntry(entry))
       );
       const flattenedFiles = files.flat();
 
+      // Collect information about skipped items
+      const skippedImages = skippedStats.getImageCount();
+      const ignoredDirs = skippedStats.getDirectoryCounts();
+      
+      // If we have no valid files but we skipped some content, show a message
+      if (flattenedFiles.length === 0 && (skippedImages > 0 || ignoredDirs.size > 0)) {
+        let message = '';
+        
+        if (skippedImages > 0) {
+          message = `Skipped ${skippedImages} image${skippedImages === 1 ? '' : 's'}`;
+          
+          if (ignoredDirs.size > 0) {
+            const dirNames = Array.from(ignoredDirs.keys()).join(', ');
+            message += ` + ${dirNames}`;
+          }
+        } else if (ignoredDirs.size > 0) {
+          const dirNames = Array.from(ignoredDirs.keys()).join(', ');
+          message = `Skipped files from: ${dirNames}`;
+        }
+        
+        toast.error(message);
+        return;
+      }
+      
       if (flattenedFiles.length > 0) {
         handleFiles(flattenedFiles as unknown as FileList);
       }
@@ -301,7 +387,7 @@ export default function Home() {
       <Toaster
         position="top-right"
         toastOptions={{
-          duration: 2000,
+          duration: 3000,
           style: {
             background: "hsl(var(--background))",
             color: "hsl(var(--foreground))",

@@ -1,6 +1,29 @@
 import { ALLOWED_EXTENSIONS, ALLOWED_MIME_TYPES, IGNORED_PATHS } from '@/constants/files'
 import { FileWithContent } from '@/types'
 
+// Track skipped directories and files
+export const skippedStats = {
+  directoryCounts: new Map<string, number>(),
+  imageCount: 0,
+  reset: function() {
+    this.directoryCounts.clear();
+    this.imageCount = 0;
+  },
+  incrementDirectory: function(directoryName: string) {
+    const currentCount = this.directoryCounts.get(directoryName) || 0;
+    this.directoryCounts.set(directoryName, currentCount + 1);
+  },
+  incrementImageCount: function() {
+    this.imageCount += 1;
+  },
+  getDirectoryCounts: function() {
+    return this.directoryCounts;
+  },
+  getImageCount: function() {
+    return this.imageCount;
+  }
+};
+
 export const isPathIgnored = (path: string): boolean => {
   const parts = path.split('/')
   return parts.some(part => IGNORED_PATHS.has(part))
@@ -88,6 +111,16 @@ export const processEntry = async (entry: FileSystemEntry, path: string = ''): P
     // Check if the path should be ignored
     const fullPath = path ? `${path}/${entry.name}` : entry.name
     if (isPathIgnored(fullPath)) {
+      // Determine which directory caused the ignore
+      const parts = fullPath.split('/');
+      for (const part of parts) {
+        if (IGNORED_PATHS.has(part)) {
+          skippedStats.incrementDirectory(part);
+          break;
+        }
+      }
+      
+      console.log(`Skipping ignored path: ${fullPath}`)
       resolve([])
       return
     }
@@ -95,6 +128,17 @@ export const processEntry = async (entry: FileSystemEntry, path: string = ''): P
     if (entry.isFile) {
       const fileEntry = entry as FileSystemFileEntry
       fileEntry.file(file => {
+        // Check if it's an allowed file
+        if (!isFileAllowed(file)) {
+          // Check if it's an image file
+          if (file.type.startsWith('image/')) {
+            skippedStats.incrementImageCount();
+            console.log(`Skipping image file: ${file.name}`);
+          }
+          resolve([]);
+          return;
+        }
+        
         // Add the path information to the file object
         Object.defineProperty(file, 'webkitRelativePath', {
           value: fullPath

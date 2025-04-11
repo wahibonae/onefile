@@ -47,6 +47,12 @@ export const isFileAllowed = (file: File): boolean => {
     return true
   }
   
+  // For XML files, be more lenient with MIME type checks
+  if (extension === '.xml') {
+    // XML files can have various MIME types depending on the browser
+    return true
+  }
+  
   if (mimeType && !ALLOWED_MIME_TYPES.has(mimeType)) {
     // Some text files might have empty MIME type, so we only check if it's present
     if (mimeType !== '') {

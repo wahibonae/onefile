@@ -56,32 +56,33 @@ export function FileUpload({
           directory=""
           className="hidden"
         />
-        <div className="flex flex-col items-center justify-center p-8 text-center">
+        <div className="flex flex-col items-center justify-center py-6 px-4 text-center">
           <motion.div
             animate={{ scale: isDragging ? 1.1 : 1 }}
             transition={{ duration: 0.2 }}
           >
-            <Upload className={`h-10 w-10 mb-4 ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
+            <Upload className={`h-8 w-8 mb-3 ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
           </motion.div>
-          <p className="text-sm text-muted-foreground mb-2">
-            Drag and drop your files or folders here
+          <p className="text-sm text-muted-foreground mb-3 max-w-xs">
+            Drag files here or
           </p>
           <div className="relative" ref={dropdownRef}>
             <Button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               variant="outline"
+              size="sm"
               className="relative group"
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-1">
                 Choose Files
-                <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+                <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
               </span>
             </Button>
             {isDropdownOpen && (
               <motion.div
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="absolute mt-2 w-48 rounded-lg shadow-lg bg-popover border border-border z-10"
+                className="absolute mt-1 w-36 rounded-lg shadow-lg bg-popover border border-border z-10"
               >
                 <div className="p-1">
                   <button
@@ -89,9 +90,9 @@ export function FileUpload({
                       fileOnlyInputRef.current?.click()
                       setIsDropdownOpen(false)
                     }}
-                    className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-secondary transition-colors"
+                    className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-secondary transition-colors"
                   >
-                    <FileText className="h-4 w-4" />
+                    <FileText className="h-3 w-3" />
                     Select Files
                   </button>
                   <button
@@ -99,9 +100,9 @@ export function FileUpload({
                       folderInputRef.current?.click()
                       setIsDropdownOpen(false)
                     }}
-                    className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-secondary transition-colors"
+                    className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-secondary transition-colors"
                   >
-                    <Folder className="h-4 w-4" />
+                    <Folder className="h-3 w-3" />
                     Select Folder
                   </button>
                 </div>

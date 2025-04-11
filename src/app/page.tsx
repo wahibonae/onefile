@@ -21,6 +21,7 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { InfoDialog } from "@/components/InfoDialog";
 import { IGNORED_PATHS } from "@/constants/files";
+import OpenAI from "@/components/openai";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -172,15 +173,34 @@ export default function Home() {
         return;
       }
 
-      const results = await Promise.all(
-        newFiles.map(({ file, path }) => processFile(file, path))
-      );
+      // Show loading toast only if there are files to process
+      const loadingToastId = toast.loading("Processing files...");
 
-      setFiles((prev: FileWithContent[]) => [...prev, ...results]);
-      toast.success(
-        `Added ${results.length} file${results.length === 1 ? "" : "s"}`
-      );
+      try {
+        const results = await Promise.all(
+          newFiles.map(({ file, path }) => processFile(file, path))
+        );
+
+        setFiles((prev: FileWithContent[]) => [...prev, ...results]);
+        
+        // Dismiss loading toast before showing success
+        toast.dismiss(loadingToastId);
+        toast.success(
+          `Added ${results.length} file${results.length === 1 ? "" : "s"}`
+        );
+      } catch (processingError) {
+        // Dismiss loading toast before showing processing error
+        toast.dismiss(loadingToastId);
+        console.error("Failed during file processing:", processingError);
+        toast.error("Failed to process some files");
+      }
+
     } catch (error) {
+      // General error handling (might need to dismiss if loading started but failed before inner try)
+      // Note: The current structure might dismiss twice if error is in the inner try-catch,
+      // but toast.dismiss is idempotent (safe to call on non-existent ID).
+      // Consider if a loadingToastId variable needs broader scope if errors can happen *before* the inner try.
+      // For now, assume errors before inner try are less likely or don't warrant the loading toast.
       console.error("Failed to read some files:", error);
       toast.error("Failed to read some files");
     }
@@ -278,17 +298,17 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary dark:from-zinc-950 dark:to-zinc-900">
-      <div className="container mx-auto px-4 py-8">
-        <div className="space-y-8">
+      <div className="container lg:max-w-[1280px] mx-auto px-4 py-6">
+        <div className="space-y-6">
           {/* Header */}
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-3">
             <div className="flex items-center justify-center space-x-2">
-              <Code2 className="h-12 w-12 text-primary animate-pulse" />
-              <h1 className="text-4xl font-bold tracking-tight">
+              <Code2 className="h-10 w-10 text-black animate-pulse" />
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                 Code To Prompt
               </h1>
             </div>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
               Transform your code files into AI-ready prompts effortlessly.
               Perfect for seamless interactions with AI assistants and LLMs.
             </p>
@@ -299,14 +319,14 @@ export default function Home() {
           </div>
 
           {/* Main Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Input Section */}
-            <div className="space-y-6">
-              <Card className="p-6 transition-all hover:shadow-lg">
-                <CardHeader className="px-0 pt-0">
-                  <CardTitle className="text-2xl font-semibold">
+            <div className="space-y-4">
+              <Card className="p-4 md:p-6 transition-all hover:shadow-lg">
+                <CardHeader className="px-0 pt-0 pb-3">
+                  <CardTitle className="text-xl md:text-2xl font-semibold">
                     <div className="flex items-center gap-2">
-                      <FileText className="h-6 w-6" />
+                      <FileText className="h-5 w-5 md:h-6 md:w-6" />
                       Input
                     </div>
                   </CardTitle>
@@ -320,7 +340,7 @@ export default function Home() {
                       placeholder="Example: Analyze this code and suggest improvements for performance and readability..."
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
-                      className="min-h-[100px] resize-none text-base leading-relaxed"
+                      className="min-h-[80px] resize-none text-base leading-relaxed"
                     />
                   </div>
 
@@ -341,18 +361,18 @@ export default function Home() {
             </div>
 
             {/* Output Section */}
-            <div className="space-y-6">
-              <Card className="p-6 transition-all hover:shadow-lg">
-                <CardHeader className="px-0 pt-0">
-                  <CardTitle className="text-2xl font-semibold">
+            <div className="space-y-4">
+              <Card className="p-4 md:p-6 transition-all hover:shadow-lg">
+                <CardHeader className="px-0 pt-0 pb-3">
+                  <CardTitle className="text-xl md:text-2xl font-semibold">
                     <div className="flex items-center gap-2">
-                      <Code2 className="h-7 w-7" strokeWidth={2} />
+                      <Code2 className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2} />
                       AI-ready Prompt
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="px-0 space-y-4">
-                  <ScrollArea className="h-[500px] rounded-md border p-4">
+                  <ScrollArea className="h-[300px] md:h-[400px] rounded-md border p-4">
                     <pre className="text-sm whitespace-pre-wrap font-mono">
                       {finalPrompt ||
                         "Your AI-ready prompt will appear here..."}
@@ -361,12 +381,22 @@ export default function Home() {
 
                   {finalPrompt && (
                     <div className="flex gap-2">
+                      {/*<Button
+                        className="w-full gap-2 bg-gradient-to-t from-gray-800 to-gray-600 text-white hover:opacity-90 transition-all duration-300"
+                        onClick={() => {
+                          const encodedPrompt = encodeURIComponent(finalPrompt);
+                          window.open(`https://chatgpt.com/?q=${encodedPrompt}`, "_blank");
+                        }}
+                      >
+                        <OpenAI className="h-4 w-4" />
+                        Ask ChatGPT
+                      </Button>*/}
                       <Button
                         className="w-full gap-2"
                         onClick={copyToClipboard}
                       >
                         <Copy className="h-4 w-4" />
-                        Copy to Clipboard
+                        Copy To Clipboard
                       </Button>
                       <Button
                         className="w-full gap-2"

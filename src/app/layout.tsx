@@ -83,7 +83,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body className={`${spaceGrotesk.className} ${inter.className}`}>
+      <body className={`${spaceGrotesk.className} ${inter.className} pt-10`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

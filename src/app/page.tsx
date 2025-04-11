@@ -21,7 +21,6 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { InfoDialog } from "@/components/InfoDialog";
 import { IGNORED_PATHS } from "@/constants/files";
-import OpenAI from "@/components/openai";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {

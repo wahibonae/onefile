@@ -302,7 +302,7 @@ export default function Home() {
           {/* Header */}
           <div className="text-center space-y-3">
             <div className="flex items-center justify-center space-x-2">
-              <Code2 className="h-10 w-10 text-black animate-pulse" />
+              <Code2 className="h-10 w-10 text-black animate-pulse dark:text-white" />
               <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                 Code To Prompt
               </h1>

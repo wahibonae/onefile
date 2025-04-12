@@ -296,7 +296,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary dark:from-zinc-950 dark:to-zinc-900">
+    <div className="pt-10 min-h-screen bg-gradient-to-b from-background to-secondary dark:from-zinc-950 dark:to-zinc-900">
       <div className="container lg:max-w-[1280px] mx-auto px-4 py-6">
         <div className="space-y-6">
           {/* Header */}

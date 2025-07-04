@@ -176,30 +176,63 @@ export default function Home() {
       const loadingToastId = toast.loading("Processing files...");
 
       try {
-        const results = await Promise.all(
+        const results = await Promise.allSettled(
           newFiles.map(({ file, path }) => processFile(file, path))
         );
 
-        setFiles((prev: FileWithContent[]) => [...prev, ...results]);
+        const successfulFiles: FileWithContent[] = [];
+        const emptyFiles: string[] = [];
+        const failedFiles: string[] = [];
+
+        results.forEach((result, index) => {
+          if (result.status === 'fulfilled') {
+            successfulFiles.push(result.value);
+          } else {
+            const fileName = newFiles[index].file.name;
+            if (result.reason.message.includes('appears to be empty')) {
+              emptyFiles.push(fileName);
+            } else {
+              failedFiles.push(fileName);
+            }
+          }
+        });
+
+        if (successfulFiles.length > 0) {
+          setFiles((prev: FileWithContent[]) => [...prev, ...successfulFiles]);
+        }
         
-        // Dismiss loading toast before showing success
+        // Wait a brief moment to ensure state updates are processed
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Dismiss loading toast before showing results
         toast.dismiss(loadingToastId);
-        toast.success(
-          `Added ${results.length} file${results.length === 1 ? "" : "s"}`
-        );
+
+        // Show appropriate feedback
+        if (successfulFiles.length > 0) {
+          toast.success(
+            `Added ${successfulFiles.length} file${successfulFiles.length === 1 ? "" : "s"}`
+          );
+        }
+
+        if (emptyFiles.length > 0) {
+          toast.error(
+            `Skipped ${emptyFiles.length} empty file${emptyFiles.length === 1 ? "" : "s"}`
+          );
+        }
+
+        if (failedFiles.length > 0) {
+          toast.error(
+            `Failed to process ${failedFiles.length} file${failedFiles.length === 1 ? "" : "s"}`
+          );
+        }
+
       } catch (processingError) {
-        // Dismiss loading toast before showing processing error
         toast.dismiss(loadingToastId);
         console.error("Failed during file processing:", processingError);
         toast.error("Failed to process some files");
       }
 
     } catch (error) {
-      // General error handling (might need to dismiss if loading started but failed before inner try)
-      // Note: The current structure might dismiss twice if error is in the inner try-catch,
-      // but toast.dismiss is idempotent (safe to call on non-existent ID).
-      // Consider if a loadingToastId variable needs broader scope if errors can happen *before* the inner try.
-      // For now, assume errors before inner try are less likely or don't warrant the loading toast.
       console.error("Failed to read some files:", error);
       toast.error("Failed to read some files");
     }
@@ -384,7 +417,7 @@ export default function Home() {
                   <ScrollArea className="h-[400px] rounded-xl border border-border bg-muted/30 p-6">
                     <pre className="text-sm whitespace-pre-wrap font-mono text-foreground leading-relaxed">
                       {finalPrompt ||
-                        "Your file content (AI input) will appear here..."}
+                        "Your one file (prompt + files) will appear here..."}
                     </pre>
                   </ScrollArea>
 
@@ -417,7 +450,7 @@ export default function Home() {
       <Toaster
         position="bottom-right"
         toastOptions={{
-          duration: 3000,
+          duration: 4000,
           style: {
             background: "hsl(var(--card))",
             color: "hsl(var(--card-foreground))",

@@ -89,7 +89,17 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
         }
         
         const data = await response.json()
-        resolve({ path: relativePath, content: data.text })
+        
+        // Check if content is empty or only whitespace
+        if (!data.text || data.text.trim().length === 0) {
+          reject(new Error(`File appears to be empty: ${file.name}`))
+          return
+        }
+        
+        // Trim whitespace from beginning and end
+        const trimmedContent = data.text.trim()
+        
+        resolve({ path: relativePath, content: trimmedContent })
         return
       }
 
@@ -97,7 +107,17 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
       const reader = new FileReader()
       reader.onload = (e) => {
         const content = e.target?.result as string
-        resolve({ path: relativePath, content })
+        
+        // Check if content is empty or only whitespace
+        if (!content || content.trim().length === 0) {
+          reject(new Error(`File appears to be empty: ${file.name}`))
+          return
+        }
+        
+        // Trim whitespace from beginning and end
+        const trimmedContent = content.trim()
+        
+        resolve({ path: relativePath, content: trimmedContent })
       }
       reader.onerror = () => reject(new Error(`Failed to read file: ${file.name}`))
       reader.readAsText(file)

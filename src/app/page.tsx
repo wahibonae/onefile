@@ -41,7 +41,7 @@ export default function Home() {
 
   useEffect(() => {
     // Update the final prompt whenever prompt or files change
-    if (files.length > 0 && prompt.trim()) {
+    if (files.length > 0 || prompt.trim() !== "") {
       const result = generatePromptText(prompt, files);
       setFinalPrompt(result);
     } else {
@@ -287,7 +287,7 @@ export default function Home() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "code-to-prompt.txt";
+    a.download = "onefile-prompt.txt";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -296,50 +296,55 @@ export default function Home() {
   };
 
   return (
-    <div className="pt-10 min-h-screen bg-gradient-to-b from-background to-secondary dark:from-zinc-950 dark:to-zinc-900">
-      <div className="container lg:max-w-[1280px] mx-auto px-4 py-6">
-        <div className="space-y-6">
+    <div className="min-h-screen bg-background">
+      <div className="container max-w-6xl mx-auto px-6 py-12 pt-14">
+        <div className="space-y-9">
           {/* Header */}
-          <div className="text-center space-y-3">
-            <div className="flex items-center justify-center space-x-2">
-              <Code2 className="h-10 w-10 text-black animate-pulse dark:text-white" />
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Code To Prompt
+          <div className="text-center space-y-4">
+            <div className="flex items-center justify-center space-x-3">
+              <div className="p-2 rounded-lg bg-primary/10">
+                {/* <Code2 className="h-8 w-8 text-primary" /> */}
+                <span className="flex items-center justify-center h-8 w-8 text-primary font-bold text-3xl">1</span>
+              </div>
+              <h1 className="text-5xl font-bold tracking-tight text-foreground">
+                OneFile
               </h1>
             </div>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
-              Transform your code files into AI-ready prompts effortlessly.
-              Perfect for seamless interactions with AI assistants and LLMs.
+            <p className="text-muted-foreground max-w-3xl mx-auto text-lg leading-relaxed">
+              Combine multiple files into one AI-ready file. <br />
+              No more upload limits, file size limits, or ... // TODO: Add more info
             </p>
-            <div className="absolute top-4 right-4 flex items-center gap-2">
+            <div className="absolute top-8 right-8 flex items-center gap-3">
               <InfoDialog />
               <ThemeToggle />
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
             {/* Input Section */}
-            <div className="space-y-4">
-              <Card className="p-4 md:p-6 transition-all hover:shadow-lg">
-                <CardHeader className="px-0 pt-0 pb-3">
-                  <CardTitle className="text-xl md:text-2xl font-semibold">
-                    <div className="flex items-center gap-2">
-                      <FileText className="h-5 w-5 md:h-6 md:w-6" />
-                      Input
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="px-0 space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">
+            <div className="space-y-6">
+              <div className="bg-card rounded-xl border border-border shadow-sm p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <FileText className="h-5 w-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-semibold text-card-foreground">
+                    Input
+                  </h2>
+                </div>
+                
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium text-foreground">
                       Your Prompt
                     </label>
                     <Textarea
-                      placeholder="Example: Analyze this code and suggest improvements for performance and readability..."
+                      // placeholder="Example: Help me study for my exam using these materials, or analyze these documents for insights, or review this project for improvements..."
+                      placeholder="Example: Help me study for my exam using these materials..."
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
-                      className="min-h-[80px] resize-none text-base leading-relaxed"
+                      className="min-h-[80px] resize-none"
                     />
                   </div>
 
@@ -355,60 +360,51 @@ export default function Home() {
                   />
 
                   <FileList files={files} onRemoveFile={removeFile} />
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
 
             {/* Output Section */}
-            <div className="space-y-4">
-              <Card className="p-4 md:p-6 transition-all hover:shadow-lg">
-                <CardHeader className="px-0 pt-0 pb-3">
-                  <CardTitle className="text-xl md:text-2xl font-semibold">
-                    <div className="flex items-center gap-2">
-                      <Code2 className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2} />
-                      AI-ready Prompt
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="px-0 space-y-4">
-                  <ScrollArea className="h-[300px] md:h-[400px] rounded-md border p-4">
-                    <pre className="text-sm whitespace-pre-wrap font-mono">
+            <div className="space-y-6">
+              <div className="bg-card rounded-xl border border-border shadow-sm p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Code2 className="h-5 w-5 text-primary" /> {/* TODO: Update icon */}
+                  </div>
+                  <h2 className="text-2xl font-semibold text-card-foreground">
+                    AI-ready Prompt
+                  </h2>
+                </div>
+                
+                <div className="space-y-6">
+                  <ScrollArea className="h-[400px] rounded-xl border border-border bg-muted/30 p-6">
+                    <pre className="text-sm whitespace-pre-wrap font-mono text-foreground leading-relaxed">
                       {finalPrompt ||
                         "Your AI-ready prompt will appear here..."}
                     </pre>
                   </ScrollArea>
 
                   {finalPrompt && (
-                    <div className="flex gap-2">
-                      {/*<Button
-                        className="w-full gap-2 bg-gradient-to-t from-gray-800 to-gray-600 text-white hover:opacity-90 transition-all duration-300"
-                        onClick={() => {
-                          const encodedPrompt = encodeURIComponent(finalPrompt);
-                          window.open(`https://chatgpt.com/?q=${encodedPrompt}`, "_blank");
-                        }}
-                      >
-                        <OpenAI className="h-4 w-4" />
-                        Ask ChatGPT
-                      </Button>*/}
+                    <div className="flex gap-3">
                       <Button
-                        className="w-full gap-2"
+                        className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm h-11 rounded-lg font-medium"
                         onClick={copyToClipboard}
                       >
-                        <Copy className="h-4 w-4" />
+                        <Copy className="h-4 w-4 mr-2" />
                         Copy To Clipboard
                       </Button>
                       <Button
-                        className="w-full gap-2"
+                        className="flex-1 bg-background text-foreground hover:bg-muted border border-border shadow-sm h-11 rounded-lg font-medium"
                         onClick={downloadPrompt}
                         variant="outline"
                       >
-                        <Download className="h-4 w-4" />
+                        <Download className="h-4 w-4 mr-2" />
                         Download
                       </Button>
                     </div>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -418,9 +414,11 @@ export default function Home() {
         toastOptions={{
           duration: 3000,
           style: {
-            background: "hsl(var(--background))",
-            color: "hsl(var(--foreground))",
+            background: "hsl(var(--card))",
+            color: "hsl(var(--card-foreground))",
             border: "1px solid hsl(var(--border))",
+            borderRadius: "12px",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
           },
           success: {
             iconTheme: {

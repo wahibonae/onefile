@@ -1,24 +1,35 @@
-# Code To Prompt 🚀
+# OneFile 🚀
 
-> Transform your code files into AI-ready prompts effortlessly.
+> Combine multiple files into one AI-ready prompt effortlessly.
 
-Code To Prompt is an app that solves common frustrations when sharing code with AI platforms:
+OneFile is a free, open-source tool that solves common frustrations when working with AI platforms:
 
-- 😫 Tired of hitting file upload limits on AI platforms?
-- 🔄 Manually uploading the same files to different AI assistants?
-- 📁 Can't upload entire project folders to get comprehensive help?
+- 😫 Tired of hitting file upload limits on ChatGPT, Claude, or Gemini?
+- 🔄 Manually uploading the same files repeatedly to different AI assistants?
+- 📁 Can't upload entire folders to get comprehensive help?
+- 📚 Need to combine study materials, research papers, or project documents?
 
-**Code To Prompt** solves these issues by combining multiple files into a single, well-formatted prompt that you can use anywhere. It intelligently processes your project folders while skipping unnecessary files like dependencies and build artifacts.
+**OneFile** solves these issues by combining multiple files (code, PDFs, docs, CSVs, etc.) into a single, well-formatted prompt that you can use anywhere. It intelligently processes your files while skipping unnecessary content like dependencies and build artifacts.
 
-![Code To Prompt SCREENSHOT](public/screenshots/code-to-prompt.png)
+![OneFile Screenshot](public/screenshots/code-to-prompt.png)
 
 ## ✨ Features
 
-- 📁 **Directory Support**: Upload entire folders while intelligently ignoring common dependency and build directories
-- 🎯 **Smart File Processing**: Automatically handles multiple file formats including code, text, and documentation files
-- 🚫 **Smart Filtering**: Automatically filters out `node_modules`, build directories, binary files, and other non-text content
+- 📁 **Universal File Support**: Combine any file type - PDFs, Word docs, spreadsheets, code files, text files, and more
+- 🎯 **Smart Processing**: Automatically handles multiple file formats while preserving structure and relationships
+- 🚫 **Intelligent Filtering**: Automatically filters out binary files, dependencies, and other non-text content
 - 📋 **Easy Export**: Copy to clipboard or download your formatted prompts with a single click
 - 🌐 **Completely FREE & open-source!**
+
+## 🎯 Perfect For
+
+- **Students**: Combine lecture slides, study guides, and assignments for AI-powered study help
+- **Researchers**: Merge research papers, drafts, and notes for thesis/dissertation feedback
+- **Business Professionals**: Gather emails, meeting notes, and project docs for AI-assisted meeting prep
+- **Data Analysts**: Combine CSVs and data files for AI-driven pattern analysis
+- **Legal Professionals**: Aggregate case files, precedents, and evidence for AI-powered legal research
+- **Entrepreneurs**: Merge competitor analysis, market research, and financials for AI-generated business pitches
+- **Developers**: Transform code files into AI-ready prompts for code review and analysis
 
 ## 🚀 Getting Started
 
@@ -31,8 +42,8 @@ Code To Prompt is an app that solves common frustrations when sharing code with 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/wahibonae/code-to-prompt.git
-cd code-to-prompt
+git clone https://github.com/wahibonae/onefile.git
+cd onefile
 ```
 
 2. Install dependencies:
@@ -58,18 +69,28 @@ yarn dev
    - Drag and drop files/folders into the upload area
    - Click "Choose Files" to select individual files
    - Click "Choose Folder" to select an entire directory
-3. **Generate**: Click "Generate Prompt" to create your AI-ready prompt
+3. **Generate**: Your AI-ready prompt is generated automatically
 4. **Export**: Either:
    - Copy the generated prompt to your clipboard
    - Download it as a text file
+
+## 📝 Example Scenarios
+
+- **Student**: "I have 15 PDF lecture slides, 8 study guides, and 12 homework assignments – I want ChatGPT to create practice questions but can't upload them all at once."
+
+- **Data Analyst**: "I have many CSV files from different months/regions and want AI to find patterns, but I can only upload a few at a time and lose context between conversations."
+
+- **Business Professional**: "I have emails, previous meeting notes, project docs, and agenda items scattered across 25+ files – I need AI to help me prepare but keep hitting limits."
+
+- **Researcher**: "I want to combine multiple research papers and my draft thesis chapter to get AI feedback on my literature review."
 
 ## 🛠️ Built With
 
 - [Next.js](https://nextjs.org/) - React framework
 - [Tailwind CSS](https://tailwindcss.com/) - Styling
 - [Shadcn/ui](https://ui.shadcn.com/) - UI components
-- [Motion](https://motion.dev/) - Animations
 - [Lucide Icons](https://lucide.dev/) - Icons
+- [React Hot Toast](https://react-hot-toast.com/) - Notifications
 
 ## 🤝 Contributing
 
@@ -83,8 +104,6 @@ Contributions are what make the open source community such an amazing place to l
 
 Please make sure to update tests as appropriate and adhere to the existing coding style.
 
-Thank you!!
-
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -95,20 +114,22 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - GitHub: [@wahibonae](https://github.com/wahibonae)
 - Twitter: [@wahibonae](https://twitter.com/wahibonae)
-- Linkedin: [Mohamed Wahib ABKARI](https://www.linkedin.com/in/abkarimohamedwahib/)
+- LinkedIn: [Mohamed Wahib ABKARI](https://www.linkedin.com/in/abkarimohamedwahib/)
 
 ## 🙏 Acknowledgments
 
-- Thanks to everyone who inspired us to build `code-to-prompt`.
-- Thanks to my friends & the community for the support!!
-- Inspired by the need to streamline AI interactions with codebases.
+- Thanks to everyone who inspired us to build OneFile
+- Thanks to the community for the support and feedback
+- Inspired by the need to streamline AI interactions with multiple files
 
 ## 📊 Roadmap
 
 - [ ] Custom ignore patterns
-- [ ] Prompt templates
-- [ ] Multiple prompt formats for different AI models
+- [ ] Prompt templates for different use cases
+- [ ] Multiple output formats for different AI models
 - [ ] API endpoint for programmatic access
+- [ ] Batch processing for large file sets
+- [ ] Integration with popular cloud storage services
 
 ---
 

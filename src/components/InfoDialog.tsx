@@ -15,16 +15,16 @@ export function InfoDialog() {
       <DialogTrigger asChild>
         <Button variant="outline" size="icon">
           <Info className="h-[1.2rem] w-[1.2rem]" />
-          <span className="sr-only">About Code To Prompt</span>
+          <span className="sr-only">About OneFile</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-2xl">
-            About Code To Prompt
+            About OneFile
           </DialogTitle>
           <DialogDescription className="text-base">
-            Your solution for easy and efficient code-to-AI interactions.
+            Your solution for combining multiple files into AI-ready prompts.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-6 pt-2">
@@ -35,7 +35,7 @@ export function InfoDialog() {
                 <p className="font-medium">File Upload Limits</p>
                 <p className="text-sm text-muted-foreground">
                   No more hitting upload limits on AI platforms. Convert
-                  multiple files into a single, well-formatted prompt.
+                  multiple files (PDFs, docs, CSVs, code, etc.) into a single, well-formatted prompt.
                 </p>
               </div>
             </div>
@@ -43,10 +43,10 @@ export function InfoDialog() {
             <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
               <Files className="h-5 w-5 text-primary mt-1 shrink-0" />
               <div>
-                <p className="font-medium">Manual File Management</p>
+                <p className="font-medium">Universal File Support</p>
                 <p className="text-sm text-muted-foreground">
-                  Stop uploading the same files repeatedly to different AI
-                  assistants. Generate once, use anywhere.
+                  Perfect for students combining study materials, professionals merging meeting notes,
+                  researchers aggregating papers, and anyone working with multiple files.
                 </p>
               </div>
             </div>
@@ -54,10 +54,10 @@ export function InfoDialog() {
             <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
               <Download className="h-5 w-5 text-primary mt-1 shrink-0" />
               <div>
-                <p className="font-medium">Context Window Management</p>
+                <p className="font-medium">Easy Export</p>
                 <p className="text-sm text-muted-foreground">
-                  Download large prompts as a single file to avoid context
-                  window limits, while maintaining all your code&apos;s context.
+                  Download your merged content as a single file or copy to clipboard.
+                  Use with ChatGPT, Claude, Gemini, or any AI platform.
                 </p>
               </div>
             </div>
@@ -65,13 +65,20 @@ export function InfoDialog() {
             <div className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50">
               <Check className="h-5 w-5 text-primary mt-1 shrink-0" />
               <div>
-                <p className="font-medium">Comprehensive File Support</p>
+                <p className="font-medium">Smart Processing</p>
                 <p className="text-sm text-muted-foreground">
-                  Various file formats supported (code, slides, PDFs, etc.)
-                  while preserving files structure and relationships.
+                  Automatically handles various file formats (PDFs, docs, spreadsheets, code, text)
+                  while preserving structure and relationships.
                 </p>
               </div>
             </div>
+          </div>
+
+          <div className="border-t pt-4">
+            <p className="text-sm text-muted-foreground">
+              <strong>Perfect for:</strong> Students, researchers, business professionals, data analysts,
+              legal professionals, entrepreneurs, and anyone who needs to combine files for AI assistance.
+            </p>
           </div>
         </div>
       </DialogContent>

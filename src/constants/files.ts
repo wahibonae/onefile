@@ -8,8 +8,8 @@ export const ALLOWED_EXTENSIONS = new Set([
   '.env', '.ini', '.conf', '.config', '.toml', '.properties',
   // Documentation and text files
   '.md', '.markdown', '.txt', '.rtf', '.tex',
-  // Other text-based files
-  '.sql', '.prisma', '.csv', '.tsv', '.log',
+  // Data files
+  '.sql', '.prisma', '.csv', '.tsv', '.log', '.xlsx', '.xls', '.ods',
   // Additional development files
   '.vue', '.svelte', '.astro', '.razor', '.jsp', '.asp', '.aspx',
   '.pug', '.jade', '.haml', '.ejs', '.hbs', '.mustache',
@@ -18,7 +18,15 @@ export const ALLOWED_EXTENSIONS = new Set([
   // Shell and script files
   '.ps1', '.psm1', '.bat', '.cmd', '.vbs', '.awk', '.sed',
   // Document formats
-  '.pdf', '.docx', '.doc', '.pptx', '.txt', '.rtf',
+  '.pdf', '.docx', '.doc', '.pptx', '.ppt', '.odp', '.odt', '.txt', '.rtf',
+  // Academic and research files
+  '.bib', '.bibtex', '.cls', '.sty', '.aux', '.bbl', '.blg',
+  // Data and configuration
+  '.dat', '.data', '.cfg', '.conf', '.settings', '.prefs',
+  // Email and communication
+  '.eml', '.msg', '.mbox',
+  // Presentation and notes
+  '.key', '.pages', '.numbers'
 ])
 
 export const ALLOWED_MIME_TYPES = new Set([
@@ -53,6 +61,9 @@ export const ALLOWED_MIME_TYPES = new Set([
   // Data formats
   'text/csv',
   'text/tab-separated-values',
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/vnd.oasis.opendocument.spreadsheet',
   // Application types
   'application/json',
   'application/javascript',
@@ -80,8 +91,19 @@ export const ALLOWED_MIME_TYPES = new Set([
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   'application/msword',
   'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  'application/vnd.ms-powerpoint',
+  'application/vnd.oasis.opendocument.presentation',
+  'application/vnd.oasis.opendocument.text',
   'text/rtf',
-  'application/rtf'
+  'application/rtf',
+  // Email formats
+  'message/rfc822',
+  'application/vnd.ms-outlook',
+  // Additional data formats
+  'application/x-bibtex',
+  'text/x-bibtex',
+  'application/x-tex-gf',
+  'application/x-dvi'
 ])
 
 export const IGNORED_PATHS = new Set([

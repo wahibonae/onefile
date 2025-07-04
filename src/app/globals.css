@@ -2,187 +2,98 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 217.2 91.2% 59.8%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-/* PrismJS theme overrides */
 :root {
-  --prism-background: hsl(var(--muted));
-  --prism-comment: hsl(var(--muted-foreground));
-  --prism-keyword: hsl(var(--primary));
-  --prism-function: hsl(330, 70%, 50%);
-  --prism-string: hsl(130, 60%, 40%);
-  --prism-number: hsl(40, 90%, 50%);
-  --prism-attribute: hsl(200, 70%, 50%);
-  --prism-selector: hsl(280, 70%, 50%);
-  --prism-punctuation: hsl(var(--muted-foreground));
+  --background: 210.0000 100.0000% 98.8235%;
+  --foreground: 0 0% 20%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 20%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 20%;
+  --primary: 217.2193 91.2195% 59.8039%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220.0000 14.2857% 95.8824%;
+  --secondary-foreground: 215 13.7931% 34.1176%;
+  --muted: 210 20.0000% 98.0392%;
+  --muted-foreground: 220 8.9362% 46.0784%;
+  --accent: 207.6923 46.4286% 89.0196%;
+  --accent-foreground: 224.4444 64.2857% 32.9412%;
+  --destructive: 0 84.2365% 60.1961%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 210 9.3750% 87.4510%;
+  --input: 220 15.7895% 96.2745%;
+  --ring: 217.2193 91.2195% 59.8039%;
+  --chart-1: 210 37.5000% 65.4902%;
+  --chart-2: 12.9032 73.2283% 75.0980%;
+  --chart-3: 213.1579 29.9213% 50.1961%;
+  --chart-4: 216.9231 35.7798% 42.7451%;
+  --chart-5: 221.0127 43.6464% 35.4902%;
+  --sidebar: 216 7.9365% 87.6471%;
+  --sidebar-foreground: 0 0% 20%;
+  --sidebar-primary: 217.2193 91.2195% 59.8039%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 207.6923 46.4286% 89.0196%;
+  --sidebar-accent-foreground: 224.4444 64.2857% 32.9412%;
+  --sidebar-border: 220 13.0435% 90.9804%;
+  --sidebar-ring: 217.2193 91.2195% 59.8039%;
+  --font-sans: Inter, sans-serif;
+  --font-serif: Source Serif 4, serif;
+  --font-mono: JetBrains Mono, monospace;
+  --radius: 0.75rem;
+  --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.25);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
 }
 
 .dark {
-  --prism-background: hsl(var(--secondary));
-  --prism-comment: hsl(var(--muted-foreground));
-  --prism-keyword: hsl(var(--primary));
-  --prism-function: hsl(330, 70%, 65%);
-  --prism-string: hsl(130, 50%, 55%);
-  --prism-number: hsl(40, 90%, 60%);
-  --prism-attribute: hsl(200, 70%, 65%);
-  --prism-selector: hsl(280, 70%, 65%);
-  --prism-punctuation: hsl(var(--muted-foreground));
-}
-
-/* PrismJS styles that override the theme */
-pre[class*="language-"] {
-  background-color: var(--prism-background);
-  border-radius: 0.375rem;
-}
-
-code[class*="language-"] {
-  color: var(--foreground);
-}
-
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: var(--prism-comment);
-}
-
-.token.punctuation {
-  color: var(--prism-punctuation);
-}
-
-.token.namespace {
-  opacity: 0.7;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-  color: var(--prism-number);
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-  color: var(--prism-string);
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: var(--prism-operator);
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: var(--prism-keyword);
-}
-
-.token.function,
-.token.class-name {
-  color: var(--prism-function);
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-  color: var(--prism-selector);
-}
-
-.token.important,
-.token.bold {
-  font-weight: bold;
-}
-
-.token.italic {
-  font-style: italic;
-}
-
-.token.entity {
-  cursor: help;
+  --background: 219.1304 29.1139% 15.4902%;
+  --foreground: 0 0% 89.8039%;
+  --card: 223.6364 20.7547% 20.7843%;
+  --card-foreground: 0 0% 89.8039%;
+  --popover: 223.3333 19.1489% 18.4314%;
+  --popover-foreground: 0 0% 89.8039%;
+  --primary: 217.2193 91.2195% 59.8039%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 222 19.2308% 20.3922%;
+  --secondary-foreground: 0 0% 89.8039%;
+  --muted: 222 19.2308% 20.3922%;
+  --muted-foreground: 0 0% 63.9216%;
+  --accent: 223.6364 34.3750% 25.0980%;
+  --accent-foreground: 213.3333 96.9231% 87.2549%;
+  --destructive: 0 84.2365% 60.1961%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 224.3478 15.8621% 28.4314%;
+  --input: 224.3478 15.8621% 28.4314%;
+  --ring: 217.2193 91.2195% 59.8039%;
+  --chart-1: 210 37.5000% 65.4902%;
+  --chart-2: 11.7241 63.5036% 73.1373%;
+  --chart-3: 213.1579 29.9213% 50.1961%;
+  --chart-4: 216.9231 35.7798% 42.7451%;
+  --chart-5: 221.0127 43.6464% 35.4902%;
+  --sidebar: 222.8571 20.0000% 20.5882%;
+  --sidebar-foreground: 0 0% 89.8039%;
+  --sidebar-primary: 217.2193 91.2195% 59.8039%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 223.6364 34.3750% 25.0980%;
+  --sidebar-accent-foreground: 213.3333 96.9231% 87.2549%;
+  --sidebar-border: 224.3478 15.8621% 28.4314%;
+  --sidebar-ring: 217.2193 91.2195% 59.8039%;
+  --font-sans: Inter, sans-serif;
+  --font-serif: Source Serif 4, serif;
+  --font-mono: JetBrains Mono, monospace;
+  --radius: 0.75rem;
+  --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.25);
 }

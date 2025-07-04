@@ -25,7 +25,7 @@ export function FilePreview({ file }: FilePreviewProps) {
         variant="ghost"
         size="sm"
         onClick={() => setIsOpen(true)}
-        className="text-primary hover:text-primary/80 hover:bg-primary/10"
+        className="text-primary hover:text-primary/80 hover:bg-primary/5"
       >
         <Eye className="h-4 w-4" />
       </Button>

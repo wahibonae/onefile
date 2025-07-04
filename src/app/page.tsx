@@ -275,6 +275,10 @@ export default function Home() {
     setFiles(files.filter((_: FileWithContent, i: number) => i !== index));
   };
 
+  const clearAllFiles = () => {
+    setFiles([]);
+  };
+
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(finalPrompt)
@@ -292,15 +296,15 @@ export default function Home() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success("Prompt downloaded successfully");
+    toast.success("One File downloaded successfully");
   };
 
   return (
     <div className="min-h-screen bg-background">
       <div className="container max-w-6xl mx-auto px-6 py-12 pt-14">
-        <div className="space-y-9">
+        <div className="space-y-8">
           {/* Header */}
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-2">
             <div className="flex items-center justify-center space-x-3">
               <div className="p-2 rounded-lg bg-primary/10">
                 {/* <Code2 className="h-8 w-8 text-primary" /> */}
@@ -324,7 +328,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
             {/* Input Section */}
             <div className="space-y-6">
-              <div className="bg-card rounded-xl border border-border shadow-sm p-8">
+              <div className="bg-card rounded-2xl border border-border shadow-sm p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-2 rounded-lg bg-primary/10">
                     <FileText className="h-5 w-5 text-primary" />
@@ -344,7 +348,7 @@ export default function Home() {
                       placeholder="Example: Help me study for my exam using these materials..."
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
-                      className="min-h-[80px] resize-none"
+                      className="min-h-[70px] resize-none"
                     />
                   </div>
 
@@ -359,14 +363,14 @@ export default function Home() {
                     dropdownRef={dropdownRef}
                   />
 
-                  <FileList files={files} onRemoveFile={removeFile} />
+                  <FileList files={files} onRemoveFile={removeFile} onClearAll={clearAllFiles} />
                 </div>
               </div>
             </div>
 
             {/* Output Section */}
             <div className="space-y-6">
-              <div className="bg-card rounded-xl border border-border shadow-sm p-8">
+              <div className="bg-card rounded-2xl border border-border shadow-sm p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-2 rounded-lg bg-primary/10">
                     <Code2 className="h-5 w-5 text-primary" /> {/* TODO: Update icon */}
@@ -380,21 +384,22 @@ export default function Home() {
                   <ScrollArea className="h-[400px] rounded-xl border border-border bg-muted/30 p-6">
                     <pre className="text-sm whitespace-pre-wrap font-mono text-foreground leading-relaxed">
                       {finalPrompt ||
-                        "Your AI-ready prompt will appear here..."}
+                        "Your file content (AI input) will appear here..."}
                     </pre>
                   </ScrollArea>
 
                   {finalPrompt && (
                     <div className="flex gap-3">
                       <Button
-                        className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm h-11 rounded-lg font-medium"
+                        className="flex-1 bg-background text-foreground/80 hover:bg-muted border border-border/50 shadow-sm h-11 rounded-lg font-medium"
                         onClick={copyToClipboard}
                       >
                         <Copy className="h-4 w-4 mr-2" />
                         Copy To Clipboard
                       </Button>
                       <Button
-                        className="flex-1 bg-background text-foreground hover:bg-muted border border-border shadow-sm h-11 rounded-lg font-medium"
+                        // className="flex-1 bg-background text-foreground hover:bg-muted border border-border shadow-sm h-11 rounded-lg font-medium"
+                        className="flex-1 bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-11 rounded-lg font-medium"
                         onClick={downloadPrompt}
                         variant="outline"
                       >
@@ -410,7 +415,7 @@ export default function Home() {
         </div>
       </div>
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={{
           duration: 3000,
           style: {

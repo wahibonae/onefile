@@ -35,11 +35,11 @@ export function FileUpload({
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
         onDrop={onDrop}
-        className={`relative rounded-xl border-2 border-dashed transition-all duration-200 ${
+        className={cn("relative rounded-xl border-2 border-dashed transition-all duration-200",
           isDragging 
             ? 'border-primary bg-primary/5' 
             : 'border-border hover:border-primary/70 hover:bg-muted/20'
-        }`}
+        )}
       >
         <input
           type="file"
@@ -57,12 +57,12 @@ export function FileUpload({
           directory=""
           className="hidden"
         />
-        <div className="flex flex-col items-center justify-center py-6 px-4 text-center">
+        <div className="flex flex-col items-center justify-center py-5 px-4 text-center">
           <motion.div
             transition={{ duration: 0.2 }}
           >
             <div className={cn("p-3 rounded-full", isDragging ? 'bg-primary/10' : 'bg-muted/50')}>
-              <Upload className={cn("h-8 w-8", isDragging ? 'text-primary' : 'text-muted-foreground')} />
+              <Upload className={cn("h-7 w-7", isDragging ? 'text-primary' : 'text-muted-foreground')} />
             </div>
           </motion.div>
           <p className="text-sm text-muted-foreground mb-3">
@@ -72,11 +72,11 @@ export function FileUpload({
             <Button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               variant="outline"
-              className="relative group bg-background hover:bg-muted border-border shadow-sm h-9 px-3 rounded-lg font-medium"
+              className="relative group bg-background hover:bg-muted border-border shadow-sm h-8 px-2.5 rounded-md font-medium"
             >
-              <span className="flex items-center gap-1.5 text-muted-foreground transition-all duration-300">
+              <span className="flex items-center gap-1 text-muted-foreground transition-all duration-300">
                 Choose Files
-                <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
+                <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
               </span>
             </Button>
             {isDropdownOpen && (

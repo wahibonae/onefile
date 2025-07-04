@@ -40,7 +40,6 @@ export function getLanguageFromFileName(fileName: string): string {
     'bash': 'bash',
     'sql': 'sql',
     'txt': 'text',
-    // Add more mappings as needed
   };
   
   return extensionMap[extension] || 'text';

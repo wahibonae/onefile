@@ -323,7 +323,7 @@ export default function Home() {
     setStickerClicked(true);
     
     // Trigger confetti effect
-    const end = Date.now() + 3 * 1000; // 3 seconds
+    const end = Date.now() + 1 * 1000; // 3 seconds
     const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
 
     const frame = () => {
@@ -387,19 +387,19 @@ export default function Home() {
       {!stickerHidden && (
         <div 
           className={cn(
-            "fixed top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-white border border-dashed border-border rounded-lg",
+            "fixed top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-background border border-dashed border-border rounded-lg shadow-sm",
             stickerFadingOut ? 'opacity-0' : 'opacity-70'
           )}
           onClick={handleStickerClick}
         >
           <div className={cn("transition-opacity duration-500", stickerClicked ? 'opacity-0' : 'opacity-100')}>
-            <div className="text-xs font-medium tracking-wide text-black dark:text-white mb-1">
+            <div className="text-xs font-medium tracking-wide text-foreground mb-1">
               previously known as
             </div>
           
             <div className="flex items-center justify-center space-x-1.5">
-              <Code2 className="h-4 w-4 text-black dark:text-white" />
-              <span className="text-sm font-bold tracking-tight text-black dark:text-white">
+              <Code2 className="h-4 w-4 text-foreground" />
+              <span className="text-sm font-bold tracking-tight text-foreground">
                 Code To Prompt
               </span>
             </div>
@@ -407,12 +407,12 @@ export default function Home() {
           
           <div className={cn("absolute inset-0 flex items-center justify-center transition-opacity duration-500", stickerClicked ? 'opacity-100' : 'opacity-0')}>
             <div className="text-center">
-              <div className="text-xs font-medium tracking-wide text-black dark:text-white mb-1">
+              <div className="text-xs font-medium tracking-wide text-foreground mb-1">
                 welcome to
               </div>
               <div className="flex items-center justify-center space-x-1">
                 <span className="flex items-center justify-center h-4 w-4 text-primary font-bold text-xs bg-primary/10 rounded">1</span>
-                <span className="text-sm font-bold tracking-tight text-black dark:text-white">
+                <span className="text-sm font-bold tracking-tight text-foreground">
                   OneFile
                 </span>
               </div>
@@ -493,7 +493,24 @@ export default function Home() {
               <div className="bg-card rounded-2xl border border-border shadow-sm p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-2 rounded-lg bg-primary/10">
-                    <Code2 className="h-5 w-5 text-primary" /> {/* TODO: Update icon */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-5 w-5 text-primary"
+                    >
+                      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                      <path d="M5 3v4" />
+                      <path d="M19 17v4" />
+                      <path d="M3 5h4" />
+                      <path d="M17 19h4" />
+                    </svg>
                   </div>
                   <h2 className="text-2xl font-semibold text-card-foreground">
                     AI-ready Prompt

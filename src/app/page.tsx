@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import confetti from "canvas-confetti";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,6 +22,7 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { InfoDialog } from "@/components/InfoDialog";
 import { IGNORED_PATHS } from "@/constants/files";
+import { cn } from "@/lib/utils";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -35,6 +37,9 @@ export default function Home() {
   const [finalPrompt, setFinalPrompt] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [stickerClicked, setStickerClicked] = useState(false);
+  const [stickerHidden, setStickerHidden] = useState(false);
+  const [stickerFadingOut, setStickerFadingOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(
     null
   ) as React.RefObject<HTMLDivElement>;
@@ -312,6 +317,50 @@ export default function Home() {
     setFiles([]);
   };
 
+  const handleStickerClick = () => {
+    if (stickerClicked) return; // Prevent multiple clicks
+    
+    setStickerClicked(true);
+    
+    // Trigger confetti effect
+    const end = Date.now() + 3 * 1000; // 3 seconds
+    const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
+
+    const frame = () => {
+      if (Date.now() > end) return;
+
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        startVelocity: 60,
+        origin: { x: 0, y: 0.5 },
+        colors: colors,
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        startVelocity: 60,
+        origin: { x: 1, y: 0.5 },
+        colors: colors,
+      });
+
+      requestAnimationFrame(frame);
+    };
+
+    frame();
+    
+    // Start fade out after 2.5 seconds, then hide completely after fade completes
+    setTimeout(() => {
+      setStickerFadingOut(true);
+      // Hide completely after fade transition completes (1500ms)
+      setTimeout(() => {
+        setStickerHidden(true);
+      }, 1500);
+    }, 2500);
+  };
+
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(finalPrompt)
@@ -334,6 +383,44 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Legacy Notice Sticker */}
+      {!stickerHidden && (
+        <div 
+          className={cn(
+            "fixed top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-white border border-dashed border-border rounded-lg",
+            stickerFadingOut ? 'opacity-0' : 'opacity-70'
+          )}
+          onClick={handleStickerClick}
+        >
+          <div className={cn("transition-opacity duration-500", stickerClicked ? 'opacity-0' : 'opacity-100')}>
+            <div className="text-xs font-medium tracking-wide text-black dark:text-white mb-1">
+              previously known as
+            </div>
+          
+            <div className="flex items-center justify-center space-x-1.5">
+              <Code2 className="h-4 w-4 text-black dark:text-white" />
+              <span className="text-sm font-bold tracking-tight text-black dark:text-white">
+                Code To Prompt
+              </span>
+            </div>
+          </div>
+          
+          <div className={cn("absolute inset-0 flex items-center justify-center transition-opacity duration-500", stickerClicked ? 'opacity-100' : 'opacity-0')}>
+            <div className="text-center">
+              <div className="text-xs font-medium tracking-wide text-black dark:text-white mb-1">
+                welcome to
+              </div>
+              <div className="flex items-center justify-center space-x-1">
+                <span className="flex items-center justify-center h-4 w-4 text-primary font-bold text-xs bg-primary/10 rounded">1</span>
+                <span className="text-sm font-bold tracking-tight text-black dark:text-white">
+                  OneFile
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="container max-w-6xl mx-auto px-6 py-12 pt-14">
         <div className="space-y-8">
           {/* Header */}
@@ -431,8 +518,9 @@ export default function Home() {
                         Copy To Clipboard
                       </Button>
                       <Button
-                        // className="flex-1 bg-background text-foreground hover:bg-muted border border-border shadow-sm h-11 rounded-lg font-medium"
-                        className="flex-1 bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-11 rounded-lg font-medium"
+                        className={cn(
+                          "flex-1 bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-11 rounded-lg font-medium"
+                        )}
                         onClick={downloadPrompt}
                         variant="outline"
                       >

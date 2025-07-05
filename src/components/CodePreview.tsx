@@ -13,6 +13,7 @@ import 'prismjs/components/prism-yaml';
 import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-sql';
 import 'prismjs/themes/prism-tomorrow.css'; // You can choose a different theme
+import { cn } from '@/lib/utils';
 
 interface CodePreviewProps {
   code: string;
@@ -40,45 +41,28 @@ export function getLanguageFromFileName(fileName: string): string {
     'bash': 'bash',
     'sql': 'sql',
     'txt': 'text',
+    'cs': 'csharp',
   };
   
   return extensionMap[extension] || 'text';
 }
 
 export function CodePreview({ code, language, fileName }: CodePreviewProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
   useEffect(() => {
-    // Highlight all code elements when the component mounts or code changes
     Prism.highlightAll();
-  }, [code, language, isExpanded]);
+  }, [code, language]);
 
   // If no language is provided, try to detect it from the filename
   const detectedLanguage = language || getLanguageFromFileName(fileName);
   
-  // Determine if code is long and needs truncation
-  const lines = code.split('\n');
-  const isLongCode = lines.length > 20;
-  const displayCode = isLongCode && !isExpanded 
-    ? lines.slice(0, 20).join('\n') + '\n// ... truncated ...' 
-    : code;
-
   return (
     <div className="rounded-md overflow-hidden border border-border">
       <div className="bg-muted px-4 py-2 flex justify-between items-center border-b border-border">
         <span className="text-sm font-medium truncate max-w-[80%]">{fileName}</span>
-        {isLongCode && (
-          <button 
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="text-xs px-2 py-1 rounded-md bg-secondary hover:bg-secondary/80 transition-colors"
-          >
-            {isExpanded ? 'Show less' : 'Show more'}
-          </button>
-        )}
       </div>
-      <pre className={`p-4 overflow-auto ${isExpanded ? 'max-h-[500px]' : 'max-h-[300px]'}`}>
+      <pre className="p-4 overflow-auto max-h-[500px]">
         <code className={`language-${detectedLanguage}`}>
-          {displayCode}
+          {code}
         </code>
       </pre>
     </div>

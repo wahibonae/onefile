@@ -24,7 +24,7 @@ interface FileListProps {
 }
 
 export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   
   if (files.length === 0) return null;

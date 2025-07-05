@@ -30,7 +30,6 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { InfoDialog } from "@/components/InfoDialog";
 import { IGNORED_PATHS } from "@/constants/files";
 import { cn } from "@/lib/utils";
-import GitHub from "../../public/icons/github";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -138,11 +137,15 @@ export default function Home() {
       const totalSkippedImages =
         skippedImageFiles.length + additionalSkippedImages;
 
-      // Handle both unsupported files, images, and ignored directories in one message
+      // Get gitignore skipped count
+      const gitignoreSkippedCount = skippedStats.getGitignoreCount();
+
+      // Handle both unsupported files, images, ignored directories, and gitignore in one message
       if (
         skippedFiles.length > 0 ||
         totalSkippedImages > 0 ||
-        ignoredDirectories.size > 0
+        ignoredDirectories.size > 0 ||
+        gitignoreSkippedCount > 0
       ) {
         let message = "";
 
@@ -175,9 +178,24 @@ export default function Home() {
             const dirNames = Array.from(ignoredDirectories.keys()).join(", ");
             message += ` + ${dirNames}`;
           }
-        } else if (ignoredDirectories.size > 0) {
-          const dirNames = Array.from(ignoredDirectories.keys()).join(", ");
-          message = `Skipped files from: ${dirNames}`;
+
+          // Add gitignore info if any
+          if (gitignoreSkippedCount > 0) {
+            message += ` + ${gitignoreSkippedCount} from .gitignore`;
+          }
+        } else if (ignoredDirectories.size > 0 || gitignoreSkippedCount > 0) {
+          let parts = [];
+          
+          if (ignoredDirectories.size > 0) {
+            const dirNames = Array.from(ignoredDirectories.keys()).join(", ");
+            parts.push(dirNames);
+          }
+          
+          if (gitignoreSkippedCount > 0) {
+            parts.push(`${gitignoreSkippedCount} from .gitignore`);
+          }
+          
+          message = `Skipped files from: ${parts.join(", ")}`;
         }
 
         toast.error(message);
@@ -298,11 +316,12 @@ export default function Home() {
       // Collect information about skipped items
       const skippedImages = skippedStats.getImageCount();
       const ignoredDirs = skippedStats.getDirectoryCounts();
+      const gitignoreSkipped = skippedStats.getGitignoreCount();
 
       // If we have no valid files but we skipped some content, show a message
       if (
         flattenedFiles.length === 0 &&
-        (skippedImages > 0 || ignoredDirs.size > 0)
+        (skippedImages > 0 || ignoredDirs.size > 0 || gitignoreSkipped > 0)
       ) {
         let message = "";
 
@@ -315,9 +334,23 @@ export default function Home() {
             const dirNames = Array.from(ignoredDirs.keys()).join(", ");
             message += ` + ${dirNames}`;
           }
-        } else if (ignoredDirs.size > 0) {
-          const dirNames = Array.from(ignoredDirs.keys()).join(", ");
-          message = `Skipped files from: ${dirNames}`;
+
+          if (gitignoreSkipped > 0) {
+            message += ` + ${gitignoreSkipped} from .gitignore`;
+          }
+        } else if (ignoredDirs.size > 0 || gitignoreSkipped > 0) {
+          let parts = [];
+          
+          if (ignoredDirs.size > 0) {
+            const dirNames = Array.from(ignoredDirs.keys()).join(", ");
+            parts.push(dirNames);
+          }
+          
+          if (gitignoreSkipped > 0) {
+            parts.push(`${gitignoreSkipped} from .gitignore`);
+          }
+          
+          message = `Skipped files from: ${parts.join(", ")}`;
         }
 
         toast.error(message);

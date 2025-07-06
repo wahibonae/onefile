@@ -13,7 +13,7 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
 });
 
-const title = "OneFile - Combine multiple files into one AI-ready file.";
+const title = "OneFile - Upload many files to AI as one single file";
 const description = "Combine multiple files into one AI-ready file. No more file upload limits or file size limits. Perfect for students, professionals, researchers, and anyone who needs to merge files for AI platforms like ChatGPT, Gemini, and Deepseek.";
 const url = "https://code-to-prompt.vercel.app"; // we'll leave this for now
 
@@ -83,7 +83,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
         <meta name="mobile-web-app-capable" content="yes" />

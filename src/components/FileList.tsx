@@ -131,10 +131,12 @@ export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    className="grid grid-cols-[1fr_80px] items-center px-2 py-1 rounded-md bg-secondary/30 hover:bg-secondary/50 transition-colors duration-200"
+                    className="flex items-center px-3 py-1 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-all duration-200 border border-transparent hover:border-border/40"
                   >
-                    <span className="text-sm text-muted-foreground/90 truncate pr-2 font-medium">{file.path}</span>
-                    <div className="flex items-center gap-1 justify-end">
+                    
+                      <span className="text-sm min-w-0 flex-1 text-muted-foreground/80 truncate font-medium">{file.path}</span>
+                    
+                    <div className="flex items-center gap-1 opacity-80 group-hover/file:opacity-100 transition-opacity duration-200">
                       <FilePreview file={file} />
                       <Button
                         variant="ghost"
@@ -144,7 +146,7 @@ export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
                           onRemoveFile(index);
                           toast.success('File removed');
                         }}
-                        className="text-destructive/80 hover:text-red-500 hover:bg-red-500/5 transition-colors duration-200 h-8 w-8"
+                        className="text-destructive/80 hover:text-red-500 hover:bg-red-500/5 transition-colors duration-200 h-8 w-8 p-0"
                       >
                         <X className="h-3.5 w-3.5" />
                       </Button>

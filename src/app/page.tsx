@@ -4,15 +4,12 @@ import React, { useState, useRef, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Code2,
   Copy,
   FileText,
   Download,
-  Star,
-  ExternalLink,
 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import { FileUpload } from "@/components/FileUpload";
@@ -565,7 +562,7 @@ export default function Home() {
                       placeholder="Example: Help me study for my exam using these materials..."
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
-                      className="min-h-[70px] resize-none"
+                      className="min-h-[76px] resize-none"
                     />
                   </div>
 

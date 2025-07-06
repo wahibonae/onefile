@@ -179,7 +179,7 @@ export default function Home() {
             message += ` + ${gitignoreSkippedCount} from .gitignore`;
           }
         } else if (ignoredDirectories.size > 0 || gitignoreSkippedCount > 0) {
-          let parts = [];
+          const parts = [];
           
           if (ignoredDirectories.size > 0) {
             const dirNames = Array.from(ignoredDirectories.keys()).join(", ");
@@ -334,7 +334,7 @@ export default function Home() {
             message += ` + ${gitignoreSkipped} from .gitignore`;
           }
         } else if (ignoredDirs.size > 0 || gitignoreSkipped > 0) {
-          let parts = [];
+          const parts = [];
           
           if (ignoredDirs.size > 0) {
             const dirNames = Array.from(ignoredDirs.keys()).join(", ");

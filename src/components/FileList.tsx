@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ChevronDown, ChevronUp, Trash2 } from 'lucide-react'
+import { X, ChevronDown, ChevronUp } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Dialog,
   DialogContent,
@@ -15,7 +14,6 @@ import toast from 'react-hot-toast'
 import { FilePreview } from './FilePreview'
 import { useState } from 'react'
 import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
 
 interface FileListProps {
   files: FileWithContent[];
@@ -79,7 +77,7 @@ export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
                     Clear all files?
                   </DialogTitle>
                   <DialogDescription className="text-muted-foreground leading-relaxed">
-                    This will remove all <span className="font-medium text-foreground">{totalFiles} file{totalFiles !== 1 ? 's' : ''}</span> from your upload. You'll need to re-upload them if you want to use them again.
+                    This will remove all <span className="font-medium text-foreground">{totalFiles} file{totalFiles !== 1 ? 's' : ''}</span> from your upload. You&apos;ll need to re-upload them if you want to use them again.
                   </DialogDescription>
                 </DialogHeader>
               </div>

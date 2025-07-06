@@ -42,8 +42,6 @@ export default function Home() {
   const [isDragging, setIsDragging] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [stickerClicked, setStickerClicked] = useState(false);
-  const [stickerHidden, setStickerHidden] = useState(false);
-  const [stickerFadingOut, setStickerFadingOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(
     null
   ) as React.RefObject<HTMLDivElement>;
@@ -381,7 +379,7 @@ export default function Home() {
     setStickerClicked(true);
 
     // Trigger confetti effect
-    const end = Date.now() + 1 * 1000; // 3 seconds
+    const end = Date.now() + 1 * 1000; // 1 second
     const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
 
     const frame = () => {
@@ -409,14 +407,10 @@ export default function Home() {
 
     frame();
 
-    // Start fade out after 2.5 seconds, then hide completely after fade completes
+    // Reset back to original state after 3 seconds
     setTimeout(() => {
-      setStickerFadingOut(true);
-      // Hide completely after fade transition completes (1500ms)
-      setTimeout(() => {
-        setStickerHidden(true);
-      }, 1500);
-    }, 2500);
+      setStickerClicked(false);
+    }, 3000);
   };
 
   const copyToClipboard = () => {
@@ -442,14 +436,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Legacy Notice Sticker */}
-      {!stickerHidden && (
-        <div
-          className={cn(
-            "fixed top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-background border border-dashed border-border rounded-lg shadow-sm",
-            stickerFadingOut ? "opacity-0" : "opacity-70"
-          )}
-          onClick={handleStickerClick}
-        >
+      <div
+        className="fixed top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-background border border-dashed border-border rounded-lg shadow-sm opacity-70"
+        onClick={handleStickerClick}
+      >
           <div
             className={cn(
               "transition-opacity duration-500",
@@ -489,7 +479,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      )}
 
       <div className="container max-w-6xl mx-auto px-6 py-12 pt-14">
         <div className="space-y-8">

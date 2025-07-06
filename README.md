@@ -11,7 +11,7 @@ OneFile is a free, open-source tool that solves common frustrations when working
 
 **OneFile** solves these issues by combining multiple files (code, PDFs, docs, CSVs, etc.) into a single, well-formatted prompt that you can use anywhere. It intelligently processes your files while skipping unnecessary content like dependencies and build artifacts.
 
-![OneFile Screenshot](public/screenshots/code-to-prompt.png)
+![OneFile Screenshot](public/screenshots/onefile.png)
 
 ## ✨ Features
 

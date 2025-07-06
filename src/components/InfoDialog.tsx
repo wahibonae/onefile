@@ -1,4 +1,4 @@
-import { Info, Upload, Files, Download, Check, Code, GraduationCap, Briefcase, Users } from "lucide-react";
+import { Info, Upload, Download, Check, Code, GraduationCap, Briefcase, Users } from "lucide-react";
 import {
   Dialog,
   DialogContent,

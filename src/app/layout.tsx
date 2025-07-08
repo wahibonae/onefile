@@ -15,7 +15,7 @@ const spaceGrotesk = Space_Grotesk({
 
 const title = "OneFile - Upload many files to AI as one single file";
 const description = "Combine multiple files into one AI-ready file. No more file upload limits or file size limits. Perfect for students, professionals, researchers, and anyone who needs to merge files for AI platforms like ChatGPT, Gemini, and Deepseek.";
-const url = "https://code-to-prompt.vercel.app"; // we'll leave this for now
+const url = "https://openfileapp.com";
 
 export const metadata: Metadata = {
   title,

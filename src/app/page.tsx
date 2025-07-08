@@ -433,9 +433,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Legacy Notice Sticker */}
+      {/* Legacy Notice Sticker - Desktop Only */}
       <div
-        className="fixed top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-background border border-dashed border-border rounded-lg shadow-sm opacity-70"
+        className="hidden lg:block fixed top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-background border border-dashed border-border rounded-lg shadow-sm opacity-70"
         onClick={handleStickerClick}
       >
           <div
@@ -478,13 +478,12 @@ export default function Home() {
           </div>
         </div>
 
-      <div className="container max-w-6xl mx-auto px-6 py-12 pt-14">
-        <div className="space-y-8">
-          {/* Header */}
-          <div className="text-center space-y-2">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-12 pt-8 sm:pt-14">
+        <div className="space-y-6 sm:space-y-8">
+          {/* Header - Desktop Version */}
+          <div className="hidden lg:block text-center space-y-2">
             <div className="flex items-center justify-center space-x-3">
               <div className="p-2 rounded-lg bg-primary/10">
-                {/* <Code2 className="h-8 w-8 text-primary" /> */}
                 <span className="flex items-center justify-center h-8 w-8 text-primary font-bold text-3xl">
                   1
                 </span>
@@ -528,23 +527,134 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Header - Tablet Version */}
+          <div className="hidden md:block lg:hidden">
+            <div className="text-center space-y-4">
+              {/* OneFile Logo */}
+              <div className="flex items-center justify-center space-x-3">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <span className="flex items-center justify-center h-6 w-6 text-primary font-bold text-2xl">
+                    1
+                  </span>
+                </div>
+                <h1 className="text-4xl font-bold tracking-tight text-foreground">
+                  OneFile
+                </h1>
+              </div>
+              
+              {/* Description */}
+              <p className="text-muted-foreground text-base leading-relaxed">
+                Combine multiple files into one AI-ready file. <br />
+                No more upload limits, file size worries, or repeated uploads.
+              </p>
+              
+              {/* GitHub + InfoDialog + Theme Elements */}
+              <div className="flex items-center justify-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-foreground/80 px-2 py-1.5 border-border/40 bg-background shadow-sm group hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
+                  onClick={() => window.open("https://github.com/wahibonae/onefile", "_blank")}
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 1024 1024"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
+                      transform="scale(64)"
+                      className="fill-foreground/80 group-hover:fill-primary transition-colors"
+                    />
+                  </svg>
+                  GitHub
+                </Button>
+                <InfoDialog />
+                <ThemeToggle />
+              </div>
+              
+              {/* Created by */}
+              <div className="flex items-center justify-center">
+                <span className="text-xs text-muted-foreground">Created by <a href="https://www.linkedin.com/in/abkarimohamedwahib/" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">Mohamed Wahib ABKARI</a></span>
+              </div>
+            </div>
+          </div>
+
+          {/* Header - Mobile Version */}
+          <div className="block md:hidden">
+            <div className="text-center space-y-3">
+              {/* OneFile Logo */}
+              <div className="flex items-center justify-center space-x-2">
+                <div className="p-1.5 rounded-md bg-primary/10">
+                  <span className="flex items-center justify-center h-6 w-6 text-primary font-bold text-2xl">
+                    1
+                  </span>
+                </div>
+                <h1 className="text-4xl font-bold tracking-tight text-foreground">
+                  OneFile
+                </h1>
+              </div>
+              
+              {/* Description */}
+              <p className="text-muted-foreground text-md leading-relaxed">
+                Combine multiple files into one AI-ready file. <br />
+                No more upload limits or file size worries.
+              </p>
+              
+              {/* GitHub + InfoDialog + Theme Elements */}
+              <div className="flex items-center justify-center gap-1.5">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-foreground/80 px-2 py-1 border-border/40 bg-background shadow-sm group hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
+                  onClick={() => window.open("https://github.com/wahibonae/onefile", "_blank")}
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 1024 1024"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
+                      transform="scale(64)"
+                      className="fill-foreground/80 group-hover:fill-primary transition-colors"
+                    />
+                  </svg>
+                </Button>
+                <InfoDialog />
+                <ThemeToggle />
+              </div>
+              
+              {/* Created by */}
+              <div className="flex items-center justify-center">
+                <span className="text-xs text-muted-foreground">Created by <a href="https://www.linkedin.com/in/abkarimohamedwahib/" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">Mohamed Wahib ABKARI</a></span>
+              </div>
+            </div>
+          </div>
+
           {/* Main Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-7">
             {/* Input Section */}
-            <div className="space-y-6">
-              <div className="bg-card rounded-2xl border border-border shadow-sm p-8">
-                <div className="flex items-center gap-3 mb-6">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
+                <div className="flex items-center gap-3 mb-4 sm:mb-6">
                   <div className="p-2 rounded-lg bg-primary/10">
-                    <FileText className="h-5 w-5 text-primary" />
+                    <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                   </div>
-                  <h2 className="text-2xl font-semibold text-card-foreground">
+                  <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
                     Input
                   </h2>
                 </div>
 
-                <div className="space-y-6">
-                  
-
+                <div className="space-y-4 sm:space-y-6">
                   <FileUpload
                     isDragging={isDragging}
                     onDragOver={handleDragOver}
@@ -575,9 +685,9 @@ export default function Home() {
             </div>
 
             {/* Output Section */}
-            <div className="space-y-6">
-              <div className="bg-card rounded-2xl border border-border shadow-sm p-8">
-                <div className="flex items-center gap-3 mb-6">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
+                <div className="flex items-center gap-3 mb-4 sm:mb-6">
                   <div className="p-2 rounded-lg bg-primary/10">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -589,7 +699,7 @@ export default function Home() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="h-5 w-5 text-primary"
+                      className="h-4 w-4 sm:h-5 sm:w-5 text-primary"
                     >
                       <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
                       <path d="M5 3v4" />
@@ -598,23 +708,23 @@ export default function Home() {
                       <path d="M17 19h4" />
                     </svg>
                   </div>
-                  <h2 className="text-2xl font-semibold text-card-foreground">
+                  <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
                     Your One File
                   </h2>
                 </div>
 
-                <div className="space-y-6">
-                  <ScrollArea className="h-[400px] rounded-xl border border-border bg-muted/30 p-6">
-                    <pre className="text-sm whitespace-pre-wrap font-mono text-foreground leading-relaxed">
+                <div className="space-y-4 sm:space-y-6">
+                  <ScrollArea className="h-[300px] sm:h-[400px] rounded-xl border border-border bg-muted/30 p-4 sm:p-6">
+                    <pre className="text-xs sm:text-sm whitespace-pre-wrap font-mono text-foreground leading-relaxed">
                       {finalPrompt ||
                         "Your one file (extracted content from your files) will appear here..."}
                     </pre>
                   </ScrollArea>
 
                   {finalPrompt && (
-                    <div className="flex gap-3">
+                    <div className="flex flex-col sm:flex-row gap-3">
                       <Button
-                        className="flex-1 bg-background text-foreground/80 hover:bg-muted border border-border/50 shadow-sm h-11 rounded-lg font-medium"
+                        className="flex-1 bg-background text-foreground/80 hover:bg-muted border border-border/50 shadow-sm h-10 sm:h-11 rounded-lg font-medium"
                         onClick={copyToClipboard}
                       >
                         <Copy className="h-4 w-4 mr-2" />
@@ -622,7 +732,7 @@ export default function Home() {
                       </Button>
                       <Button
                         className={cn(
-                          "flex-1 bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-11 rounded-lg font-medium"
+                          "flex-1 bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-10 sm:h-11 rounded-lg font-medium"
                         )}
                         onClick={downloadPrompt}
                         variant="outline"

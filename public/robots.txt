@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /seo-card.jpg
+Allow: /*.jpg
+Allow: /*.png
+Allow: /*.svg
+Allow: /*.ico
+
+Sitemap: https://onefileapp.com/sitemap.xml 

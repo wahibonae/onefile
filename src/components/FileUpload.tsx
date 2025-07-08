@@ -57,7 +57,7 @@ export function FileUpload({
           directory=""
           className="hidden"
         />
-        <div className="flex flex-col items-center justify-center py-5 px-4 text-center">
+        <div className="flex flex-col items-center justify-center py-7 px-4 text-center">
           <motion.div
             transition={{ duration: 0.2 }}
           >

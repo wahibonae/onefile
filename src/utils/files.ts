@@ -421,7 +421,7 @@ export const processEntry = async (entry: FileSystemEntry, path: string = ''): P
   })
 }
 
-export const generatePromptText = (prompt: string, files: FileWithContent[]): string => {
+export const generatePromptText = (files: FileWithContent[]): string => {
   let result = '=== FILES ===\n'
   files.forEach(file => {
     result += `*** ${file.path} ***\n${file.content}\n\n`

@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Code2,
@@ -36,7 +35,6 @@ declare module "react" {
 }
 
 export default function Home() {
-  const [prompt, setPrompt] = useState("");
   const [files, setFiles] = useState<FileWithContent[]>([]);
   const [finalPrompt, setFinalPrompt] = useState("");
   const [isDragging, setIsDragging] = useState(false);
@@ -47,14 +45,14 @@ export default function Home() {
   ) as React.RefObject<HTMLDivElement>;
 
   useEffect(() => {
-    // Update the final prompt whenever prompt or files change
-    if (files.length > 0 || prompt.trim() !== "") {
-      const result = generatePromptText(prompt, files);
+    // Update the final prompt whenever files change
+    if (files.length > 0) {
+      const result = generatePromptText(files);
       setFinalPrompt(result);
     } else {
       setFinalPrompt("");
     }
-  }, [prompt, files]);
+  }, [files]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

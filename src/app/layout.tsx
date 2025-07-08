@@ -15,7 +15,7 @@ const spaceGrotesk = Space_Grotesk({
 
 const title = "OneFile - Upload many files to AI as one single file";
 const description = "Combine multiple files into one AI-ready file. No more file upload limits or file size limits. Perfect for students, professionals, researchers, and anyone who needs to merge files for AI platforms like ChatGPT, Gemini, and Deepseek.";
-const url = "https://openfileapp.com";
+const url = "https://onefileapp.com";
 
 export const metadata: Metadata = {
   title,
@@ -94,6 +94,12 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta property="og:image:secure_url" content={`${url}/seo-card.jpg`} />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="627" />
+        <meta name="twitter:image:src" content={`${url}/api/seo-card`} />
+        <meta name="twitter:image:alt" content="OneFile - Upload many files to AI as one single file" />
       </head>
       <body className={`${spaceGrotesk.className} ${inter.className}`}>
         <ThemeProvider

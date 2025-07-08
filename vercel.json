@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://onefileapp.com/$1",
+      "permanent": true
+    }
+  ]
+} 

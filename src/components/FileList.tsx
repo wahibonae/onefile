@@ -121,7 +121,7 @@ export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
             transition={{ duration: 0.2 }}
             className="bg-card group-hover:bg-card/80 transition-colors duration-200"
           >
-            <div className="p-3 max-h-[120px] overflow-y-auto">
+            <div className="p-3 max-h-[170px] overflow-y-auto">
               <div className="space-y-2">
                 {files.map((file, index) => (
                   <motion.div
@@ -131,9 +131,7 @@ export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
                     transition={{ delay: index * 0.05 }}
                     className="flex items-center px-3 py-1 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-all duration-200 border border-transparent hover:border-border/40"
                   >
-                    
-                      <span className="text-sm min-w-0 flex-1 text-muted-foreground/80 truncate font-medium">{file.path}</span>
-                    
+                      <span className="text-sm min-w-0 flex-1 text-muted-foreground/80 truncate font-medium">{file.path}</span> {/* TODO: add a button to download the file */}
                     <div className="flex items-center gap-1 opacity-80 group-hover/file:opacity-100 transition-opacity duration-200">
                       <FilePreview file={file} />
                       <Button

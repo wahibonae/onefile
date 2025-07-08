@@ -1,5 +1,9 @@
 name = "onefile"
 compatibility_date = "2024-01-01"
 
+# Use @cloudflare/next-on-pages for Next.js with API routes
 [build]
-command = "npm run build" 
+command = "npx @cloudflare/next-on-pages"
+
+# Specify the output directory for Next.js on Pages
+pages_build_output_dir = ".vercel/output/static" 

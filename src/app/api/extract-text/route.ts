@@ -1,14 +1,83 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf"
-import { DocxLoader } from "@langchain/community/document_loaders/fs/docx"
-import { PPTXLoader } from "@langchain/community/document_loaders/fs/pptx"
-import { writeFile, unlink } from 'fs/promises'
-import { join } from 'path'
-import os from 'os'
+import JSZip from 'jszip'
+import mammoth from 'mammoth'
+import { getDocument } from 'pdfjs-serverless'
+
+// Use pdfjs-serverless for PDF processing (designed for serverless)
+async function processPdf(arrayBuffer: ArrayBuffer): Promise<string> {
+  try {
+    const document = await getDocument({
+      data: new Uint8Array(arrayBuffer),
+      useSystemFonts: true,
+    }).promise
+
+    let fullText = ''
+    
+    for (let i = 1; i <= document.numPages; i++) {
+      const page = await document.getPage(i)
+      const textContent = await page.getTextContent()
+      const pageText = textContent.items
+        .map((item) => (item as { str: string }).str)
+        .join(' ')
+      fullText += pageText + '\n'
+    }
+
+    return fullText
+  } catch (error) {
+    console.error('PDF processing error:', error)
+    throw new Error('Failed to process PDF')
+  }
+}
+
+// Process DOCX using mammoth (as requested)
+async function processDocx(arrayBuffer: ArrayBuffer): Promise<string> {
+  try {
+    const buffer = Buffer.from(arrayBuffer)
+    const result = await mammoth.extractRawText({ buffer })
+    return result.value
+  } catch (error) {
+    console.error('DOCX processing error:', error)
+    throw new Error('Failed to process DOCX')
+  }
+}
+
+// Process PPTX using JSZip (works in Workers)
+async function processPptx(buffer: Buffer): Promise<string> {
+  try {
+    const zip = new JSZip()
+    const zipFile = await zip.loadAsync(buffer)
+    
+    let fullText = ''
+    
+    // Find all slide files
+    const slideFiles = Object.keys(zipFile.files).filter(name => 
+      name.startsWith('ppt/slides/slide') && name.endsWith('.xml')
+    )
+    
+    for (const slideFile of slideFiles) {
+      const file = zipFile.file(slideFile)
+      if (file) {
+        const xmlContent = await file.async('text')
+        
+        // Extract text from slide XML
+        const textMatches = xmlContent.match(/<a:t[^>]*>([^<]*)<\/a:t>/g)
+        if (textMatches) {
+          const slideText = textMatches
+            .map(match => match.replace(/<[^>]*>/g, ''))
+            .join(' ')
+          fullText += slideText + '\n\n'
+        }
+      }
+    }
+    
+    return fullText.trim()
+  } catch (error) {
+    console.error('PPTX processing error:', error)
+    throw new Error('Failed to process PPTX')
+  }
+}
 
 export async function POST(req: NextRequest) {
-  let tempFilePath: string | null = null
-
   try {
     const formData = await req.formData()
     const file = formData.get('file') as File
@@ -17,54 +86,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 })
     }
 
-    const buffer = await file.arrayBuffer()
     const extension = file.name.split('.').pop()?.toLowerCase()
     let text = ''
 
     switch (extension) {
       case 'pdf':
-        // Create a temporary file
-        tempFilePath = join(os.tmpdir(), `temp-${Date.now()}.pdf`)
-        await writeFile(tempFilePath, Buffer.from(buffer))
-        
-        // Load and process the PDF
-        const pdfLoader = new PDFLoader(tempFilePath)
-        const pdfDocs = await pdfLoader.load()
-        text = pdfDocs.map(doc => doc.pageContent).join('\n')
-        
-        // Clean up
-        await unlink(tempFilePath)
-        tempFilePath = null
+        const arrayBuffer = await file.arrayBuffer()
+        text = await processPdf(arrayBuffer)
         break
 
       case 'docx':
-        // Create a temporary file for the docx
-        tempFilePath = join(os.tmpdir(), `temp-${Date.now()}.docx`)
-        await writeFile(tempFilePath, Buffer.from(buffer))
-        
-        // Load and process the DOCX
-        const docxLoader = new DocxLoader(tempFilePath)
-        const docxDocs = await docxLoader.load()
-        text = docxDocs.map(doc => doc.pageContent).join('\n')
-        
-        // Clean up
-        await unlink(tempFilePath)
-        tempFilePath = null
+        const docxArrayBuffer = await file.arrayBuffer()
+        text = await processDocx(docxArrayBuffer)
         break
 
       case 'pptx':
-        // Create a temporary file for the pptx
-        tempFilePath = join(os.tmpdir(), `temp-${Date.now()}.pptx`)
-        await writeFile(tempFilePath, Buffer.from(buffer))
-        
-        // Load and process the PPTX
-        const pptxLoader = new PPTXLoader(tempFilePath)
-        const pptxDocs = await pptxLoader.load()
-        text = pptxDocs.map(doc => doc.pageContent).join('\n\n')
-        
-        // Clean up
-        await unlink(tempFilePath)
-        tempFilePath = null
+        const pptxBuffer = Buffer.from(await file.arrayBuffer())
+        text = await processPptx(pptxBuffer)
         break
 
       default:
@@ -74,15 +112,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ text })
   } catch (error) {
     console.error('Error processing file:', error)
-    
-    // Clean up temp file if it exists
-    if (tempFilePath) {
-      try {
-        await unlink(tempFilePath)
-      } catch (cleanupError) {
-        console.error('Error cleaning up temp file:', cleanupError)
-      }
-    }
     
     return NextResponse.json(
       { error: 'Failed to process file' },

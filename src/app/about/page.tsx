@@ -231,10 +231,10 @@ export default function AboutPage() {
                 </h3>
                 <div className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 space-y-2">
                   <div>
-                    hi everyone, I'm mohamed wahib, a software and AI developer.
+                    hi everyone, I&apos;m mohamed wahib, a software and AI developer.
                   </div>
                   <div>
-                    i'm always building apps and tools whether it's for fun or
+                    i&apos;m always building apps and tools whether it&apos;s for fun or
                     for *professional* use.
                   </div>
                   <div>

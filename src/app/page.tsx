@@ -4,13 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Code2,
-  Copy,
-  FileText,
-  Download,
-} from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
+import { Code2, Copy, FileText, Download, Info } from "lucide-react";
+import { toast } from "react-hot-toast";
 import { FileUpload } from "@/components/FileUpload";
 import { FileList } from "@/components/FileList";
 import { FileWithContent } from "@/types";
@@ -26,6 +21,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { InfoDialog } from "@/components/InfoDialog";
 import { IGNORED_PATHS } from "@/constants/files";
 import { cn } from "@/lib/utils";
+import GitHub from "@/components/icons/Github";
+import Link from "next/link";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -178,16 +175,16 @@ export default function Home() {
           }
         } else if (ignoredDirectories.size > 0 || gitignoreSkippedCount > 0) {
           const parts = [];
-          
+
           if (ignoredDirectories.size > 0) {
             const dirNames = Array.from(ignoredDirectories.keys()).join(", ");
             parts.push(dirNames);
           }
-          
+
           if (gitignoreSkippedCount > 0) {
             parts.push(`${gitignoreSkippedCount} from .gitignore`);
           }
-          
+
           message = `Skipped files from: ${parts.join(", ")}`;
         }
 
@@ -333,16 +330,16 @@ export default function Home() {
           }
         } else if (ignoredDirs.size > 0 || gitignoreSkipped > 0) {
           const parts = [];
-          
+
           if (ignoredDirs.size > 0) {
             const dirNames = Array.from(ignoredDirs.keys()).join(", ");
             parts.push(dirNames);
           }
-          
+
           if (gitignoreSkipped > 0) {
             parts.push(`${gitignoreSkipped} from .gitignore`);
           }
-          
+
           message = `Skipped files from: ${parts.join(", ")}`;
         }
 
@@ -432,53 +429,53 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Legacy Notice Sticker - Desktop Only */}
       <div
-        className="hidden lg:block fixed top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-background border border-dashed border-border rounded-lg shadow-sm opacity-70"
+        className="hidden lg:block absolute top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-background border border-dashed border-border rounded-lg shadow-sm opacity-70"
         onClick={handleStickerClick}
       >
-          <div
-            className={cn(
-              "transition-opacity duration-500",
-              stickerClicked ? "opacity-0" : "opacity-100"
-            )}
-          >
-            <div className="text-xs font-medium tracking-wide text-foreground mb-1">
-              previously known as
-            </div>
-
-            <div className="flex items-center justify-center space-x-1.5">
-              <Code2 className="h-4 w-4 text-foreground" />
-              <span className="text-sm font-bold tracking-tight text-foreground">
-                Code To Prompt
-              </span>
-            </div>
+        <div
+          className={cn(
+            "transition-opacity duration-500",
+            stickerClicked ? "opacity-0" : "opacity-100"
+          )}
+        >
+          <div className="text-xs font-medium tracking-wide text-foreground mb-1">
+            previously known as
           </div>
 
-          <div
-            className={cn(
-              "absolute inset-0 flex items-center justify-center transition-opacity duration-500",
-              stickerClicked ? "opacity-100" : "opacity-0"
-            )}
-          >
-            <div className="text-center">
-              <div className="text-xs font-medium tracking-wide text-foreground mb-1">
-                welcome to
-              </div>
-              <div className="flex items-center justify-center space-x-1">
-                <span className="flex items-center justify-center h-4 w-4 text-primary font-bold text-xs bg-primary/10 rounded">
-                  1
-                </span>
-                <span className="text-sm font-bold tracking-tight text-foreground">
-                  OneFile
-                </span>
-              </div>
-            </div>
+          <div className="flex items-center justify-center space-x-1.5">
+            <Code2 className="h-4 w-4 text-foreground" />
+            <span className="text-sm font-bold tracking-tight text-foreground">
+              Code To Prompt
+            </span>
           </div>
         </div>
 
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-12 pt-8 sm:pt-14">
+        <div
+          className={cn(
+            "absolute inset-0 flex items-center justify-center transition-opacity duration-500",
+            stickerClicked ? "opacity-100" : "opacity-0"
+          )}
+        >
+          <div className="text-center">
+            <div className="text-xs font-medium tracking-wide text-foreground mb-1">
+              welcome to
+            </div>
+            <div className="flex items-center justify-center space-x-1">
+              <span className="flex items-center justify-center h-4 w-4 text-primary font-bold text-xs bg-primary/10 rounded">
+                1
+              </span>
+              <span className="text-sm font-bold tracking-tight text-foreground">
+                OneFile
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-grow container max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-12 pt-8 sm:pt-14">
         <div className="space-y-6 sm:space-y-8">
           {/* Header - Desktop Version */}
           <div className="hidden lg:block text-center space-y-2">
@@ -497,33 +494,31 @@ export default function Home() {
               No more upload limits, file size worries, or repeated uploads.
             </p>
             <div className="absolute top-8 right-8 flex flex-col items-end gap-3">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
-                  className="text-foreground/80 px-3 py-2 border-border/40 bg-background shadow-sm group hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
-                  onClick={() => window.open("https://github.com/wahibonae/onefile", "_blank")}
+                  className="px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
+                  asChild
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 1024 1024"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
-                      transform="scale(64)"
-                      className="fill-foreground/80 group-hover:fill-primary transition-colors"
-                    />
-                  </svg>
-                  wahibonae/onefile
+                  <Link href="/about">
+                    <GitHub className="h-4 w-4" />
+                    onefile
+                  </Link>
                 </Button>
                 <InfoDialog />
                 <ThemeToggle />
               </div>
-              <span className="text-xs text-muted-foreground">Created by <a href="https://www.linkedin.com/in/abkarimohamedwahib/" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">Mohamed Wahib ABKARI</a></span>
+              <span className="text-xs text-muted-foreground">
+                Created by{" "}
+                <a
+                  href="https://www.linkedin.com/in/abkarimohamedwahib/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium hover:underline"
+                >
+                  Mohamed Wahib ABKARI
+                </a>
+              </span>
             </div>
           </div>
 
@@ -541,45 +536,46 @@ export default function Home() {
                   OneFile
                 </h1>
               </div>
-              
+
               {/* Description */}
               <p className="text-muted-foreground text-base leading-relaxed">
                 Combine multiple files into one AI-ready file. <br />
                 No more upload limits, file size worries, or repeated uploads.
               </p>
-              
+
               {/* GitHub + InfoDialog + Theme Elements */}
               <div className="flex items-center justify-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   className="text-foreground/80 px-2 py-1.5 border-border/40 bg-background shadow-sm group hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
-                  onClick={() => window.open("https://github.com/wahibonae/onefile", "_blank")}
+                  onClick={() =>
+                    window.open(
+                      "https://github.com/wahibonae/onefile",
+                      "_blank"
+                    )
+                  }
                 >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 1024 1024"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
-                      transform="scale(64)"
-                      className="fill-foreground/80 group-hover:fill-primary transition-colors"
-                    />
-                  </svg>
+                  <GitHub className="h-4 w-4" />
                   GitHub
                 </Button>
                 <InfoDialog />
                 <ThemeToggle />
               </div>
-              
+
               {/* Created by */}
               <div className="flex items-center justify-center">
-                <span className="text-xs text-muted-foreground">Created by <a href="https://www.linkedin.com/in/abkarimohamedwahib/" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">Mohamed Wahib ABKARI</a></span>
+                <span className="text-xs text-muted-foreground">
+                  Created by{" "}
+                  <a
+                    href="https://www.linkedin.com/in/abkarimohamedwahib/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium hover:underline"
+                  >
+                    Mohamed Wahib ABKARI
+                  </a>
+                </span>
               </div>
             </div>
           </div>
@@ -598,20 +594,25 @@ export default function Home() {
                   OneFile
                 </h1>
               </div>
-              
+
               {/* Description */}
               <p className="text-muted-foreground text-md leading-relaxed">
                 Combine multiple files into one AI-ready file. <br />
                 No more upload limits or file size worries.
               </p>
-              
+
               {/* GitHub + InfoDialog + Theme Elements */}
               <div className="flex items-center justify-center gap-1.5">
                 <Button
                   variant="outline"
                   size="sm"
                   className="text-foreground/80 px-2 py-1 border-border/40 bg-background shadow-sm group hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
-                  onClick={() => window.open("https://github.com/wahibonae/onefile", "_blank")}
+                  onClick={() =>
+                    window.open(
+                      "https://github.com/wahibonae/onefile",
+                      "_blank"
+                    )
+                  }
                 >
                   <svg
                     width="12"
@@ -632,10 +633,20 @@ export default function Home() {
                 <InfoDialog />
                 <ThemeToggle />
               </div>
-              
+
               {/* Created by */}
               <div className="flex items-center justify-center">
-                <span className="text-xs text-muted-foreground">Created by <a href="https://www.linkedin.com/in/abkarimohamedwahib/" target="_blank" rel="noopener noreferrer" className="font-medium hover:underline">Mohamed Wahib ABKARI</a></span>
+                <span className="text-xs text-muted-foreground">
+                  Created by{" "}
+                  <a
+                    href="https://www.linkedin.com/in/abkarimohamedwahib/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium hover:underline"
+                  >
+                    Mohamed Wahib ABKARI
+                  </a>
+                </span>
               </div>
             </div>
           </div>
@@ -748,25 +759,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          duration: 4000,
-          style: {
-            background: "hsl(var(--card))",
-            color: "hsl(var(--card-foreground))",
-            border: "1px solid hsl(var(--border))",
-            borderRadius: "12px",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-          },
-          success: {
-            iconTheme: {
-              primary: "hsl(var(--primary))",
-              secondary: "hsl(var(--primary-foreground))",
-            },
-          },
-        }}
-      />
+      
+      {/* Footer */}
+      <footer className="py-4 text-center bg-background">
+        <div className="text-sm text-muted-foreground/50">
+          v1.1 - <Link href="/about" className="hover:text-foreground transition-colors">About OneFile</Link> - Blog (soon)
+        </div>
+      </footer>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Code2, Copy, FileText, Download, Info } from "lucide-react";
+import { Code2, Copy, FileText, Download } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { FileUpload } from "@/components/FileUpload";
 import { FileList } from "@/components/FileList";

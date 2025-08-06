@@ -7,7 +7,7 @@ export const ALLOWED_EXTENSIONS = new Set([
   // Configuration files
   '.env', '.ini', '.conf', '.config', '.toml', '.properties',
   // Documentation and text files
-  '.md', '.markdown', '.txt', '.rtf', '.tex',
+  '.md', '.markdown', '.mdc', '.txt', '.rtf', '.tex',
   // Data files
   '.sql', '.prisma', '.csv', '.tsv', '.log', '.xlsx', '.xls', '.ods',
   // Additional development files
@@ -37,6 +37,8 @@ export const ALLOWED_MIME_TYPES = new Set([
   'text/javascript',
   'text/markdown',
   'text/x-markdown',
+  'text/x-mdc',
+  'application/x-mdc',
   // Programming languages
   'text/x-python',
   'text/x-python-script',

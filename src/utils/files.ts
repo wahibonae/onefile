@@ -280,10 +280,7 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
           return
         }
         
-        // Trim whitespace from beginning and end
-        const trimmedContent = content.trim()
-        
-        resolve({ path: relativePath, content: trimmedContent })
+        resolve({ path: relativePath, content: content })
       }
       reader.onerror = () => reject(new Error(`Failed to read file: ${file.name}`))
       reader.readAsText(file)

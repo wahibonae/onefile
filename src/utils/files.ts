@@ -241,7 +241,7 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
       const extension = `.${file.name.split('.').pop()?.toLowerCase()}`
       
       // Handle document formats through the API
-      if (['.pdf', '.docx', '.pptx'].includes(extension)) {
+      if (['.pdf', '.docx', '.pptx', '.xlsx', '.xls'].includes(extension)) {
         const formData = new FormData()
         formData.append('file', file)
         
@@ -419,7 +419,7 @@ export const processEntry = async (entry: FileSystemEntry, path: string = ''): P
 }
 
 export const generatePromptText = (files: FileWithContent[]): string => {
-  let result = '=== FILES ===\n'
+  let result = '======== FILES ========\n'
   files.forEach(file => {
     result += `*** ${file.path} ***\n${file.content}\n\n`
   })

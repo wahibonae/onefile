@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import JSZip from 'jszip'
 import mammoth from 'mammoth'
 import { getDocument } from 'pdfjs-serverless'
+import * as XLSX from 'xlsx'
 
 // Use pdfjs-serverless for PDF processing (designed for serverless)
 async function processPdf(arrayBuffer: ArrayBuffer): Promise<string> {
@@ -41,7 +42,7 @@ async function processDocx(arrayBuffer: ArrayBuffer): Promise<string> {
   }
 }
 
-// Process PPTX using JSZip (works in Workers)
+// Process PPTX using JSZip
 async function processPptx(buffer: Buffer): Promise<string> {
   try {
     const zip = new JSZip()
@@ -77,6 +78,50 @@ async function processPptx(buffer: Buffer): Promise<string> {
   }
 }
 
+// Process Excel files using XLSX with performance optimizations
+async function processExcel(arrayBuffer: ArrayBuffer): Promise<string> {
+  try {
+    // Use dense mode for better memory efficiency
+    const workbook = XLSX.read(arrayBuffer, { dense: true })
+    let fullText = ''
+    
+    // Process each sheet
+    for (const sheetName of workbook.SheetNames) {
+      const worksheet = workbook.Sheets[sheetName]
+      
+      // Add sheet header for context
+      fullText += `-- { ${sheetName} } --\n\n`
+      
+      // Convert sheet to JSON to extract cell values
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { 
+        header: 1, 
+        defval: '',
+        raw: false 
+      }) as unknown[][]
+      
+      // Extract text from each row
+      for (const row of jsonData) {
+        if (Array.isArray(row)) {
+          const rowText = row
+            .filter(cell => cell !== null && cell !== undefined && cell !== '')
+            .join('\t')
+          
+          if (rowText.trim()) {
+            fullText += rowText + '\n'
+          }
+        }
+      }
+      
+      fullText += '\n'
+    }
+    
+    return fullText.trim()
+  } catch (error) {
+    console.error('Excel processing error:', error)
+    throw new Error('Failed to process Excel file')
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData()
@@ -103,6 +148,12 @@ export async function POST(req: NextRequest) {
       case 'pptx':
         const pptxBuffer = Buffer.from(await file.arrayBuffer())
         text = await processPptx(pptxBuffer)
+        break
+
+      case 'xlsx':
+      case 'xls':
+        const excelArrayBuffer = await file.arrayBuffer()
+        text = await processExcel(excelArrayBuffer)
         break
 
       default:

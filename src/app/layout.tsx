@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
+import { ClerkProvider } from "@clerk/nextjs";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -153,100 +154,108 @@ export default function RootLayout({
   ];
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href="/android-chrome-192x192.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="512x512"
-          href="/android-chrome-512x512.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
+    <ClerkProvider afterSignOutUrl="/">
+      <html lang="en" suppressHydrationWarning>
+        <head>
+          <link rel="icon" href="/favicon.ico" sizes="any" />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="192x192"
+            href="/android-chrome-192x192.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="512x512"
+            href="/android-chrome-512x512.png"
+          />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
 
-        <meta
-          name="theme-color"
-          content="#ffffff"
-          media="(prefers-color-scheme: light)"
-        />
-        <meta
-          name="theme-color"
-          content="#09090b"
-          media="(prefers-color-scheme: dark)"
-        />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta
+            name="theme-color"
+            content="#ffffff"
+            media="(prefers-color-scheme: light)"
+          />
+          <meta
+            name="theme-color"
+            content="#09090b"
+            media="(prefers-color-scheme: dark)"
+          />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="default"
+          />
 
-        <meta property="og:image:secure_url" content={`${url}/seo-card.jpg`} />
-        <meta property="og:image:type" content="image/jpeg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="627" />
-        <meta name="twitter:image:src" content={`${url}/seo-card.jpg`} />
-        <meta
-          name="twitter:image:alt"
-          content="OneFile - Upload many files to AI as one single file"
-        />
+          <meta
+            property="og:image:secure_url"
+            content={`${url}/seo-card.jpg`}
+          />
+          <meta property="og:image:type" content="image/jpeg" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="627" />
+          <meta name="twitter:image:src" content={`${url}/seo-card.jpg`} />
+          <meta
+            name="twitter:image:alt"
+            content="OneFile - Upload many files to AI as one single file"
+          />
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
-          }}
-        />
-      </head>
-      <body className={`${spaceGrotesk.className} ${inter.className}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background: "hsl(var(--card))",
-              color: "hsl(var(--card-foreground))",
-              border: "1px solid hsl(var(--border))",
-              borderRadius: "12px",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-            },
-            success: {
-              iconTheme: {
-                primary: "hsl(var(--primary))",
-                secondary: "hsl(var(--primary-foreground))",
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(structuredData),
+            }}
+          />
+        </head>
+        <body className={`${spaceGrotesk.className} ${inter.className}`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: "hsl(var(--card))",
+                color: "hsl(var(--card-foreground))",
+                border: "1px solid hsl(var(--border))",
+                borderRadius: "12px",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
               },
-            },
-          }}
-        />  
-        <Analytics />
-      </body>
-    </html>
+              success: {
+                iconTheme: {
+                  primary: "hsl(var(--primary))",
+                  secondary: "hsl(var(--primary-foreground))",
+                },
+              },
+            }}
+          />
+          <Analytics />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

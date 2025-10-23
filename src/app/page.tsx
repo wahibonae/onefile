@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -23,6 +23,8 @@ import { IGNORED_PATHS } from "@/constants/files";
 import { cn } from "@/lib/utils";
 import GitHub from "@/components/icons/Github";
 import Link from "next/link";
+import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
+import { GitHubRepositoryBrowser } from "@/components/GitHubRepositoryBrowser";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -35,11 +37,62 @@ export default function Home() {
   const [files, setFiles] = useState<FileWithContent[]>([]);
   const [finalPrompt, setFinalPrompt] = useState("");
   const [isDragging, setIsDragging] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [stickerClicked, setStickerClicked] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(
-    null
-  ) as React.RefObject<HTMLDivElement>;
+  const [isGitHubBrowserOpen, setIsGitHubBrowserOpen] = useState(false);
+  const { isSignedIn } = useUser();
+  const { openSignIn } = useClerk();
+
+  // Restore files from sessionStorage on mount (after OAuth redirect)
+  useEffect(() => {
+    try {
+      const savedFiles = sessionStorage.getItem("onefile-temp-files");
+      if (savedFiles) {
+        const parsed = JSON.parse(savedFiles) as FileWithContent[];
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setFiles(parsed);
+          toast.success(
+            `Restored ${parsed.length} file${parsed.length === 1 ? "" : "s"}`
+          );
+        }
+        sessionStorage.removeItem("onefile-temp-files");
+      }
+    } catch (error) {
+      console.error("Failed to restore files from sessionStorage:", error);
+      sessionStorage.removeItem("onefile-temp-files");
+    }
+  }, []);
+
+  // Save files to sessionStorage whenever they change
+  useEffect(() => {
+    try {
+      if (files.length === 0) {
+        sessionStorage.removeItem("onefile-temp-files");
+      } else {
+        sessionStorage.setItem("onefile-temp-files", JSON.stringify(files));
+      }
+    } catch (error) {
+      console.error("Failed to sync files to sessionStorage:", error);
+    }
+  }, [files]);
+
+  // Check for pending actions after OAuth redirect
+  useEffect(() => {
+    if (isSignedIn) {
+      try {
+        const pendingAction = sessionStorage.getItem("onefile-pending-action");
+        if (pendingAction === "github-import") {
+          sessionStorage.removeItem("onefile-pending-action");
+          // Small delay to ensure UI is ready
+          setTimeout(() => {
+            setIsGitHubBrowserOpen(true);
+          }, 100);
+        }
+      } catch (error) {
+        console.error("Failed to check pending action:", error);
+        sessionStorage.removeItem("onefile-pending-action");
+      }
+    }
+  }, [isSignedIn]);
 
   useEffect(() => {
     // Update the final prompt whenever files change
@@ -50,22 +103,6 @@ export default function Home() {
       setFinalPrompt("");
     }
   }, [files]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   const handleFiles = async (fileList: FileList | null) => {
     if (!fileList) return;
@@ -428,6 +465,39 @@ export default function Home() {
     toast.success("One File downloaded successfully");
   };
 
+  const handleSignInClick = (): void => {
+    // Explicitly save files before OAuth redirect (extra safety)
+    if (files.length > 0) {
+      try {
+        sessionStorage.setItem("onefile-temp-files", JSON.stringify(files));
+      } catch (error) {
+        console.error("Failed to save files before sign-in:", error);
+      }
+    }
+  };
+
+  const handleGitHubImportClick = () => {
+    if (!isSignedIn) {
+      handleSignInClick(); // Save files before OAuth redirect
+      sessionStorage.setItem("onefile-pending-action", "github-import"); // Save intent
+      openSignIn(); // Open sign-in modal programmatically
+      return;
+    }
+    setIsGitHubBrowserOpen(true);
+  };
+
+  const handleGitHubImport = (
+    importedFiles: Array<{ path: string; content: string }>
+  ) => {
+    const newFiles: FileWithContent[] = importedFiles.map((file) => ({
+      name: file.path.split("/").pop() || file.path,
+      path: file.path,
+      content: file.content,
+    }));
+
+    setFiles((prev: FileWithContent[]) => [...prev, ...newFiles]);
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Legacy Notice Sticker - Desktop Only */}
@@ -495,6 +565,15 @@ export default function Home() {
             </p>
             <div className="absolute top-8 right-8 flex flex-col items-end gap-3">
               <div className="flex items-center gap-2">
+                <SignedIn>
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-8 h-8",
+                      },
+                    }}
+                  />
+                </SignedIn>
                 <Button
                   variant="outline"
                   className="px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
@@ -545,6 +624,15 @@ export default function Home() {
 
               {/* GitHub + InfoDialog + Theme Elements */}
               <div className="flex items-center justify-center gap-2">
+                <SignedIn>
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-8 h-8",
+                      },
+                    }}
+                  />
+                </SignedIn>
                 <Button
                   variant="outline"
                   size="sm"
@@ -603,10 +691,13 @@ export default function Home() {
 
               {/* GitHub + InfoDialog + Theme Elements */}
               <div className="flex items-center justify-center gap-1.5">
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-foreground/80 px-2 py-1 border-border/40 bg-background shadow-sm group hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
+                  className="h-9 w-9 text-foreground/80 px-2 py-1 border-border/40 bg-background shadow-sm group hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
                   onClick={() =>
                     window.open(
                       "https://github.com/wahibonae/onefile",
@@ -672,9 +763,7 @@ export default function Home() {
                     onDragLeave={handleDragLeave}
                     onDrop={handleDrop}
                     onFileChange={handleFileChange}
-                    isDropdownOpen={isDropdownOpen}
-                    setIsDropdownOpen={setIsDropdownOpen}
-                    dropdownRef={dropdownRef}
+                    onGitHubImport={handleGitHubImportClick}
                   />
 
                   {files.length === 0 && (
@@ -759,13 +848,27 @@ export default function Home() {
           </div>
         </div>
       </div>
-      
+
       {/* Footer */}
       <footer className="py-4 text-center bg-background">
         <div className="text-sm text-muted-foreground/50">
-          v1.1 - <Link href="/about" className="hover:text-foreground transition-colors">About OneFile</Link> - Blog (soon)
+          v1.1 -{" "}
+          <Link
+            href="/about"
+            className="hover:text-foreground transition-colors"
+          >
+            About OneFile
+          </Link>{" "}
+          - Blog (soon)
         </div>
       </footer>
+
+      {/* GitHub Repository Browser Dialog */}
+      <GitHubRepositoryBrowser
+        open={isGitHubBrowserOpen}
+        onClose={() => setIsGitHubBrowserOpen(false)}
+        onImport={handleGitHubImport}
+      />
     </div>
   );
 }

@@ -2,7 +2,14 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Upload, FileText, Folder, ChevronDown } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { cn } from '@/lib/utils'
+import GitHub from '@/components/icons/Github'
 
 interface FileUploadProps {
   isDragging: boolean;
@@ -10,9 +17,7 @@ interface FileUploadProps {
   onDragLeave: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isDropdownOpen: boolean;
-  setIsDropdownOpen: (isOpen: boolean) => void;
-  dropdownRef: React.RefObject<HTMLDivElement>;
+  onGitHubImport?: () => void;
 }
 
 export function FileUpload({
@@ -21,9 +26,7 @@ export function FileUpload({
   onDragLeave,
   onDrop,
   onFileChange,
-  isDropdownOpen,
-  setIsDropdownOpen,
-  dropdownRef
+  onGitHubImport
 }: FileUploadProps) {
   const fileOnlyInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
@@ -68,46 +71,47 @@ export function FileUpload({
           <p className="text-sm text-muted-foreground mb-3">
             Drag files here or
           </p>
-          <div className="relative" ref={dropdownRef}>
-            <Button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              variant="outline"
-              className="relative group bg-background hover:bg-muted border-border shadow-sm h-8 px-2.5 rounded-md font-medium"
-            >
-              <span className="flex items-center gap-1 text-muted-foreground transition-all duration-300">
-                Choose Files
-                <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
-              </span>
-            </Button>
-            {isDropdownOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute mt-2 w-44 rounded-xl shadow-lg bg-popover border border-border z-10"
+          <div className="flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="relative group bg-background hover:bg-muted border-border shadow-sm h-8 px-2.5 rounded-md font-medium"
+                >
+                  <span className="flex items-center gap-1 text-muted-foreground transition-all duration-300">
+                    Choose Files
+                    <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="center" className="w-fit space-y-1 p-2">
+                <DropdownMenuItem
+                  onClick={() => fileOnlyInputRef.current?.click()}
+                  className="flex items-center gap-2.5 cursor-pointer text-muted-foreground"
+                >
+                  <FileText className="h-4 w-4" strokeWidth={2.1} />
+                  Select Files
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => folderInputRef.current?.click()}
+                  className="flex items-center gap-2.5 cursor-pointer text-muted-foreground"
+                >
+                  <Folder className="h-4 w-4" strokeWidth={2.1} />
+                  Select Folder
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            {onGitHubImport && (
+              <Button
+                onClick={onGitHubImport}
+                variant="outline"
+                className="relative group bg-background hover:bg-muted border-border shadow-sm h-8 px-2.5 rounded-md font-medium"
               >
-                <div className="p-1.5">
-                  <button
-                    onClick={() => {
-                      fileOnlyInputRef.current?.click()
-                      setIsDropdownOpen(false)
-                    }}
-                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium group hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground"
-                  >
-                    <FileText className="h-4 w-4 group-hover:text-primary" strokeWidth={2.1} />
-                    Select Files
-                  </button>
-                  <button
-                    onClick={() => {
-                      folderInputRef.current?.click()
-                      setIsDropdownOpen(false)
-                    }}
-                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium group hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground"
-                  >
-                    <Folder className="h-4 w-4 group-hover:text-primary" strokeWidth={2.1} />
-                    Select Folder
-                  </button>
-                </div>
-              </motion.div>
+                <span className="flex items-center gap-1.5 text-muted-foreground transition-all duration-300">
+                  <GitHub className="h-3.5 w-3.5" />
+                  Import from GitHub
+                </span>
+              </Button>
             )}
           </div>
         </div>

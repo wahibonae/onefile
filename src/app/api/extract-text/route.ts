@@ -78,6 +78,21 @@ async function processPptx(buffer: Buffer): Promise<string> {
   }
 }
 
+// Type definitions for ExcelJS cell values
+interface RichTextCell {
+  richText: Array<{ text: string }>;
+}
+
+interface FormulaCell {
+  result: string | number;
+}
+
+interface TextCell {
+  text: string;
+}
+
+type CellValue = string | number | boolean | Date | RichTextCell | FormulaCell | TextCell | null | undefined;
+
 // Process Excel files using ExcelJS
 async function processExcel(arrayBuffer: ArrayBuffer): Promise<string> {
   try {
@@ -94,7 +109,7 @@ async function processExcel(arrayBuffer: ArrayBuffer): Promise<string> {
       // Extract text from each row
       worksheet.eachRow((row) => {
         // row.values is an array where index 0 is undefined, actual values start at index 1
-        const rowValues = row.values as any[];
+        const rowValues = row.values as CellValue[];
         const rowText = rowValues
           .slice(1) // Skip the first undefined element
           .filter((cell) => cell !== null && cell !== undefined && cell !== "")
@@ -104,7 +119,7 @@ async function processExcel(arrayBuffer: ArrayBuffer): Promise<string> {
               // Handle formula cells or rich text
               if ("result" in cell) return cell.result;
               if ("richText" in cell)
-                return cell.richText.map((t: any) => t.text).join("");
+                return cell.richText.map((t) => t.text).join("");
               if ("text" in cell) return cell.text;
               return String(cell);
             }

@@ -174,7 +174,7 @@ export default function AboutPage() {
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="flex items-start gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl bg-secondary/50 border"
+                className="flex items-start gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl bg-secondary/50 border dark:border-border"
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.1 }}
               >
@@ -223,29 +223,28 @@ export default function AboutPage() {
 
         {/* About the Creator - Build credibility */}
         <motion.section className="mb-12 sm:mb-16" {...fadeIn}>
-          <div className="bg-card rounded-2xl border p-4 sm:p-6 lg:p-8">
+          <div className="bg-card rounded-2xl border dark:border-border p-4 sm:p-6 lg:p-8">
             <div className="flex flex-col md:flex-row items-start gap-4 sm:gap-6">
               <div className="flex-1">
                 <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">
                   message from the creator:
                 </h3>
                 <div className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 space-y-2">
+                  <div>hi everyone, my name is mohamed wahib, AI engineer.</div>
                   <div>
-                    hi everyone, I&apos;m mohamed wahib, a software and AI developer.
+                    always building apps and tools for fun or *professional*
+                    use.
                   </div>
                   <div>
-                    i&apos;m always building apps and tools whether it&apos;s for fun or
-                    for *professional* use.
+                    i was just like you, copying and pasting the same files to
+                    ChatGPT
                   </div>
-                  <div>
-                    i was just like you, copying and pasting the same files and
-                    making one goofy prompt.
-                  </div>
+                  <div>making one long ahh prompt to get help from AI.</div>
                   <div>
                     so I decided to build a tool that would help me and others.
                   </div>
                   <div>
-                    please lmk what you think, and hit me up on socials.
+                    please let me know what you think, and feel free to hit me up on socials.
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-muted-foreground">
@@ -293,7 +292,7 @@ export default function AboutPage() {
 
         {/* CTA - Final call to action */}
         <motion.section className="text-center" {...fadeIn}>
-          <div className="bg-primary/5 rounded-xl border p-6 sm:p-8">
+          <div className="bg-primary/5 rounded-xl border dark:border-border p-6 sm:p-8">
             <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
               Ready to Get Started?
             </h2>

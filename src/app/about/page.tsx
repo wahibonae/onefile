@@ -104,24 +104,6 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container max-w-4xl mx-auto px-6 sm:px-6 py-6 sm:py-8 lg:py-12">
-        {/* Navigation */}
-        <motion.div
-          className="mb-6 sm:mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Link href="/">
-            <Button
-              variant="outline"
-              className="mb-2 px-3 sm:px-4 text-sm sm:text-base"
-            >
-              <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 sm:mr-1" />
-              Back to OneFile
-            </Button>
-          </Link>
-        </motion.div>
-
         {/* Header */}
         <motion.div className="text-center mb-8 sm:mb-12" {...fadeIn}>
           <div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-4">

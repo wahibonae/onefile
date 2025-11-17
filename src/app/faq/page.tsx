@@ -327,8 +327,6 @@ export default function FAQPage() {
           </div>
         </section>
       </div>
-
-      <Footer />
     </div>
   );
 }

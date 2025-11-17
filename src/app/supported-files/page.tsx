@@ -10,9 +10,8 @@ import {
   FileCode,
   Settings,
   CheckCircle2,
-  XCircle,
+  X,
 } from "lucide-react";
-
 
 interface FileType {
   extensions: string[];
@@ -30,10 +29,10 @@ export default function SupportedFilesPage() {
       types: { [key: string]: FileType };
     };
   } = {
-    "Documents": {
+    Documents: {
       icon: FileText,
       types: {
-        "PDF": {
+        PDF: {
           extensions: [".pdf"],
           processing: "Server",
           chatgpt: true,
@@ -63,7 +62,7 @@ export default function SupportedFilesPage() {
           claude: true,
           gemini: true,
         },
-        "OpenDocument": {
+        OpenDocument: {
           extensions: [".odt", ".ods", ".odp"],
           processing: "Server",
           chatgpt: true,
@@ -78,7 +77,7 @@ export default function SupportedFilesPage() {
           gemini: true,
           notes: "Fastest processing",
         },
-        "Markdown": {
+        Markdown: {
           extensions: [".md", ".markdown", ".mdc"],
           processing: "Browser",
           chatgpt: true,
@@ -98,28 +97,28 @@ export default function SupportedFilesPage() {
     "Code Files": {
       icon: Code,
       types: {
-        "JavaScript": {
+        JavaScript: {
           extensions: [".js", ".jsx", ".mjs", ".cjs"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "TypeScript": {
+        TypeScript: {
           extensions: [".ts", ".tsx"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Python": {
+        Python: {
           extensions: [".py", ".pyw", ".pyx"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Java": {
+        Java: {
           extensions: [".java", ".class", ".jar"],
           processing: "Browser",
           chatgpt: true,
@@ -141,42 +140,42 @@ export default function SupportedFilesPage() {
           claude: true,
           gemini: true,
         },
-        "Go": {
+        Go: {
           extensions: [".go"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Rust": {
+        Rust: {
           extensions: [".rs"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Ruby": {
+        Ruby: {
           extensions: [".rb", ".rake"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "PHP": {
+        PHP: {
           extensions: [".php", ".phtml"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Swift": {
+        Swift: {
           extensions: [".swift"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Kotlin": {
+        Kotlin: {
           extensions: [".kt", ".kts"],
           processing: "Browser",
           chatgpt: true,
@@ -188,35 +187,35 @@ export default function SupportedFilesPage() {
     "Web Development": {
       icon: FileCode,
       types: {
-        "HTML": {
+        HTML: {
           extensions: [".html", ".htm"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "CSS": {
+        CSS: {
           extensions: [".css", ".scss", ".sass", ".less"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Vue": {
+        Vue: {
           extensions: [".vue"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Svelte": {
+        Svelte: {
           extensions: [".svelte"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Astro": {
+        Astro: {
           extensions: [".astro"],
           processing: "Browser",
           chatgpt: true,
@@ -236,42 +235,42 @@ export default function SupportedFilesPage() {
     "Data & Config": {
       icon: Settings,
       types: {
-        "JSON": {
+        JSON: {
           extensions: [".json", ".jsonc"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "YAML": {
+        YAML: {
           extensions: [".yaml", ".yml"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "XML": {
+        XML: {
           extensions: [".xml"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "TOML": {
+        TOML: {
           extensions: [".toml"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "INI": {
+        INI: {
           extensions: [".ini", ".cfg", ".conf"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "ENV": {
+        ENV: {
           extensions: [".env", ".env.example", ".env.local"],
           processing: "Browser",
           chatgpt: true,
@@ -286,7 +285,7 @@ export default function SupportedFilesPage() {
           claude: true,
           gemini: true,
         },
-        "SQL": {
+        SQL: {
           extensions: [".sql"],
           processing: "Browser",
           chatgpt: true,
@@ -295,7 +294,7 @@ export default function SupportedFilesPage() {
         },
       },
     },
-    "Other": {
+    Other: {
       icon: Table,
       types: {
         "Shell Scripts": {
@@ -305,14 +304,14 @@ export default function SupportedFilesPage() {
           claude: true,
           gemini: true,
         },
-        "Docker": {
+        Docker: {
           extensions: ["Dockerfile", ".dockerignore"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "Git": {
+        Git: {
           extensions: [".gitignore", ".gitattributes"],
           processing: "Browser",
           chatgpt: true,
@@ -320,14 +319,14 @@ export default function SupportedFilesPage() {
           gemini: true,
           notes: ".gitignore rules are applied",
         },
-        "GraphQL": {
+        GraphQL: {
           extensions: [".graphql", ".gql"],
           processing: "Browser",
           chatgpt: true,
           claude: true,
           gemini: true,
         },
-        "LaTeX": {
+        LaTeX: {
           extensions: [".tex", ".bib", ".bibtex"],
           processing: "Browser",
           chatgpt: true,
@@ -368,7 +367,7 @@ export default function SupportedFilesPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12">
+      <div className="container max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
@@ -416,103 +415,98 @@ export default function SupportedFilesPage() {
 
         {/* File Categories */}
         <div className="space-y-12 mb-16">
-          {Object.entries(fileCategories).map(
-            ([categoryName, category]) => (
-              <section key={categoryName}>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-3 bg-primary/10 rounded-xl">
-                    <category.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-foreground">
-                    {categoryName}
-                  </h2>
+          {Object.entries(fileCategories).map(([categoryName, category]) => (
+            <section key={categoryName}>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-primary/10 rounded-xl">
+                  <category.icon className="h-6 w-6 text-primary" />
                 </div>
+                <h2 className="text-2xl font-bold text-foreground">
+                  {categoryName}
+                </h2>
+              </div>
 
-                <div className="grid gap-4">
-                  {Object.entries(category.types).map(([typeName, type]) => (
-                    <div
-                      key={typeName}
-                      className="bg-card border border-border rounded-xl p-5 hover:border-primary/50 transition-colors"
-                    >
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground mb-2">
-                            {typeName}
-                          </h3>
-                          <div className="flex flex-wrap gap-2 mb-3">
-                            {type.extensions.map((ext, idx) => (
-                              <span
-                                key={idx}
-                                className="px-2 py-1 bg-secondary text-secondary-foreground rounded text-xs font-mono"
-                              >
-                                {ext}
-                              </span>
-                            ))}
-                          </div>
-                          {type.notes && (
-                            <p className="text-sm text-muted-foreground italic">
-                              {type.notes}
-                            </p>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-4 flex-shrink-0">
-                          <div className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
-                            {type.processing}
-                          </div>
-                          <div className="flex gap-2">
-                            <CheckCircle2
-                              className={`h-5 w-5 ${
-                                type.chatgpt
-                                  ? "text-primary"
-                                  : "text-gray-400"
-                              }`}
-                              title="ChatGPT"
-                            />
-                            <CheckCircle2
-                              className={`h-5 w-5 ${
-                                type.claude
-                                  ? "text-primary"
-                                  : "text-gray-400"
-                              }`}
-                              title="Claude"
-                            />
-                            <CheckCircle2
-                              className={`h-5 w-5 ${
-                                type.gemini
-                                  ? "text-primary"
-                                  : "text-gray-400"
-                              }`}
-                              title="Gemini"
-                            />
-                          </div>
-                        </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {Object.entries(category.types).map(([typeName, type]) => (
+                  <div
+                    key={typeName}
+                    className="bg-card border border-border rounded-xl p-5 hover:border-primary/50 transition-colors"
+                  >
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <h3 className="font-semibold text-foreground">
+                        {typeName}
+                      </h3>
+                      <div className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium whitespace-nowrap">
+                        {type.processing}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </section>
-            )
-          )}
+
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {type.extensions.map((ext, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-1 bg-secondary text-secondary-foreground rounded text-xs font-mono"
+                        >
+                          {ext}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex gap-2">
+                        <CheckCircle2
+                          className={`h-4 w-4 ${
+                            type.chatgpt ? "text-primary" : "text-gray-400"
+                          }`}
+                          title="ChatGPT"
+                        />
+                        <CheckCircle2
+                          className={`h-4 w-4 ${
+                            type.claude ? "text-primary" : "text-gray-400"
+                          }`}
+                          title="Claude"
+                        />
+                        <CheckCircle2
+                          className={`h-4 w-4 ${
+                            type.gemini ? "text-primary" : "text-gray-400"
+                          }`}
+                          title="Gemini"
+                        />
+                      </div>
+                      {type.notes && (
+                        <p className="text-xs text-muted-foreground italic">
+                          {type.notes}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
 
         {/* Excluded Files */}
         <section className="mb-16">
-          <h2 className="text-2xl font-bold text-foreground mb-6">
-            Automatically Excluded
-          </h2>
-          <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-6">
-            <p className="text-muted-foreground mb-4">
+          <div className="mb-6 space-y-3">
+            <h2 className="text-2xl font-bold text-foreground">
+              Automatically Excluded
+            </h2>
+            <p className="text-muted-foreground">
               These file types and directories are automatically skipped to keep
               your output clean and relevant:
             </p>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {excludedFiles.map((file, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <XCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">{file}</span>
-                </div>
-              ))}
-            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {excludedFiles.map((file, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-3 bg-red-500/5 border border-red-500/20 rounded-lg px-4 py-3"
+              >
+                <X className="h-4 w-4 text-red-500 flex-shrink-0" />
+                <span className="text-sm text-red-500">{file}</span>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -525,9 +519,7 @@ export default function SupportedFilesPage() {
             <div className="grid md:grid-cols-3 gap-6 text-center">
               <div>
                 <h3 className="text-4xl font-bold text-primary mb-2">100%</h3>
-                <p className="text-muted-foreground">
-                  Compatible with ChatGPT
-                </p>
+                <p className="text-muted-foreground">Compatible with ChatGPT</p>
               </div>
               <div>
                 <h3 className="text-4xl font-bold text-primary mb-2">100%</h3>
@@ -577,10 +569,10 @@ export default function SupportedFilesPage() {
                 What if my file type isn&apos;t supported?
               </h3>
               <p className="text-sm text-muted-foreground">
-                If it&apos;s a text-based file (can be opened in a text editor), you
-                can rename it to .txt and upload it. For binary formats not yet
-                supported, please request support on GitHub or use a conversion
-                tool first.
+                If it&apos;s a text-based file (can be opened in a text editor),
+                you can rename it to .txt and upload it. For binary formats not
+                yet supported, please request support on GitHub or use a
+                conversion tool first.
               </p>
             </div>
           </div>
@@ -604,8 +596,6 @@ export default function SupportedFilesPage() {
           </div>
         </section>
       </div>
-
-      <Footer />
     </div>
   );
 }

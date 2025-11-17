@@ -393,8 +393,6 @@ export default function UseCasesPage() {
           </div>
         </section>
       </div>
-
-      <Footer />
     </div>
   );
 }

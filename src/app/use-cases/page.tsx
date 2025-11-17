@@ -235,7 +235,7 @@ export default function UseCasesPage() {
                   </h3>
                   <p>{useCase.problem}</p>
                 </div>
-                <div className="bg-green-200/5 border border-green-500/30 text-green-500 rounded-xl p-6">
+                <div className="bg-green-500/5 border border-green-500/30 text-green-500 rounded-xl p-6">
                   <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
                     ✓ The Solution
                   </h3>

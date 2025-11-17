@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { InfoDialog } from "@/components/InfoDialog";
 import GitHub from "@/components/icons/Github";
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export function Navbar() {
   return (
@@ -29,7 +28,24 @@ export function Navbar() {
         {/* Controls - Right Side */}
         <div className="flex flex-col items-end gap-1.5 sm:gap-2">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <InfoDialog />
+            <div>
+              <Button
+                variant="ghost"
+                className="px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
+                asChild
+              >
+                <Link href="/">Home</Link>
+              </Button>
+
+              <Button
+                variant="ghost"
+                className="px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
+                asChild
+              >
+                <Link href="/about">About</Link>
+              </Button>
+            </div>
+
             <Button
               variant="outline"
               size="sm"
@@ -51,6 +67,13 @@ export function Navbar() {
               </Link>
             </Button>
             <ThemeToggle />
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button variant="outline" size="sm" className="px-3 sm:px-4">
+                  Sign In
+                </Button>
+              </SignInButton>
+            </SignedOut>
             <SignedIn>
               <UserButton
                 appearance={{

@@ -465,8 +465,6 @@ export default function HowItWorksPage() {
           </div>
         </section>
       </div>
-
-      <Footer />
     </div>
   );
 }

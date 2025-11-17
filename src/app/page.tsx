@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Code2, Copy, FileText, Download } from "lucide-react";
+import { Copy, FileText, Download, X, Check } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { FileUpload } from "@/components/FileUpload";
 import { FileList } from "@/components/FileList";
@@ -17,14 +18,15 @@ import {
   isFileAllowed,
   skippedStats,
 } from "@/utils/files";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { InfoDialog } from "@/components/InfoDialog";
 import { IGNORED_PATHS } from "@/constants/files";
 import { cn } from "@/lib/utils";
-import GitHub from "@/components/icons/Github";
-import Link from "next/link";
-import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
+import { useUser, useClerk } from "@clerk/nextjs";
 import { GitHubRepositoryBrowser } from "@/components/GitHubRepositoryBrowser";
+import { Footer } from "@/components/Footer";
+import { FAQSection } from "@/components/FAQSection";
+import { LogoCloud } from "@/components/LogoCloud";
+import { Navbar } from "@/components/Navbar";
+import { BouncyCardsFeatures } from "@/components/BouncyCardsFeatures";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -499,369 +501,300 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* Legacy Notice Sticker - Desktop Only */}
-      <div
-        className="hidden lg:block absolute top-9 left-6 z-50 px-3 py-2 -rotate-2 hover:rotate-0 transition-all duration-500 cursor-pointer bg-background border border-dashed border-border rounded-lg shadow-sm opacity-70"
-        onClick={handleStickerClick}
-      >
-        <div
-          className={cn(
-            "transition-opacity duration-500",
-            stickerClicked ? "opacity-0" : "opacity-100"
-          )}
-        >
-          <div className="text-xs font-medium tracking-wide text-foreground mb-1">
-            previously known as
-          </div>
-
-          <div className="flex items-center justify-center space-x-1.5">
-            <Code2 className="h-4 w-4 text-foreground" />
-            <span className="text-sm font-bold tracking-tight text-foreground">
-              Code To Prompt
-            </span>
-          </div>
+    <div className="min-h-screen bg-background flex flex-col space-y-6">
+      {/* Top Section with Background */}
+      <div className="relative pb-8 sm:pb-12 md:pb-20">
+        {/* Background Image Layer with Fade */}
+        <div className="absolute inset-0 bg-[url('/hero-bg.png')] dark:bg-[url('/hero-bg-dark.png')] bg-cover bg-center bg-no-repeat">
+          {/* Fade out overlay at bottom - only affects background */}
+          <div className="absolute bottom-0 left-0 right-0 h-[20%] dark:h-[35%] bg-gradient-to-b from-transparent to-background"></div>
         </div>
 
-        <div
-          className={cn(
-            "absolute inset-0 flex items-center justify-center transition-opacity duration-500",
-            stickerClicked ? "opacity-100" : "opacity-0"
-          )}
-        >
-          <div className="text-center">
-            <div className="text-xs font-medium tracking-wide text-foreground mb-1">
-              welcome to
-            </div>
-            <div className="flex items-center justify-center space-x-1">
-              <span className="flex items-center justify-center h-4 w-4 text-primary font-bold text-xs bg-primary/10 rounded">
-                1
-              </span>
-              <span className="text-sm font-bold tracking-tight text-foreground">
-                OneFile
-              </span>
+        {/* Content Layer */}
+        <div className="relative z-10">
+          {/* Navbar */}
+          <Navbar />
+
+          <div className="flex-grow container max-w-6xl mx-auto px-4 sm:px-6 pb-8 sm:pb-12">
+            <div className="space-y-4 sm:space-y-6">
+              {/* Hero Section */}
+              <div className="text-center space-y-3 sm:space-y-4 py-6 sm:py-8 md:py-4">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+                  Bypass AI Upload Limits
+                </h1>
+                <p className="text-muted-foreground max-w-3xl mx-auto text-sm sm:text-base lg:text-lg leading-relaxed px-4 sm:px-0">
+                  Break through ChatGPT&apos;s 3-file limit. Combine unlimited
+                  files into one AI-ready file.
+                  <br className="hidden sm:block" />
+                  <span className="sm:inline"> </span>Works with Claude, Gemini,
+                  Grok, and all AI platforms.
+                </p>
+              </div>
+
+              {/* Main Content */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-7">
+                {/* Input Section */}
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
+                    <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                      </div>
+                      <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
+                        Input
+                      </h2>
+                    </div>
+
+                    <div className="space-y-4 sm:space-y-6">
+                      <FileUpload
+                        isDragging={isDragging}
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                        onFileChange={handleFileChange}
+                        onGitHubImport={handleGitHubImportClick}
+                      />
+
+                      {files.length === 0 && (
+                        <div className="text-center py-2">
+                          <p className="text-sm text-muted-foreground/80 leading-relaxed">
+                            No files uploaded yet. <br />
+                            Upload your files to get started.
+                          </p>
+                        </div>
+                      )}
+
+                      <FileList
+                        files={files}
+                        onRemoveFile={removeFile}
+                        onClearAll={clearAllFiles}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Output Section */}
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
+                    <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="h-4 w-4 sm:h-5 sm:w-5 text-primary"
+                        >
+                          <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                          <path d="M5 3v4" />
+                          <path d="M19 17v4" />
+                          <path d="M3 5h4" />
+                          <path d="M17 19h4" />
+                        </svg>
+                      </div>
+                      <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
+                        Your One File
+                      </h2>
+                    </div>
+
+                    <div className="space-y-4 sm:space-y-6">
+                      <ScrollArea className="h-[300px] sm:h-[400px] rounded-xl border border-border bg-muted/30 p-4 sm:p-6">
+                        <pre className="text-xs sm:text-sm whitespace-pre-wrap font-mono text-foreground leading-relaxed">
+                          {finalPrompt ||
+                            "Your one file (extracted content from your files) will appear here..."}
+                        </pre>
+                      </ScrollArea>
+
+                      {finalPrompt && (
+                        <div className="flex flex-col sm:flex-row gap-3">
+                          <Button
+                            className="flex-1 bg-background text-foreground/80 hover:bg-muted border border-border/50 shadow-sm h-10 sm:h-11 rounded-lg font-medium"
+                            onClick={copyToClipboard}
+                          >
+                            <Copy className="h-4 w-4 mr-2" />
+                            Copy To Clipboard
+                          </Button>
+                          <Button
+                            className={cn(
+                              "flex-1 bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-10 sm:h-11 rounded-lg font-medium"
+                            )}
+                            onClick={downloadPrompt}
+                            variant="outline"
+                          >
+                            <Download className="h-4 w-4 mr-2" />
+                            Download
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex-grow container max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-12 pt-8 sm:pt-14">
-        <div className="space-y-6 sm:space-y-8">
-          {/* Header - Desktop Version */}
-          <div className="hidden lg:block text-center space-y-2">
-            <div className="flex items-center justify-center space-x-3">
-              <div className="p-2 rounded-lg bg-primary/10">
-                <span className="flex items-center justify-center h-8 w-8 text-primary font-bold text-3xl">
-                  1
-                </span>
+      {/* SEO Content Sections */}
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-28">
+        {/* Logo Cloud - AI Platforms */}
+        <LogoCloud />
+
+        {/* Why OneFile Solves AI Upload Limits - Visual Before/After */}
+        <section className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center text-foreground">
+            Why OneFile Solves AI Upload Limits
+          </h2>
+
+          {/* Before/After Comparison - Visual First */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* LEFT: Without OneFile (Problem Visual) */}
+            <div className="space-y-4">
+              <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+                <div className="aspect-[4/3] relative">
+                  <Image
+                    src="/before.jpg"
+                    alt="ChatGPT file upload limit error - You've reached your file upload limit, Upgrade to Plus"
+                    fill
+                    className="object-cover dark:opacity-95"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
+                </div>
+
+                {/* Badge overlay */}
+                <div className="absolute top-4 left-4">
+                  <div className="flex items-center gap-2 bg-destructive/90 text-destructive-foreground px-3 py-1.5 rounded-full text-sm font-medium">
+                    <X className="h-4 w-4" />
+                    Without OneFile
+                  </div>
+                </div>
               </div>
-              <h1 className="text-5xl font-bold tracking-tight text-foreground">
-                OneFile
-              </h1>
+
+              {/* Short caption */}
+              <p className="text-center text-muted-foreground text-sm">
+                Frustrated by file upload limits on AI platforms
+              </p>
             </div>
-            <p className="text-muted-foreground max-w-3xl mx-auto text-lg leading-relaxed">
-              Combine multiple files into one AI-ready file. <br />
-              No more upload limits, file size worries, or repeated uploads.
+
+            {/* RIGHT: With OneFile (Solution Visual) */}
+            <div className="space-y-4">
+              <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+                <div className="aspect-[4/3] relative">
+                  <Image
+                    src="/after.jpg"
+                    alt="OneFile success - your-onefile.txt ready to upload with unlimited files combined"
+                    fill
+                    className="object-cover dark:opacity-95"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
+                </div>
+
+                {/* Badge overlay */}
+                <div className="absolute top-4 left-4">
+                  <div className="flex items-center gap-2 bg-primary/90 text-primary-foreground px-3 py-1.5 rounded-full text-sm font-medium">
+                    <Check className="h-4 w-4" />
+                    With OneFile
+                  </div>
+                </div>
+              </div>
+
+              {/* Short caption */}
+              <p className="text-center text-muted-foreground text-sm">
+                Upload unlimited files in one go - no restrictions
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-center text-foreground">
+            How It Works
+          </h2>
+          <BouncyCardsFeatures />
+        </section>
+
+        {/* OLD VERSION - COMMENTED OUT FOR REFERENCE */}
+        {/* <section className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-center text-foreground">
+            How It Works
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-card border border-border rounded-2xl p-6 text-center">
+              <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl font-bold text-primary">1</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">
+                Upload Files
+              </h3>
+              <p className="text-muted-foreground">
+                Drag and drop individual files, entire folders, or import
+                directly from GitHub. OneFile supports 50+ file types including
+                PDFs, DOCX, XLSX, PPTX, and all code files.
+              </p>
+            </div>
+            <div className="bg-card border border-border rounded-2xl p-6 text-center">
+              <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl font-bold text-primary">2</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">
+                Smart Processing
+              </h3>
+              <p className="text-muted-foreground">
+                Our tool automatically filters out unnecessary files (images,
+                binaries, dependencies), respects .gitignore rules, and extracts
+                text content while preserving file structure and context.
+              </p>
+            </div>
+            <div className="bg-card border border-border rounded-2xl p-6 text-center">
+              <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl font-bold text-primary">3</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">
+                Copy & Upload
+              </h3>
+              <p className="text-muted-foreground">
+                Get one perfectly formatted text file with all your content.
+                Copy to clipboard or download it, then upload to ChatGPT,
+                Claude, Gemini, or any AI platform - no more file limits!
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 bg-secondary/30 border border-border rounded-xl p-6">
+            <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+              <svg
+                className="h-5 w-5 text-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
+              </svg>
+              100% Private & Secure
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              All file processing happens in your browser. Your files never
+              leave your computer unless you explicitly upload them to an AI
+              platform. No servers, no storage, no privacy concerns.
             </p>
-            <div className="absolute top-8 right-8 flex flex-col items-end gap-3">
-              <div className="flex items-center gap-2">
-                <SignedIn>
-                  <UserButton
-                    appearance={{
-                      elements: {
-                        avatarBox: "w-8 h-8",
-                      },
-                    }}
-                  />
-                </SignedIn>
-                <Button
-                  variant="outline"
-                  className="px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
-                  asChild
-                >
-                  <Link href="https://github.com/wahibonae/onefile">
-                    <GitHub className="h-4 w-4" />
-                    onefile
-                  </Link>
-                </Button>
-                <InfoDialog />
-                <ThemeToggle />
-              </div>
-              <span className="text-xs text-muted-foreground">
-                Created by{" "}
-                <a
-                  href="https://www.linkedin.com/in/abkarimohamedwahib/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium hover:underline"
-                >
-                  Mohamed Wahib ABKARI
-                </a>
-              </span>
-            </div>
           </div>
+        </section> */}
 
-          {/* Header - Tablet Version */}
-          <div className="hidden md:block lg:hidden">
-            <div className="text-center space-y-4">
-              {/* OneFile Logo */}
-              <div className="flex items-center justify-center space-x-3">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <span className="flex items-center justify-center h-6 w-6 text-primary font-bold text-2xl">
-                    1
-                  </span>
-                </div>
-                <h1 className="text-4xl font-bold tracking-tight text-foreground">
-                  OneFile
-                </h1>
-              </div>
-
-              {/* Description */}
-              <p className="text-muted-foreground text-base leading-relaxed">
-                Combine multiple files into one AI-ready file. <br />
-                No more upload limits, file size worries, or repeated uploads.
-              </p>
-
-              {/* GitHub + InfoDialog + Theme Elements */}
-              <div className="flex items-center justify-center gap-2">
-                <SignedIn>
-                  <UserButton
-                    appearance={{
-                      elements: {
-                        avatarBox: "w-8 h-8",
-                      },
-                    }}
-                  />
-                </SignedIn>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-foreground/80 px-2 py-1.5 border-border/40 bg-background shadow-sm group hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
-                  onClick={() =>
-                    window.open(
-                      "https://github.com/wahibonae/onefile",
-                      "_blank"
-                    )
-                  }
-                >
-                  <GitHub className="h-4 w-4" />
-                  GitHub
-                </Button>
-                <InfoDialog />
-                <ThemeToggle />
-              </div>
-
-              {/* Created by */}
-              <div className="flex items-center justify-center">
-                <span className="text-xs text-muted-foreground">
-                  Created by{" "}
-                  <a
-                    href="https://www.linkedin.com/in/abkarimohamedwahib/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium hover:underline"
-                  >
-                    Mohamed Wahib ABKARI
-                  </a>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Header - Mobile Version */}
-          <div className="block md:hidden">
-            <div className="text-center space-y-3">
-              {/* OneFile Logo */}
-              <div className="flex items-center justify-center space-x-2">
-                <div className="p-1.5 rounded-md bg-primary/10">
-                  <span className="flex items-center justify-center h-6 w-6 text-primary font-bold text-2xl">
-                    1
-                  </span>
-                </div>
-                <h1 className="text-4xl font-bold tracking-tight text-foreground">
-                  OneFile
-                </h1>
-              </div>
-
-              {/* Description */}
-              <p className="text-muted-foreground text-md leading-relaxed">
-                Combine multiple files into one AI-ready file. <br />
-                No more upload limits or file size worries.
-              </p>
-
-              {/* GitHub + InfoDialog + Theme Elements */}
-              <div className="flex items-center justify-center gap-1.5">
-                <SignedIn>
-                  <UserButton />
-                </SignedIn>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-9 w-9 text-foreground/80 px-2 py-1 border-border/40 bg-background shadow-sm group hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
-                  onClick={() =>
-                    window.open(
-                      "https://github.com/wahibonae/onefile",
-                      "_blank"
-                    )
-                  }
-                >
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 1024 1024"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
-                      transform="scale(64)"
-                      className="fill-foreground/80 group-hover:fill-primary transition-colors"
-                    />
-                  </svg>
-                </Button>
-                <InfoDialog />
-                <ThemeToggle />
-              </div>
-
-              {/* Created by */}
-              <div className="flex items-center justify-center">
-                <span className="text-xs text-muted-foreground">
-                  Created by{" "}
-                  <a
-                    href="https://www.linkedin.com/in/abkarimohamedwahib/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium hover:underline"
-                  >
-                    Mohamed Wahib ABKARI
-                  </a>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Main Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-7">
-            {/* Input Section */}
-            <div className="space-y-4 sm:space-y-6">
-              <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
-                <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                  </div>
-                  <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
-                    Input
-                  </h2>
-                </div>
-
-                <div className="space-y-4 sm:space-y-6">
-                  <FileUpload
-                    isDragging={isDragging}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleDrop}
-                    onFileChange={handleFileChange}
-                    onGitHubImport={handleGitHubImportClick}
-                  />
-
-                  {files.length === 0 && (
-                    <div className="text-center py-2">
-                      <p className="text-sm text-muted-foreground/80 leading-relaxed">
-                        No files uploaded yet. <br />
-                        Upload your files to get started.
-                      </p>
-                    </div>
-                  )}
-
-                  <FileList
-                    files={files}
-                    onRemoveFile={removeFile}
-                    onClearAll={clearAllFiles}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Output Section */}
-            <div className="space-y-4 sm:space-y-6">
-              <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
-                <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-4 w-4 sm:h-5 sm:w-5 text-primary"
-                    >
-                      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-                      <path d="M5 3v4" />
-                      <path d="M19 17v4" />
-                      <path d="M3 5h4" />
-                      <path d="M17 19h4" />
-                    </svg>
-                  </div>
-                  <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
-                    Your One File
-                  </h2>
-                </div>
-
-                <div className="space-y-4 sm:space-y-6">
-                  <ScrollArea className="h-[300px] sm:h-[400px] rounded-xl border border-border bg-muted/30 p-4 sm:p-6">
-                    <pre className="text-xs sm:text-sm whitespace-pre-wrap font-mono text-foreground leading-relaxed">
-                      {finalPrompt ||
-                        "Your one file (extracted content from your files) will appear here..."}
-                    </pre>
-                  </ScrollArea>
-
-                  {finalPrompt && (
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <Button
-                        className="flex-1 bg-background text-foreground/80 hover:bg-muted border border-border/50 shadow-sm h-10 sm:h-11 rounded-lg font-medium"
-                        onClick={copyToClipboard}
-                      >
-                        <Copy className="h-4 w-4 mr-2" />
-                        Copy To Clipboard
-                      </Button>
-                      <Button
-                        className={cn(
-                          "flex-1 bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-10 sm:h-11 rounded-lg font-medium"
-                        )}
-                        onClick={downloadPrompt}
-                        variant="outline"
-                      >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* FAQ Section */}
+        <FAQSection />
       </div>
-
-      {/* Footer */}
-      <footer className="py-4 text-center bg-background">
-        <div className="text-sm text-muted-foreground/50">
-          v1.1 -{" "}
-          <Link
-            href="/about"
-            className="hover:text-foreground transition-colors"
-          >
-            About OneFile
-          </Link>{" "}
-          - Blog (soon)
-        </div>
-      </footer>
 
       {/* GitHub Repository Browser Dialog */}
       <GitHubRepositoryBrowser

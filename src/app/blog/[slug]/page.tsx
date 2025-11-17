@@ -204,8 +204,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </section>
       </div>
-
-      <Footer />
     </div>
   );
 }

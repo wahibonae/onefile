@@ -36,6 +36,9 @@ yarn-error.log*
 # clerk keyless mode (contains sensitive keys)
 .clerk/
 
+# logs
+logs/
+
 # vercel
 .vercel
 

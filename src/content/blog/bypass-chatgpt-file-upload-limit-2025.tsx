@@ -1,4 +1,7 @@
-export default function BlogPost(){
+import Link from "next/link";
+import { Callout } from "@/components/blog/Callout";
+
+export default function BlogPost() {
   return (
     <>
       <p>
@@ -93,6 +96,14 @@ export default function BlogPost(){
         access to the content of hundreds or even thousands of original files.
       </p>
 
+      <Callout variant="info">
+        <p>
+          This method works with <p className="font-bold inline">all AI platforms</p> including ChatGPT (Free and Plus),
+          Claude, Gemini, and any other AI that accepts text file uploads. It&apos;s a universal
+          solution to file upload limits.
+        </p>
+      </Callout>
+
       <h3>How File Combining Works</h3>
 
       <p>Instead of uploading files individually like this:</p>
@@ -124,7 +135,7 @@ export default function BlogPost(){
       <h2>Method 1: Using OneFile (Recommended)</h2>
 
       <p>
-        <a href="/" className="text-primary hover:underline">OneFile</a> is a
+        <Link href="/" className="text-primary hover:underline">OneFile</Link> is a
         free, open-source web application I built specifically to solve this
         problem. It automatically combines multiple files into a single
         AI-ready text file that works perfectly with ChatGPT, Claude, and other
@@ -204,13 +215,13 @@ export default function BlogPost(){
         </li>
       </ol>
 
-      <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 my-4">
-        <p className="text-sm mb-0">
-          <strong>💡 Pro Tip:</strong> For code projects, use the folder upload
+      <Callout variant="tip">
+        <p>
+          <p className="font-bold inline">Pro Tip:</p> For code projects, use the folder upload
           or GitHub import. OneFile automatically skips node_modules, .git,
           dist, build folders, and respects your .gitignore file.
         </p>
-      </div>
+      </Callout>
 
       <h4>Step 3: Review Uploaded Files</h4>
 
@@ -531,7 +542,7 @@ export default function BlogPost(){
       </p>
 
       <p>
-        <a href="/" className="text-primary hover:underline">OneFile</a> makes
+        <Link href="/" className="text-primary hover:underline">OneFile</Link> makes
         this process effortless, handling everything from text extraction to
         file formatting automatically. It&apos;s free, open source, and designed
         specifically for this use case.
@@ -552,20 +563,6 @@ export default function BlogPost(){
         code review, or a professional preparing reports, bypassing ChatGPT&apos;s
         file limits is now as simple as combining files into one.
       </p>
-
-      <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 my-6">
-        <h3 className="text-xl font-bold mb-2">Try OneFile Now</h3>
-        <p className="text-muted-foreground mb-4">
-          Ready to bypass ChatGPT&apos;s 3-file limit? Try OneFile for free -
-          no sign-up required. Works for both free and Plus users.
-        </p>
-        <a
-          href="/"
-          className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
-        >
-          Get Started →
-        </a>
-      </div>
     </>
   );
 }

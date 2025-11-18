@@ -26,7 +26,7 @@ import { Footer } from "@/components/Footer";
 import { FAQSection } from "@/components/FAQSection";
 import { LogoCloud } from "@/components/LogoCloud";
 import { Navbar } from "@/components/Navbar";
-import { BouncyCardsFeatures } from "@/components/BouncyCardsFeatures";
+import { FeaturesShowcase } from "@/components/FeaturesShowcase";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -715,10 +715,10 @@ export default function Home() {
 
         {/* How It Works */}
         <section className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center text-foreground">
+          <h2 className="text-3xl font-bold mb-12 text-center text-foreground">
             How It Works
           </h2>
-          <BouncyCardsFeatures />
+          <FeaturesShowcase />
         </section>
 
         {/* OLD VERSION - COMMENTED OUT FOR REFERENCE */}

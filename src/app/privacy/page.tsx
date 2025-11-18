@@ -202,19 +202,6 @@ export default function PrivacyPage() {
                 GitHub username and access token (with read-only permissions).
                 See Clerk&apos;s Privacy Policy at clerk.com/legal/privacy
               </p>
-              <p>
-                <strong>Vercel Analytics:</strong> If the application is
-                deployed on Vercel, we may use Vercel Analytics for anonymized
-                traffic statistics. No personally identifiable information is
-                collected.
-              </p>
-              <p>
-                <strong>Cloudflare Pages:</strong> The application may be
-                hosted on Cloudflare Pages, which provides DDoS protection and
-                content delivery. Cloudflare may temporarily log IP addresses
-                for security purposes. See Cloudflare&apos;s Privacy Policy at
-                cloudflare.com/privacypolicy
-              </p>
             </div>
           </section>
 

@@ -59,6 +59,7 @@ export function Navbar() {
             </Button>
             <Button
               variant="outline"
+              size="icon"
               className="hidden sm:inline-flex px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
               asChild
             >

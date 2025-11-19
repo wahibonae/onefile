@@ -96,8 +96,8 @@ export default function AboutPage() {
   ];
 
   const openSourceBenefits = [
-    "Source code is public on github",
-    "Fully local and private",
+    "Source code is public on GitHub, verify how your files are handled",
+    "Text files processed locally, documents processed server-side but never stored",
     "Feel free to contribute and make it better",
   ];
   return (

@@ -45,20 +45,20 @@ export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
       "hover:bg-card/80 transition-all duration-200"
     )}>
       {/* Dropdown Button */}
-      <div className="w-full justify-between flex items-center h-12 px-4 font-medium text-left group-hover:bg-muted/30 transition-colors duration-200">
+      <div className="w-full justify-between flex items-center min-h-12 py-2 px-4 font-medium text-left group-hover:bg-muted/30 transition-colors duration-200">
         <div
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-1 text-muted-foreground/80 cursor-pointer flex-1"
+          className="flex items-center gap-1 text-muted-foreground/80 cursor-pointer flex-1 min-w-0"
         >
           <span className="font-semibold text-sm">{totalFiles}</span>
-          <span className="text-sm">file{totalFiles !== 1 ? 's' : ''} uploaded</span>
+          <span className="text-sm truncate">file{totalFiles !== 1 ? 's' : ''} uploaded</span>
           {fileTypesArray.length > 0 && (
-            <span className="text-xs text-muted-foreground/60">
+            <span className="hidden sm:inline text-xs text-muted-foreground/60">
               ({fileTypesArray.join(', ')}{hasMoreTypes ? ', ...' : ''})
             </span>
           )}
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 shrink-0">
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button
@@ -71,7 +71,7 @@ export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[400px] p-1 gap-0">
-              <div className="p-6 pb-3">
+              <div className="p-4 sm:p-6 pb-3">
                 <DialogHeader className="space-y-3">
                   <DialogTitle className="text-xl font-semibold text-foreground">
                     Clear all files?
@@ -81,7 +81,7 @@ export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
                   </DialogDescription>
                 </DialogHeader>
               </div>
-              <div className="flex gap-3 p-6 pt-2 ">
+              <div className="flex gap-3 p-4 sm:px-6 sm:pt-0">
                 <Button
                   variant="outline"
                   onClick={() => setIsDialogOpen(false)}
@@ -131,7 +131,7 @@ export function FileList({ files, onRemoveFile, onClearAll }: FileListProps) {
                     transition={{ delay: index * 0.05 }}
                     className="flex items-center px-3 py-1 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-all duration-200 border border-transparent hover:border-border/40"
                   >
-                      <span className="text-sm min-w-0 flex-1 text-muted-foreground/80 truncate font-medium">{file.path}</span> {/* TODO: add a button to download the file */}
+                      <span className="text-xs sm:text-sm min-w-0 flex-1 text-muted-foreground/80 truncate font-medium">{file.path}</span>
                     <div className="flex items-center gap-1 opacity-80 group-hover/file:opacity-100 transition-opacity duration-200">
                       <FilePreview file={file} />
                       <Button

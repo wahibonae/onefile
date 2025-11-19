@@ -15,7 +15,7 @@ export const BouncyCardsFeatures = () => {
           </CardDescription>
           <div className="absolute bottom-0 left-4 right-4 top-32 translate-y-8 rounded-t-2xl bg-primary/5 border border-border/50 transition-transform duration-[250ms] group-hover:translate-y-5 group-hover:rotate-[2deg] overflow-hidden">
             <Image
-              src="/feature_1.png"
+              src="/feature_1.jpg"
               alt="Upload files, folders, or import from GitHub"
               fill
               className="object-cover"
@@ -48,7 +48,7 @@ export const BouncyCardsFeatures = () => {
           </CardDescription>
           <div className="absolute bottom-0 left-4 right-4 top-32 translate-y-8 rounded-t-2xl bg-primary/5 border border-border/50 transition-transform duration-[250ms] group-hover:translate-y-5 group-hover:rotate-[2deg] overflow-hidden">
             <Image
-              src="/feature_2.png"
+              src="/feature_2.jpg"
               alt="Get one formatted file. Copy or download it, then upload to ChatGPT or any AI with no limits!"
               fill
               className="object-cover"

@@ -15,7 +15,7 @@ export function Navbar() {
           href="/"
           className="flex items-center space-x-1.5 sm:space-x-2 hover:opacity-90 transition-opacity cursor-pointer"
         >
-          <div className="p-1 sm:p-1.5 rounded-lg bg-primary/10">
+          <div className="p-1 sm:p-1.5 rounded-sm sm:rounded-lg bg-primary/10">
             <span className="flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 text-primary font-bold text-xl sm:text-2xl">
               1
             </span>
@@ -28,7 +28,7 @@ export function Navbar() {
         {/* Controls - Right Side */}
         <div className="flex flex-col items-end gap-1.5 sm:gap-2">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <div>
+            <div className="hidden sm:block">
               <Button
                 variant="ghost"
                 className="px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
@@ -48,13 +48,12 @@ export function Navbar() {
 
             <Button
               variant="outline"
-              size="sm"
-              className="block sm:hidden px-2 sm:px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
+              size="icon"
+              className="flex sm:hidden text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
               asChild
             >
               <Link href="https://github.com/wahibonae/onefile">
-                <GitHub className="h-4 w-4 sm:mr-1.5" />
-                <span className="hidden sm:inline">onefile</span>
+                <GitHub className="h-4 w-4" />
               </Link>
             </Button>
             <Button
@@ -79,7 +78,7 @@ export function Navbar() {
               <UserButton
                 appearance={{
                   elements: {
-                    avatarBox: "w-7 h-7 sm:w-9 sm:h-9",
+                    avatarBox: "w-8 h-8 sm:w-9 sm:h-9",
                   },
                 }}
               />

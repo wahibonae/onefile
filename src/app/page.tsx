@@ -34,6 +34,37 @@ declare module "react" {
   }
 }
 
+// Compute SHA-256 hash of file content for duplicate detection
+async function getFileHash(file: File): Promise<string> {
+  const buffer = await file.arrayBuffer();
+  const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+// Generate a unique path by appending (1), (2), etc.
+function getUniquePath(basePath: string, existingPaths: Set<string>): string {
+  if (!existingPaths.has(basePath)) {
+    return basePath;
+  }
+
+  const lastDotIndex = basePath.lastIndexOf(".");
+  const hasExtension = lastDotIndex > 0 && lastDotIndex > basePath.lastIndexOf("/");
+
+  const namePart = hasExtension ? basePath.slice(0, lastDotIndex) : basePath;
+  const extPart = hasExtension ? basePath.slice(lastDotIndex) : "";
+
+  let counter = 1;
+  let newPath = `${namePart} (${counter})${extPart}`;
+
+  while (existingPaths.has(newPath)) {
+    counter++;
+    newPath = `${namePart} (${counter})${extPart}`;
+  }
+
+  return newPath;
+}
+
 export default function Home() {
   const [files, setFiles] = useState<FileWithContent[]>([]);
   const [finalPrompt, setFinalPrompt] = useState("");
@@ -115,6 +146,22 @@ export default function Home() {
       const ignoredFiles: string[] = [];
       const ignoredDirectories = new Map<string, number>();
 
+      // Build a map of existing file hashes for duplicate content detection
+      const existingFileHashes = new Map<string, string>();
+      for (const f of files) {
+        // Create a simple hash from content for existing files
+        const contentHash = await crypto.subtle.digest(
+          "SHA-256",
+          new TextEncoder().encode(f.content)
+        );
+        const hashArray = Array.from(new Uint8Array(contentHash));
+        const hash = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+        existingFileHashes.set(f.path, hash);
+      }
+
+      // Track paths we're adding in this batch to avoid conflicts
+      const pendingPaths = new Set<string>();
+
       // Process all files
       for (const file of Array.from(fileList)) {
         const relativePath = file.webkitRelativePath || file.name;
@@ -148,8 +195,29 @@ export default function Home() {
           continue;
         }
 
-        if (!existingPaths.has(relativePath)) {
+        // Check for duplicate path
+        if (existingPaths.has(relativePath) || pendingPaths.has(relativePath)) {
+          // Path exists - check if content is different
+          const newFileHash = await getFileHash(file);
+          const existingHash = existingFileHashes.get(relativePath);
+
+          if (existingHash && newFileHash === existingHash) {
+            // Same content - skip as true duplicate
+            continue;
+          }
+
+          // Different content - generate unique path
+          const allPaths = new Set([
+            ...Array.from(existingPaths),
+            ...Array.from(pendingPaths),
+          ]);
+          const uniquePath = getUniquePath(relativePath, allPaths);
+          newFiles.push({ file, path: uniquePath });
+          pendingPaths.add(uniquePath);
+        } else {
+          // New path - add directly
           newFiles.push({ file, path: relativePath });
+          pendingPaths.add(relativePath);
         }
       }
 

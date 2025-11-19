@@ -61,7 +61,7 @@ export function LogoCloud() {
             {/* Grok */}
             <div className="flex items-center justify-center">
               <Image
-                src="/icons/Grok_Full_Logomark_Dark.svg"
+                src="/icons/grok.svg"
                 alt="Grok"
                 width={100}
                 height={24}

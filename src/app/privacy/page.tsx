@@ -85,8 +85,9 @@ export default function PrivacyPage() {
               </p>
               <p>
                 <strong>Document Files:</strong> For complex documents (PDFs,
-                DOCX, XLSX, PPTX), files are temporarily sent to the server
-                only for text extraction on your browser. These files are:
+                DOCX, XLSX, PPTX), files are temporarily sent to our server
+                for text extraction, then the extracted text is returned to
+                your browser. These files are:
               </p>
               <ul className="list-disc pl-6">
                 <li>Processed in memory (never written to disk)</li>

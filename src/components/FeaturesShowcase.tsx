@@ -1,7 +1,22 @@
-import React from "react";
-import Image from "next/image";
+"use client";
 
-export const FeaturesShowcase = () => {
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+
+export const FeaturesShowcase = (): React.JSX.Element => {
+  const [showSolution, setShowSolution] = useState(false);
+
+  useEffect(() => {
+    // Problem shows for 3.5s, solution shows for 4.5s (slightly longer)
+    const duration = showSolution ? 4500 : 3500;
+    const timer = setTimeout(() => {
+      setShowSolution((prev) => !prev);
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [showSolution]);
+
   return (
     <div className="space-y-16 md:space-y-24">
       {/* Section A: Many Files In → One File Out (Image RIGHT) */}
@@ -21,12 +36,35 @@ export const FeaturesShowcase = () => {
           </p>
         </div>
 
-        {/* Image RIGHT */}
+        {/* Image RIGHT - Animated crossfade between problem and solution */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
-            <span className="text-muted-foreground/60 text-sm font-medium">
-              Image coming soon
-            </span>
+            {/* Problem image */}
+            <motion.div
+              animate={{ opacity: showSolution ? 0 : 1 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src="/feature_0_problem.jpg"
+                alt="Multiple files scattered across folders and projects"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
+            {/* Solution image */}
+            <motion.div
+              animate={{ opacity: showSolution ? 1 : 0 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src="/feature_0_solution.jpg"
+                alt="OneFile combines all files into a single formatted text file"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
           </div>
         </div>
       </section>
@@ -37,7 +75,7 @@ export const FeaturesShowcase = () => {
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm lg:order-first order-last">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
             <Image
-              src="/feature_1.png"
+              src="/feature_1.jpg"
               alt="Upload files, folders, or import from GitHub"
               fill
               className="object-cover"
@@ -81,8 +119,8 @@ export const FeaturesShowcase = () => {
         {/* Image RIGHT */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
-          <Image
-              src="/feature_2.png"
+            <Image
+              src="/feature_2.jpg"
               alt="Automatically filters out unnecessary files like node_modules, images, and build artifacts."
               fill
               className="object-cover transition-all duration-300"
@@ -91,14 +129,14 @@ export const FeaturesShowcase = () => {
         </div>
       </section>
 
-      {/* Section D: 100% Private & Secure (Image LEFT) */}
+      {/* Section D: Open Source & Transparent (Image LEFT) */}
       <section className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         {/* Image LEFT (on desktop, shows first due to order-first) */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm lg:order-first order-last">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
             <Image
-              src="/feature_3.png"
-              alt="All processing happens directly in your browser."
+              src="/feature_3.jpg"
+              alt="Open source code on GitHub - verify how your files are handled."
               fill
               className="object-cover transition-all duration-300"
             />
@@ -111,12 +149,12 @@ export const FeaturesShowcase = () => {
             Privacy First
           </p>
           <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
-            100% Private &amp; Secure
+            Open Source &amp; Transparent
           </h3>
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-            All processing happens directly in your browser. Your files never
-            touch our servers, never get uploaded, and never leave your
-            computer. No accounts, no tracking, completely private.
+            Everything is processed entirely in your browser. Documents like
+            PDFs and Word files are processed on our server but never stored.
+            All code is open-source on GitHub, verify it yourself!
           </p>
         </div>
       </section>

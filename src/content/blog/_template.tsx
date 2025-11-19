@@ -165,7 +165,7 @@ function processFiles(files: File[]): Promise<string> {
 
       {/* Image Example */}
       <BlogImage
-        src="/feature_1.png"
+        src="/feature_1.jpg"
         alt="Example of the OneFile interface"
         caption="This is an optional caption that describes the image. Use captions to provide context."
       />

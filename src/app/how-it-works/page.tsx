@@ -124,9 +124,9 @@ export default function HowItWorksPage() {
     },
     {
       icon: Shield,
-      title: "100% Private",
+      title: "Open Source & Transparent",
       description:
-        "All processing happens in your browser using JavaScript. Your files never touch our servers. We can't see your data because we never receive it.",
+        "Text/Code files stay in your browser. Documents are processed server-side but never stored. All code is public on GitHub, feel free to verify it yourself.",
     },
   ];
 

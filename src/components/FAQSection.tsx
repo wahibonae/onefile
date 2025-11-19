@@ -17,7 +17,7 @@ export function FAQSection() {
     {
       id: "item-3",
       question: "Is my data private and secure?",
-      answer: "Absolutely. All file processing happens locally in your web browser using JavaScript. Your files never touch our servers or get uploaded to the internet. It's as private as opening a file on your computer.",
+      answer: "Yes. Text and code files are processed entirely in your browser, they never leave your computer. Documents like PDFs and Word files are temporarily processed on our server for text extraction but are never stored. Our entire codebase is open-source on GitHub, so you can verify exactly how your files are handled.",
     },
     {
       id: "item-4",

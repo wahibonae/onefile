@@ -4,14 +4,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   MessageSquare,
-  Twitter,
-  Linkedin,
   Code,
   HelpCircle,
   Bug,
 } from "lucide-react";
 
 import GitHub from "@/components/icons/Github";
+import XformerlyTwitter from "@/components/icons/X";
+import LinkedIn from "@/components/icons/Linkedin";
 
 export default function ContactPage() {
   return (
@@ -74,7 +74,7 @@ export default function ContactPage() {
               className="bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-colors"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-purple-500/10 rounded-lg">
+                <div className="p-2 bg-primary/10 rounded-lg">
                   <Code className="h-5 w-5 text-primary" />
                 </div>
                 <h3 className="font-semibold text-foreground">
@@ -121,7 +121,7 @@ export default function ContactPage() {
             {/* Twitter */}
             <div className="bg-card border border-border rounded-xl p-6 flex items-start gap-4">
               <div className="p-3 bg-primary/10 rounded-xl">
-                <Twitter className="h-6 w-6 text-primary" />
+                <XformerlyTwitter className="h-6 w-6 text-primary" />
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-foreground mb-2">
@@ -144,8 +144,8 @@ export default function ContactPage() {
 
             {/* LinkedIn */}
             <div className="bg-card border border-border rounded-xl p-6 flex items-start gap-4">
-              <div className="p-3 bg-blue-600/10 rounded-xl">
-                <Linkedin className="h-6 w-6 text-blue-600" />
+              <div className="p-3 bg-primary/10 rounded-xl">
+                <LinkedIn className="h-6 w-6 text-primary" />
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-foreground mb-2">LinkedIn</h3>
@@ -157,7 +157,7 @@ export default function ContactPage() {
                   href="https://www.linkedin.com/in/abkarimohamedwahib/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline font-medium text-sm"
+                  className="text-primary hover:underline font-medium text-sm"
                 >
                   Mohamed Wahib ABKARI →
                 </a>

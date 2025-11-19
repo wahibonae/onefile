@@ -145,7 +145,7 @@ export default function RootLayout({
         "Combine unlimited files into one",
         "Support for 50+ file types",
         "GitHub repository import",
-        "100% private and secure",
+        "Open source and transparent",
       ],
       screenshot: {
         "@type": "ImageObject",
@@ -179,7 +179,7 @@ export default function RootLayout({
           name: "Is my data private and secure?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Absolutely. All file processing happens locally in your web browser using JavaScript. Your files never touch our servers or get uploaded to the internet. It's as private as opening a file on your computer.",
+            text: "Yes. Text and code files are processed entirely in your browser - they never leave your computer. Documents like PDFs and Word files are temporarily processed on our server for text extraction but are never stored. Our entire codebase is open-source on GitHub, so you can verify exactly how your files are handled.",
           },
         },
         {

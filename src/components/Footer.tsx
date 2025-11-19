@@ -77,14 +77,6 @@ export function Footer() {
                   GitHub
                 </a>
               </li>
-              <li>
-                <Link
-                  href="/changelog"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Changelog
-                </Link>
-              </li>
             </ul>
           </div>
 

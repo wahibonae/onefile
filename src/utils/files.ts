@@ -424,4 +424,35 @@ export const generatePromptText = (files: FileWithContent[]): string => {
     result += `*** ${file.path} ***\n${file.content}\n\n`
   })
   return result
+}
+
+// Compute SHA-256 hash of file content for duplicate detection
+export async function getFileHash(file: File): Promise<string> {
+  const buffer = await file.arrayBuffer();
+  const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+// Generate a unique path by appending (1), (2), etc.
+export function getUniquePath(basePath: string, existingPaths: Set<string>): string {
+  if (!existingPaths.has(basePath)) {
+    return basePath;
+  }
+
+  const lastDotIndex = basePath.lastIndexOf(".");
+  const hasExtension = lastDotIndex > 0 && lastDotIndex > basePath.lastIndexOf("/");
+
+  const namePart = hasExtension ? basePath.slice(0, lastDotIndex) : basePath;
+  const extPart = hasExtension ? basePath.slice(lastDotIndex) : "";
+
+  let counter = 1;
+  let newPath = `${namePart} (${counter})${extPart}`;
+
+  while (existingPaths.has(newPath)) {
+    counter++;
+    newPath = `${namePart} (${counter})${extPart}`;
+  }
+
+  return newPath;
 } 

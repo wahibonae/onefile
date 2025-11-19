@@ -1,0 +1,131 @@
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { ArrowLeft } from "lucide-react";
+import { blogPosts } from "@/data/blog-posts";
+import { AuthorCard } from "@/components/blog/AuthorCard";
+import { Button } from "@/components/ui/button";
+
+interface BlogPostPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+// Generate static params for all blog posts
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogPosts.find((p) => p.slug === slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.description,
+    authors: [{ name: post.author }],
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      authors: [post.author],
+      tags: post.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
+  };
+}
+
+export default async function BlogPostPage({
+  params,
+}: BlogPostPageProps): Promise<React.JSX.Element> {
+  const { slug } = await params;
+  const post = blogPosts.find((p) => p.slug === slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  // Dynamic import of blog content
+  const { default: BlogContent } = await import(`@/content/blog/${slug}`);
+
+  const formatDate = (dateString: string): string => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  return (
+    <div className="container max-w-5xl mx-auto px-4 sm:px-6 py-8">
+      {/* Back Button */}
+      <div className="mb-10">
+        <Button variant="outline" size="sm" asChild>
+          <Link href="/blog" className="inline-flex items-center gap-2">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Blog
+          </Link>
+        </Button>
+      </div>
+
+      <article className="max-w-4xl mx-auto">
+        {/* Title */}
+        <h1 className="mb-7 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          {post.title}
+        </h1>
+
+        {/* Description */}
+        <p className="mb-7 text-lg leading-relaxed text-muted-foreground sm:text-xl">
+          {post.description}
+        </p>
+
+        {/* Meta info */}
+        <div className="mb-8 flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+          <span className="font-medium text-foreground">By {post.author}</span>
+          <span>•</span>
+          <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+          <span>•</span>
+          <span>{post.readingTime}</span>
+        </div>
+
+        {/* Featured Image */}
+        <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-xl bg-muted">
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+
+        {/* Article Content */}
+        <div className="prose prose-neutral max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground prose-h2:mb-4 prose-h2:mt-12 prose-h2:text-2xl prose-h2:border-b prose-h2:border-border/40 prose-h2:pb-3 prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-lg prose-h4:mb-2 prose-h4:mt-6 prose-h4:text-base prose-p:text-muted-foreground prose-p:leading-7 prose-a:font-medium prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-semibold prose-strong:text-foreground prose-ul:my-4 prose-ul:space-y-1 prose-ol:my-4 prose-ol:space-y-1 prose-li:text-muted-foreground prose-li:leading-7 prose-li:my-0 prose-code:rounded-md prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:text-foreground prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:border prose-pre:border-border prose-pre:bg-card prose-blockquote:border-l-2 prose-blockquote:border-primary/50 prose-blockquote:bg-muted/30 prose-blockquote:py-1 prose-blockquote:pl-4 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-muted-foreground">
+          <BlogContent />
+        </div>
+
+        {/* Author Section */}
+        <footer className="mt-12 border-t border-border pt-8">
+          <AuthorCard author={post.author} />
+        </footer>
+      </article>
+    </div>
+  );
+}

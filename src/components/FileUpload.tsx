@@ -71,7 +71,7 @@ export function FileUpload({
           <p className="text-sm text-muted-foreground mb-3">
             Drag files here or
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button

@@ -33,6 +33,12 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# clerk keyless mode (contains sensitive keys)
+.clerk/
+
+# logs
+logs/
+
 # vercel
 .vercel
 
@@ -44,3 +50,7 @@ yarn-error.log*
 next-env.d.ts
 
 .cursor/
+
+.claude/
+
+CLAUDE.md

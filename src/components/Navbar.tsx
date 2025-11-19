@@ -70,7 +70,7 @@ export function Navbar() {
             <ThemeToggle />
             <SignedOut>
               <SignInButton mode="modal">
-                <Button variant="outline" size="sm" className="px-3 sm:px-4">
+                <Button variant="outline" className="px-3 sm:px-4">
                   Sign In
                 </Button>
               </SignInButton>

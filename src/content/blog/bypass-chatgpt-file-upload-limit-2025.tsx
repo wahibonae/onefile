@@ -98,7 +98,7 @@ export default function BlogPost() {
 
       <Callout variant="info">
         <p>
-          This method works with <p className="font-bold inline">all AI platforms</p> including ChatGPT (Free and Plus),
+          This method works with <span className="font-bold">all AI platforms</span> including ChatGPT (Free and Plus),
           Claude, Gemini, and any other AI that accepts text file uploads. It&apos;s a universal
           solution to file upload limits.
         </p>
@@ -217,7 +217,7 @@ export default function BlogPost() {
 
       <Callout variant="tip">
         <p>
-          <p className="font-bold inline">Pro Tip:</p> For code projects, use the folder upload
+          <span className="font-bold">Pro Tip:</span> For code projects, use the folder upload
           or GitHub import. OneFile automatically skips node_modules, .git,
           dist, build folders, and respects your .gitignore file.
         </p>
@@ -278,13 +278,13 @@ export default function BlogPost() {
         </li>
       </ol>
 
-      <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 my-4">
-        <p className="text-sm mb-0">
-          <strong>✅ Success!</strong> You&apos;ve now bypassed ChatGPT&apos;s
+      <Callout variant="success">
+        <p>
+          <span className="font-bold">Success!</span> You&apos;ve now bypassed ChatGPT&apos;s
           3-file limit (or 10-file batch limit for Plus users). ChatGPT can see and analyze all your files at once,
           even if you originally had 100+ files.
         </p>
-      </div>
+      </Callout>
 
       <h2>Real-World Use Cases</h2>
 

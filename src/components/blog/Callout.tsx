@@ -1,7 +1,7 @@
-import { AlertCircle, Info, Lightbulb } from "lucide-react";
+import { AlertCircle, CheckCircle2, Info, Lightbulb } from "lucide-react";
 import { ReactNode } from "react";
 
-type CalloutVariant = "info" | "warning" | "tip";
+type CalloutVariant = "info" | "warning" | "tip" | "success";
 
 interface CalloutProps {
   variant?: CalloutVariant;
@@ -11,24 +11,27 @@ interface CalloutProps {
 const variantConfig = {
   info: {
     icon: Info,
-    bgColor: "bg-blue-500/5",
-    borderColor: "border-blue-500/20",
-    textColor: "text-blue-600 dark:text-blue-400",
-    iconColor: "text-blue-500",
+    bgColor: "bg-primary/5",
+    borderColor: "border-primary/20",
+    iconColor: "text-primary",
   },
   warning: {
     icon: AlertCircle,
-    bgColor: "bg-yellow-500/5",
-    borderColor: "border-yellow-500/20",
-    textColor: "text-yellow-700 dark:text-yellow-300",
-    iconColor: "text-yellow-500",
+    bgColor: "bg-primary/5",
+    borderColor: "border-primary/20",
+    iconColor: "text-primary",
   },
   tip: {
     icon: Lightbulb,
-    bgColor: "bg-green-500/5",
-    borderColor: "border-green-500/20",
-    textColor: "text-green-700 dark:text-green-300",
-    iconColor: "text-green-500",
+    bgColor: "bg-primary/5",
+    borderColor: "border-primary/20",
+    iconColor: "text-primary",
+  },
+  success: {
+    icon: CheckCircle2,
+    bgColor: "bg-primary/5",
+    borderColor: "border-primary/20",
+    iconColor: "text-primary",
   },
 };
 
@@ -38,10 +41,12 @@ export function Callout({ variant = "info", children }: CalloutProps) {
 
   return (
     <div
-      className={`my-6 flex gap-3 rounded-xl border p-4 ${config.bgColor} ${config.borderColor} ${config.textColor}`}
+      className={`my-6 flex gap-3 rounded-lg border p-4 ${config.bgColor} ${config.borderColor}`}
     >
-      <Icon className={`h-5 w-5 flex-shrink-0 ${config.iconColor}`} />
-      <div className="flex-1 text-sm leading-relaxed [&>p]:m-0">{children}</div>
+      <Icon className={`mt-0.5 h-5 w-5 flex-shrink-0 ${config.iconColor}`} />
+      <div className="flex-1 text-sm leading-relaxed text-primary [&>p]:m-0 [&>p]:text-primary [&_strong]:text-primary [&_span]:text-primary">
+        {children}
+      </div>
     </div>
   );
 }

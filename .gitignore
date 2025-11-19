@@ -50,3 +50,7 @@ logs/
 next-env.d.ts
 
 .cursor/
+
+.claude/
+
+CLAUDE.md

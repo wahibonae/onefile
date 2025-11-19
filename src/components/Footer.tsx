@@ -130,7 +130,7 @@ export function Footer() {
           {/* Social */}
           <div className="flex flex-col items-center md:items-start">
             <h3 className="font-semibold text-foreground mb-3">
-              wahib's socials
+              wahib&apos;s socials
             </h3>
             <ul className="space-y-2 flex flex-col items-center md:items-start">
               <li>

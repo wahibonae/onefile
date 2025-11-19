@@ -81,9 +81,9 @@ export const FeaturesShowcase = () => {
         {/* Image RIGHT */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
-            <Image
+          <Image
               src="/feature_2.png"
-              alt="Upload files, folders, or import from GitHub"
+              alt="Automatically filters out unnecessary files like node_modules, images, and build artifacts."
               fill
               className="object-cover transition-all duration-300"
             />
@@ -96,9 +96,9 @@ export const FeaturesShowcase = () => {
         {/* Image LEFT (on desktop, shows first due to order-first) */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm lg:order-first order-last">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
-          <Image
+            <Image
               src="/feature_3.png"
-              alt="Upload files, folders, or import from GitHub"
+              alt="All processing happens directly in your browser."
               fill
               className="object-cover transition-all duration-300"
             />

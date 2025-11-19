@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Footer } from "@/components/Footer";
 import { Shield, Eye, Server, Lock } from "lucide-react";
 
 import GitHub from "@/components/icons/Github";
@@ -20,7 +19,7 @@ export default function PrivacyPage() {
             Privacy Policy
           </h1>
           <p className="text-muted-foreground">
-            Last updated: October 23, 2025
+            Last updated: November 19, 2025
           </p>
         </div>
 
@@ -86,12 +85,11 @@ export default function PrivacyPage() {
               </p>
               <p>
                 <strong>Document Files:</strong> For complex documents (PDFs,
-                DOCX, XLSX, PPTX), files are temporarily sent to our server
-                only for text extraction. These files are:
+                DOCX, XLSX, PPTX), files are temporarily sent to the server
+                only for text extraction on your browser. These files are:
               </p>
               <ul className="list-disc pl-6">
                 <li>Processed in memory (never written to disk)</li>
-                <li>Immediately deleted after text extraction</li>
                 <li>Not logged, stored, or analyzed in any way</li>
                 <li>Not shared with any third parties</li>
               </ul>

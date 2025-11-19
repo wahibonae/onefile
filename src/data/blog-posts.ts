@@ -2,6 +2,7 @@ export interface BlogPost {
   slug: string;
   title: string;
   description: string;
+  image: string;
   publishedAt: string;
   updatedAt?: string;
   author: string;
@@ -17,7 +18,8 @@ export const blogPosts: BlogPost[] = [
     title: "How to Bypass ChatGPT's 3-File Upload Limit (Complete Guide 2025)",
     description:
       "ChatGPT's 3-file upload limit is frustrating. Learn how to bypass it and upload unlimited files using OneFile - a free, open-source solution that combines multiple files into one.",
-    publishedAt: "2025-01-15",
+    image: "/blog/bypass-chatgpt-limit.png",
+    publishedAt: "2025-11-19",
     author: "Mohamed Wahib ABKARI",
     readingTime: "8 min read",
     category: "Tutorials",
@@ -28,6 +30,6 @@ export const blogPosts: BlogPost[] = [
       "Productivity",
       "Tutorial",
     ],
-    featured: true,
+    featured: false,
   },
 ];

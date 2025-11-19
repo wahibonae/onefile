@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Footer } from "@/components/Footer";
 import {
   FileText,
   Code,
@@ -454,24 +453,27 @@ export default function SupportedFilesPage() {
 
                     <div className="flex items-center justify-between">
                       <div className="flex gap-2">
-                        <CheckCircle2
-                          className={`h-4 w-4 ${
-                            type.chatgpt ? "text-primary" : "text-gray-400"
-                          }`}
-                          title="ChatGPT"
-                        />
-                        <CheckCircle2
-                          className={`h-4 w-4 ${
-                            type.claude ? "text-primary" : "text-gray-400"
-                          }`}
-                          title="Claude"
-                        />
-                        <CheckCircle2
-                          className={`h-4 w-4 ${
-                            type.gemini ? "text-primary" : "text-gray-400"
-                          }`}
-                          title="Gemini"
-                        />
+                        <span title="ChatGPT">
+                          <CheckCircle2
+                            className={`h-4 w-4 ${
+                              type.chatgpt ? "text-primary" : "text-gray-400"
+                            }`}
+                          />
+                        </span>
+                        <span title="Claude">
+                          <CheckCircle2
+                            className={`h-4 w-4 ${
+                              type.claude ? "text-primary" : "text-gray-400"
+                            }`}
+                          />
+                        </span>
+                        <span title="Gemini">
+                          <CheckCircle2
+                            className={`h-4 w-4 ${
+                              type.gemini ? "text-primary" : "text-gray-400"
+                            }`}
+                          />
+                        </span>
                       </div>
                       {type.notes && (
                         <p className="text-xs text-muted-foreground italic">

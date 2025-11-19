@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Footer } from "@/components/Footer";
 import {
   Upload,
   FileText,
@@ -338,7 +337,7 @@ export default function HowItWorksPage() {
 
         {/* Privacy & Security */}
         <section className="mb-16">
-          <div className="bg-secondary/30 border border-border rounded-2xl p-8">
+          <div className="bg-card border border-border rounded-2xl p-8">
             <div className="flex items-start gap-4 mb-4">
               <div className="p-3 bg-primary/10 rounded-xl">
                 <Shield className="h-8 w-8 text-primary" />
@@ -355,7 +354,7 @@ export default function HowItWorksPage() {
             </div>
             <div className="space-y-3 ml-16">
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5" />
+                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
                 <div>
                   <p className="text-sm text-foreground font-medium">
                     Browser-Based Processing
@@ -367,7 +366,7 @@ export default function HowItWorksPage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5" />
+                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
                 <div>
                   <p className="text-sm text-foreground font-medium">
                     Temporary Server Processing
@@ -380,7 +379,7 @@ export default function HowItWorksPage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5" />
+                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
                 <div>
                   <p className="text-sm text-foreground font-medium">
                     No Account Required
@@ -392,7 +391,7 @@ export default function HowItWorksPage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5" />
+                <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
                 <div>
                   <p className="text-sm text-foreground font-medium">
                     Open Source

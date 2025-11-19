@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import confetti from "canvas-confetti";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -22,11 +21,11 @@ import { IGNORED_PATHS } from "@/constants/files";
 import { cn } from "@/lib/utils";
 import { useUser, useClerk } from "@clerk/nextjs";
 import { GitHubRepositoryBrowser } from "@/components/GitHubRepositoryBrowser";
-import { Footer } from "@/components/Footer";
 import { FAQSection } from "@/components/FAQSection";
 import { LogoCloud } from "@/components/LogoCloud";
 import { Navbar } from "@/components/Navbar";
 import { FeaturesShowcase } from "@/components/FeaturesShowcase";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 
 declare module "react" {
   interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -39,7 +38,6 @@ export default function Home() {
   const [files, setFiles] = useState<FileWithContent[]>([]);
   const [finalPrompt, setFinalPrompt] = useState("");
   const [isDragging, setIsDragging] = useState(false);
-  const [stickerClicked, setStickerClicked] = useState(false);
   const [isGitHubBrowserOpen, setIsGitHubBrowserOpen] = useState(false);
   const { isSignedIn } = useUser();
   const { openSignIn } = useClerk();
@@ -407,46 +405,6 @@ export default function Home() {
     setFiles([]);
   };
 
-  const handleStickerClick = () => {
-    if (stickerClicked) return; // Prevent multiple clicks
-
-    setStickerClicked(true);
-
-    // Trigger confetti effect
-    const end = Date.now() + 1 * 1000; // 1 second
-    const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
-
-    const frame = () => {
-      if (Date.now() > end) return;
-
-      confetti({
-        particleCount: 2,
-        angle: 60,
-        spread: 55,
-        startVelocity: 60,
-        origin: { x: 0, y: 0.5 },
-        colors: colors,
-      });
-      confetti({
-        particleCount: 2,
-        angle: 120,
-        spread: 55,
-        startVelocity: 60,
-        origin: { x: 1, y: 0.5 },
-        colors: colors,
-      });
-
-      requestAnimationFrame(frame);
-    };
-
-    frame();
-
-    // Reset back to original state after 3 seconds
-    setTimeout(() => {
-      setStickerClicked(false);
-    }, 3000);
-  };
-
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(finalPrompt)
@@ -641,7 +599,7 @@ export default function Home() {
       </div>
 
       {/* SEO Content Sections */}
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-28">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-32">
         {/* Logo Cloud - AI Platforms */}
         <LogoCloud />
 
@@ -721,76 +679,8 @@ export default function Home() {
           <FeaturesShowcase />
         </section>
 
-        {/* OLD VERSION - COMMENTED OUT FOR REFERENCE */}
-        {/* <section className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center text-foreground">
-            How It Works
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-card border border-border rounded-2xl p-6 text-center">
-              <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <span className="text-2xl font-bold text-primary">1</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">
-                Upload Files
-              </h3>
-              <p className="text-muted-foreground">
-                Drag and drop individual files, entire folders, or import
-                directly from GitHub. OneFile supports 50+ file types including
-                PDFs, DOCX, XLSX, PPTX, and all code files.
-              </p>
-            </div>
-            <div className="bg-card border border-border rounded-2xl p-6 text-center">
-              <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <span className="text-2xl font-bold text-primary">2</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">
-                Smart Processing
-              </h3>
-              <p className="text-muted-foreground">
-                Our tool automatically filters out unnecessary files (images,
-                binaries, dependencies), respects .gitignore rules, and extracts
-                text content while preserving file structure and context.
-              </p>
-            </div>
-            <div className="bg-card border border-border rounded-2xl p-6 text-center">
-              <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <span className="text-2xl font-bold text-primary">3</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">
-                Copy & Upload
-              </h3>
-              <p className="text-muted-foreground">
-                Get one perfectly formatted text file with all your content.
-                Copy to clipboard or download it, then upload to ChatGPT,
-                Claude, Gemini, or any AI platform - no more file limits!
-              </p>
-            </div>
-          </div>
-          <div className="mt-8 bg-secondary/30 border border-border rounded-xl p-6">
-            <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-              <svg
-                className="h-5 w-5 text-primary"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
-              100% Private & Secure
-            </h4>
-            <p className="text-sm text-muted-foreground">
-              All file processing happens in your browser. Your files never
-              leave your computer unless you explicitly upload them to an AI
-              platform. No servers, no storage, no privacy concerns.
-            </p>
-          </div>
-        </section> */}
+        {/* Testimonials */}
+        <TestimonialsSection />
 
         {/* FAQ Section */}
         <FAQSection />

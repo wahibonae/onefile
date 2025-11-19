@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Footer } from "@/components/Footer";
 import {
   GraduationCap,
   Code,
@@ -229,7 +228,7 @@ export default function UseCasesPage() {
 
               {/* Problem & Solution */}
               <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-red-500/5 border border-red-500/20 text-red-500 rounded-xl p-6">
+                <div className="bg-red-500/5 border border-red-500/20 dark:border-red-500/50 text-red-500 rounded-xl p-6">
                   <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
                     ❌ The Problem
                   </h3>
@@ -295,7 +294,7 @@ export default function UseCasesPage() {
                   &quot;{useCase.testimonial}&quot;
                 </p>
                 <p className="text-sm text-primary font-medium mt-2">
-                  - OneFile {useCase.persona.toLowerCase().slice(0, -1)} user
+                  - OneFile&apos;s ideal {useCase.persona.toLowerCase().slice(0, -1)} user
                 </p>
               </div>
             </section>

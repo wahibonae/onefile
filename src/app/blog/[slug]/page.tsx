@@ -1,118 +1,131 @@
-"use client";
-
-import { use } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Tag } from "lucide-react";
+import { Metadata } from "next";
+import { ArrowLeft } from "lucide-react";
 import { blogPosts } from "@/data/blog-posts";
-import { TableOfContents } from "@/components/blog/TableOfContents";
-import { ShareButtons } from "@/components/blog/ShareButtons";
-import { BlogMetadata } from "@/components/blog/BlogMetadata";
 import { AuthorCard } from "@/components/blog/AuthorCard";
+import { Button } from "@/components/ui/button";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = use(params);
+// Generate static params for all blog posts
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogPosts.find((p) => p.slug === slug);
+
+  if (!post) {
+    return {
+      title: "Post Not Found",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.description,
+    authors: [{ name: post.author }],
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      authors: [post.author],
+      tags: post.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
+  };
+}
+
+export default async function BlogPostPage({
+  params,
+}: BlogPostPageProps): Promise<React.JSX.Element> {
+  const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
   }
 
-  // Import the blog post content dynamically
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const BlogContent = require(`@/content/blog/${slug}.tsx`).default;
+  // Dynamic import of blog content
+  const { default: BlogContent } = await import(`@/content/blog/${slug}`);
+
+  const formatDate = (dateString: string): string => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="container max-w-5xl mx-auto px-4 sm:px-6 py-8">
       {/* Back Button */}
-      <div>
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-2">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
+      <div className="mb-10">
+        <Button variant="outline" size="sm" asChild>
+          <Link href="/blog" className="inline-flex items-center gap-2">
             <ArrowLeft className="h-4 w-4" />
             Back to Blog
           </Link>
-        </div>
+        </Button>
       </div>
 
-      {/* Two-Column Layout */}
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12">
-        <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
-          {/* Left Column - Article Content */}
-          <article className="min-w-0">
-            {/* Article Header */}
-            <header className="mb-10">
-              {/* Category Badge */}
-              <div className="mb-6">
-                <span className="inline-block rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground">
-                  {post.category}
-                </span>
-              </div>
+      <article className="max-w-4xl mx-auto">
+        {/* Title */}
+        <h1 className="mb-7 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          {post.title}
+        </h1>
 
-              {/* Title */}
-              <h1 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-                {post.title}
-              </h1>
+        {/* Description */}
+        <p className="mb-7 text-lg leading-relaxed text-muted-foreground sm:text-xl">
+          {post.description}
+        </p>
 
-              {/* Description */}
-              <p className="text-lg sm:text-xl text-muted-foreground">
-                {post.description}
-              </p>
-            </header>
-
-            {/* Article Content */}
-            <div className="prose prose-neutral mx-auto max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight prose-h2:mb-4 prose-h2:mt-10 prose-h2:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:text-xl prose-p:leading-relaxed prose-a:font-medium prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-semibold prose-ul:my-6 prose-li:my-2 prose-code:rounded prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:border prose-pre:border-border prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:font-normal prose-blockquote:not-italic">
-              <BlogContent />
-            </div>
-
-            {/* Tags Section */}
-            <footer className="mt-12 border-t border-border pt-8">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
-                  <Tag className="h-4 w-4" />
-                  Tags:
-                </span>
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-border bg-card px-3 py-1 text-sm text-muted-foreground transition-colors hover:border-primary/50"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </footer>
-          </article>
-
-          {/* Right Column - Sticky Sidebar */}
-          <aside className="lg:sticky lg:top-8 lg:h-fit">
-            <div className="space-y-6">
-              {/* Table of Contents */}
-              <TableOfContents />
-
-              {/* Blog Metadata */}
-              <BlogMetadata
-                publishedAt={post.publishedAt}
-                readingTime={post.readingTime}
-                category={post.category}
-                updatedAt={post.updatedAt}
-              />
-
-              {/* Share Buttons */}
-              <ShareButtons title={post.title} slug={post.slug} />
-
-              {/* Author Card */}
-              <AuthorCard author={post.author} />
-            </div>
-          </aside>
+        {/* Meta info */}
+        <div className="mb-8 flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+          <span className="font-medium text-foreground">By {post.author}</span>
+          <span>•</span>
+          <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+          <span>•</span>
+          <span>{post.readingTime}</span>
         </div>
-      </div>
+
+        {/* Featured Image */}
+        <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-xl bg-muted">
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+
+        {/* Article Content */}
+        <div className="prose prose-neutral max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground prose-h2:mb-4 prose-h2:mt-12 prose-h2:text-2xl prose-h2:border-b prose-h2:border-border/40 prose-h2:pb-3 prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-lg prose-h4:mb-2 prose-h4:mt-6 prose-h4:text-base prose-p:text-muted-foreground prose-p:leading-7 prose-a:font-medium prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-semibold prose-strong:text-foreground prose-ul:my-4 prose-ul:space-y-1 prose-ol:my-4 prose-ol:space-y-1 prose-li:text-muted-foreground prose-li:leading-7 prose-li:my-0 prose-code:rounded-md prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:text-foreground prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:border prose-pre:border-border prose-pre:bg-card prose-blockquote:border-l-2 prose-blockquote:border-primary/50 prose-blockquote:bg-muted/30 prose-blockquote:py-1 prose-blockquote:pl-4 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-muted-foreground">
+          <BlogContent />
+        </div>
+
+        {/* Author Section */}
+        <footer className="mt-12 border-t border-border pt-8">
+          <AuthorCard author={post.author} />
+        </footer>
+      </article>
     </div>
   );
 }

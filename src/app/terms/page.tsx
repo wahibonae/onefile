@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Footer } from "@/components/Footer";
 import {
   FileText,
   CheckCircle,
@@ -25,7 +24,7 @@ export default function TermsPage() {
             Terms of Service
           </h1>
           <p className="text-muted-foreground">
-            Last updated: October 23, 2025
+            Last updated: November 19, 2025
           </p>
         </div>
 
@@ -345,44 +344,6 @@ export default function TermsPage() {
                       className="text-primary hover:underline"
                     >
                       clerk.com/legal/terms
-                    </a>
-                  </p>
-                </div>
-                <div className="bg-card border border-border rounded-lg p-4">
-                  <h3 className="font-semibold text-foreground mb-2">
-                    Cloudflare Pages
-                  </h3>
-                  <p className="text-sm mb-2">
-                    Hosting provider for the OneFile web application.
-                  </p>
-                  <p className="text-sm">
-                    Terms:{" "}
-                    <a
-                      href="https://www.cloudflare.com/terms/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      cloudflare.com/terms
-                    </a>
-                  </p>
-                </div>
-                <div className="bg-card border border-border rounded-lg p-4">
-                  <h3 className="font-semibold text-foreground mb-2">
-                    Vercel Analytics (Optional)
-                  </h3>
-                  <p className="text-sm mb-2">
-                    Anonymized analytics if deployed on Vercel.
-                  </p>
-                  <p className="text-sm">
-                    Terms:{" "}
-                    <a
-                      href="https://vercel.com/legal/terms"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      vercel.com/legal/terms
                     </a>
                   </p>
                 </div>

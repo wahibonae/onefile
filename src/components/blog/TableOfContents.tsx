@@ -8,7 +8,7 @@ interface Heading {
   text: string;
 }
 
-export function TableOfContents(): JSX.Element {
+export function TableOfContents() {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
 

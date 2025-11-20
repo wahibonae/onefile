@@ -25,6 +25,7 @@ const url = "https://www.onefileapp.com";
 export const metadata: Metadata = {
   title,
   description,
+  applicationName: "OneFile",
   keywords: [
     "bypass chatgpt upload limits",
     "chatgpt file limit",

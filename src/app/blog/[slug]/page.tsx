@@ -18,6 +18,8 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }));
 }
 
+const BASE_URL = "https://www.onefileapp.com";
+
 // Generate metadata for SEO
 export async function generateMetadata({
   params,
@@ -31,23 +33,38 @@ export async function generateMetadata({
     };
   }
 
+  const postUrl = `${BASE_URL}/blog/${slug}`;
+
   return {
     title: post.title,
     description: post.description,
     authors: [{ name: post.author }],
+    alternates: {
+      canonical: postUrl,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
+      url: postUrl,
       type: "article",
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
       authors: [post.author],
       tags: post.tags,
+      images: [
+        {
+          url: post.image,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: [post.image],
     },
   };
 }

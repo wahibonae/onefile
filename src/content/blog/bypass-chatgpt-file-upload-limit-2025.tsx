@@ -10,7 +10,7 @@ export default function BlogPost() {
           TL;DR
         </h3>
         <p className="text-sm leading-normal text-muted-foreground mb-2">
-          ChatGPT limits you to 3 files/day (free) or 10 files/message (Plus). The fix: combine all your files into one text file before uploading, so you're using one file slot but giving the AI everything it needs.
+          ChatGPT limits you to 3 files/day (free) or 10 files/message (Plus). The fix: combine all your files into one text file before uploading, so you&apos;re using one file slot but giving the AI everything it needs.
         </p>
         <p className="text-sm leading-normal text-muted-foreground">
           <span className="font-medium">Quick solution:</span> Go to{" "}

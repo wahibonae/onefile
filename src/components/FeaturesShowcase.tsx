@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 export const FeaturesShowcase = (): React.JSX.Element => {
   const [showSolution, setShowSolution] = useState(false);
@@ -39,32 +38,12 @@ export const FeaturesShowcase = (): React.JSX.Element => {
         {/* Image RIGHT - Animated crossfade between problem and solution */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
-            {/* Problem image */}
-            <motion.div
-              animate={{ opacity: showSolution ? 0 : 1 }}
-              transition={{ duration: 0.8 }}
-              className="absolute inset-0"
-            >
-              <Image
-                src="/feature_0_problem.jpg"
-                alt="Multiple files scattered across folders and projects"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-            {/* Solution image */}
-            <motion.div
-              animate={{ opacity: showSolution ? 1 : 0 }}
-              transition={{ duration: 0.8 }}
-              className="absolute inset-0"
-            >
-              <Image
-                src="/feature_0_solution.jpg"
-                alt="OneFile combines all files into a single formatted text file"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
+          <Image
+              src="/feature_0.jpg"
+              alt="Automatically filters out unnecessary files like node_modules, images, and build artifacts."
+              fill
+              className="object-cover transition-all duration-300"
+            />
           </div>
         </div>
       </section>

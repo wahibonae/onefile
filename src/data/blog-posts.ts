@@ -17,7 +17,7 @@ export const blogPosts: BlogPost[] = [
     slug: "bypass-chatgpt-file-upload-limit-2025",
     title: "How to Bypass ChatGPT's 3-File Upload Limit (Complete Guide 2025)",
     description:
-      "ChatGPT's 3-file upload limit is frustrating. Learn how to bypass it and upload unlimited files using OneFile - a free, open-source solution that combines multiple files into one.",
+      "Bypass ChatGPT's 3-file limit with OneFile. Upload unlimited files to AI platforms - free, open-source, no account required.",
     image: "/blog/bypass-chatgpt-limit.png",
     publishedAt: "2025-11-19",
     updatedAt: "2025-11-19",

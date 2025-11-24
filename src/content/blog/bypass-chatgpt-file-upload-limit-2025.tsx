@@ -4,6 +4,28 @@ import { Callout } from "@/components/blog/Callout";
 export default function BlogPost() {
   return (
     <>
+      {/* TL;DR Section */}
+      <div className="not-prose rounded-xl border border-border bg-card p-5 mb-8">
+        <h3 className="text-md font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+          TL;DR
+        </h3>
+        <p className="text-sm leading-normal text-muted-foreground mb-2">
+          ChatGPT limits you to 3 files/day (free) or 10 files/message (Plus). The fix: combine all your files into one text file before uploading, so you're using one file slot but giving the AI everything it needs.
+        </p>
+        <p className="text-sm leading-normal text-muted-foreground">
+          <span className="font-medium">Quick solution:</span> Go to{" "}
+          <a
+            href="https://www.onefileapp.com"
+            className="text-primary bg-primary/10 p-1.5 py-0.5 rounded-sm font-sembold"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            OneFile
+          </a>
+          {" "}&rarr; Upload files/folders &rarr; Copy or download combined output &rarr; Paste into ChatGPT. Free, no account needed, works with Claude/Gemini too.
+        </p>
+      </div>
+
       <p>
         If you&apos;ve ever tried to upload multiple files to ChatGPT, you&apos;ve
         probably hit the frustrating 3-file upload limit. Whether you&apos;re a

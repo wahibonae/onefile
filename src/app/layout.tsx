@@ -25,6 +25,7 @@ const url = "https://www.onefileapp.com";
 export const metadata: Metadata = {
   title,
   description,
+  robots: "index, follow",
   applicationName: "OneFile",
   keywords: [
     "bypass chatgpt upload limits",
@@ -71,6 +72,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@wahibonae",
     title,
     description,
     creator: "@wahibonae",
@@ -215,6 +217,7 @@ export default function RootLayout({
     <ClerkProvider afterSignOutUrl="/">
       <html lang="en" suppressHydrationWarning>
         <head>
+          <link rel="manifest" href="/manifest.json" />
           <link rel="icon" href="/favicon.ico" sizes="any" />
           <link
             rel="icon"
@@ -290,8 +293,16 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-primary focus:text-primary-foreground focus:top-4 focus:left-4 focus:rounded-md"
+            >
+              Skip to main content
+            </a>
             <ConditionalNavbar />
-            {children}
+            <main id="main-content">
+              {children}
+            </main>
             <Footer />
           </ThemeProvider>
           <Toaster

@@ -18,7 +18,7 @@ export function LogoCloud() {
             <div className="flex items-center justify-center">
               <Image
                 src="/icons/claude.svg"
-                alt="Claude"
+                alt="Claude logo - Bypass Claude upload limits with OneFile"
                 width={100}
                 height={24}
                 className="h-7 w-auto opacity-70 brightness-0 dark:invert hover:opacity-100 transition-all duration-200"
@@ -29,7 +29,7 @@ export function LogoCloud() {
             <div className="flex items-center justify-center">
               <Image
                 src="/icons/openai.svg"
-                alt="ChatGPT"
+                alt="ChatGPT logo - Bypass ChatGPT upload limits with OneFile"
                 width={100}
                 height={24}
                 className="h-8 w-auto opacity-70 brightness-0 dark:invert hover:opacity-100 transition-all duration-200"
@@ -40,7 +40,7 @@ export function LogoCloud() {
             <div className="flex items-center justify-center">
               <Image
                 src="/icons/google-gemini.svg"
-                alt="Gemini"
+                alt="Google Gemini logo - Bypass Gemini upload limits with OneFile"
                 width={100}
                 height={24}
                 className="h-9 w-auto opacity-70 brightness-0 dark:invert hover:opacity-100 transition-all duration-200"
@@ -51,7 +51,7 @@ export function LogoCloud() {
             <div className="flex items-center justify-center">
               <Image
                 src="/icons/deepseek.svg"
-                alt="DeepSeek"
+                alt="DeepSeek AI logo - Bypass DeepSeek upload limits with OneFile"
                 width={100}
                 height={24}
                 className="h-8 w-auto opacity-70 brightness-0 dark:invert hover:opacity-100 transition-all duration-200"
@@ -62,7 +62,7 @@ export function LogoCloud() {
             <div className="flex items-center justify-center">
               <Image
                 src="/icons/grok.svg"
-                alt="Grok"
+                alt="Grok AI logo - Bypass Grok upload limits with OneFile"
                 width={100}
                 height={24}
                 className="h-11 w-auto opacity-70 brightness-0 dark:invert hover:opacity-100 transition-all duration-200"
@@ -73,7 +73,7 @@ export function LogoCloud() {
             <div className="flex items-center justify-center">
               <Image
                 src="/icons/perplexity.svg"
-                alt="Perplexity"
+                alt="Perplexity AI logo - Bypass Perplexity upload limits with OneFile"
                 width={100}
                 height={24}
                 className="h-8 w-auto opacity-70 brightness-0 dark:invert hover:opacity-100 transition-all duration-200"

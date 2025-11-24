@@ -17,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const title =
-  "OneFile - Bypass ChatGPT Upload Limits | Combine Multiple Files for AI";
+  "OneFile - Bypass ChatGPT Upload Limits | Free AI File Tool";
 const description =
   "Break through ChatGPT's 3-file limit. Combine unlimited files (PDFs, code, docs, Excel) into one AI-ready file. Free tool for Claude, Gemini, Grok, and all AI platforms. No account required.";
 const url = "https://www.onefileapp.com";
@@ -98,7 +98,7 @@ export default function RootLayout({
       name: "OneFile",
       alternateName: [
         "OneFile",
-        "OneFile - Bypass ChatGPT Upload Limits",
+        "OneFile - Bypass ChatGPT Upload Limits | Free AI File Tool",
       ],
       url: url,
       description: description,

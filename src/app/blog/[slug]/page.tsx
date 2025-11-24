@@ -53,7 +53,7 @@ export async function generateMetadata({
       tags: post.tags,
       images: [
         {
-          url: post.image,
+          url: `${BASE_URL}${post.image}`,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -62,9 +62,11 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
+      site: "@wahibonae",
+      creator: "@wahibonae",
       title: post.title,
       description: post.description,
-      images: [post.image],
+      images: [`${BASE_URL}${post.image}`],
     },
   };
 }

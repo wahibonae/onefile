@@ -10,37 +10,37 @@ const testimonials: Testimonial[] = [
   {
     text: "i've been using OneFile *religiously* in my internship to get around upload limits. thank you so much!",
     gender: "woman",
-    name: "Hajar",
+    name: "Hajar A.",
     role: "Data Analyst",
   },
   {
     text: "onefile made it easy to merge all our cybersecurity docs and quickly analyze data/chat with AI, huge time saver.",
     gender: "man",
-    name: "Ali",
+    name: "Ali B.",
     role: "CyberSecurity Engineer",
   },
   {
     text: "OneFile genuinely improved the way I work with AI and make project backups. Simple and exactly what I needed. Thanks Wahib! <3",
     gender: "man",
-    name: "Aboubakr",
+    name: "Aboubakr K.",
     role: "AI Engineer",
   },
   {
     text: "i used it a ton to bypass upload limits as a free plan user on ChatGPT, definitely boosted your traffic 😂",
     gender: "woman",
-    name: "Kh.",
+    name: "Khaoula A.",
     role: "AI Engineer",
   },
   {
     text: "honestly, OneFile's been a lifesaver, i've used it for all 10 of my projects with Gemini lol",
     gender: "man",
-    name: "Saad",
+    name: "Saad Z.",
     role: "Software Engineer",
   },
   {
     text: "One File has been a game changer for me. Whether I'm tackling a new project I know nothing about or just need to quickly get up to speed on something, it makes understanding complex stuff so much easier. Thanks Wahib, this app has genuinely made my life simpler",
     gender: "man",
-    name: "Salah",
+    name: "Salah A.",
     role: "Software Engineer",
   },
 ];

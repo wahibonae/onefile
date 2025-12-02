@@ -36,7 +36,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
             <Image
-              src="/after.png"
+              src="/feature_0.jpg"
               alt="Automatically filters out unnecessary files like node_modules, images, and build artifacts."
               fill
               className="object-cover transition-all duration-300"

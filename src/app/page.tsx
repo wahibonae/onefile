@@ -207,7 +207,7 @@ export default function Home() {
               <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
                 <div className="aspect-[4/3] relative">
                   <Image
-                    src="/feature_0.jpg"
+                    src="/after.jpg"
                     alt="OneFile success - your-onefile.txt ready to upload with unlimited files combined"
                     fill
                     className="object-cover dark:opacity-95"

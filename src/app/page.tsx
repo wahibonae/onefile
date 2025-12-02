@@ -29,27 +29,26 @@ export default function Home() {
     setIsGitHubBrowserOpen,
     handleGitHubImportClick,
   } = useGitHubBrowser(files);
-  const { isDragging, handleDragOver, handleDragLeave, handleDrop, handleFileChange } =
-    useDragAndDrop(handleFiles);
+  const {
+    isDragging,
+    handleDragOver,
+    handleDragLeave,
+    handleDrop,
+    handleFileChange,
+  } = useDragAndDrop(handleFiles);
 
   return (
     <div className="min-h-screen bg-background flex flex-col space-y-6">
-      {/* Top Section with Background */}
       <div className="relative pb-8 sm:pb-12 md:pb-20">
-        {/* Background Image Layer with Fade */}
         <div className="absolute inset-0 bg-[url('/hero-bg.png')] dark:bg-[url('/hero-bg-dark.png')] bg-cover bg-center bg-no-repeat">
-          {/* Fade out overlay at bottom - only affects background */}
           <div className="absolute bottom-0 left-0 right-0 h-[20%] dark:h-[35%] bg-gradient-to-b from-transparent to-background"></div>
         </div>
 
-        {/* Content Layer */}
         <div className="relative z-10">
-          {/* Navbar */}
           <Navbar />
 
           <div className="flex-grow container max-w-6xl mx-auto px-4 sm:px-6 pb-8 sm:pb-12">
             <div className="space-y-4 sm:space-y-6">
-              {/* Hero Section */}
               <div className="text-center space-y-3 sm:space-y-4 py-6 sm:py-8 md:py-4">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
                   Bypass AI Upload Limits
@@ -63,9 +62,7 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Main Content */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-7">
-                {/* Input Section */}
                 <div className="space-y-4 sm:space-y-6">
                   <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
                     <div className="flex items-center gap-3 mb-4 sm:mb-6">
@@ -105,7 +102,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Output Section */}
                 <div className="space-y-4 sm:space-y-6">
                   <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
                     <div className="flex items-center gap-3 mb-4 sm:mb-6">
@@ -172,20 +168,15 @@ export default function Home() {
         </div>
       </div>
 
-      {/* SEO Content Sections */}
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-32">
-        {/* Logo Cloud - AI Platforms */}
         <LogoCloud />
 
-        {/* Why OneFile Solves AI Upload Limits - Visual Before/After */}
         <section className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-foreground">
             Why OneFile Solves AI Upload Limits
           </h2>
 
-          {/* Before/After Comparison - Visual First */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* LEFT: Without OneFile (Problem Visual) */}
             <div className="space-y-4">
               <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
                 <div className="aspect-[4/3] relative">
@@ -199,7 +190,6 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Badge overlay */}
                 <div className="absolute top-4 left-4">
                   <div className="flex items-center gap-2 bg-destructive/90 text-destructive-foreground px-3 py-1.5 rounded-full text-sm font-medium">
                     <X className="h-4 w-4" />
@@ -208,18 +198,16 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Short caption */}
               <p className="text-center text-muted-foreground text-sm">
                 Frustrated by file upload limits on AI platforms
               </p>
             </div>
 
-            {/* RIGHT: With OneFile (Solution Visual) */}
             <div className="space-y-4">
               <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
                 <div className="aspect-[4/3] relative">
                   <Image
-                    src="/after.png"
+                    src="/feature_0.jpg"
                     alt="OneFile success - your-onefile.txt ready to upload with unlimited files combined"
                     fill
                     className="object-cover dark:opacity-95"
@@ -228,7 +216,6 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Badge overlay */}
                 <div className="absolute top-4 left-4">
                   <div className="flex items-center gap-2 bg-primary/90 text-primary-foreground px-3 py-1.5 rounded-full text-sm font-medium">
                     <Check className="h-4 w-4" />
@@ -237,7 +224,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Short caption */}
               <p className="text-center text-muted-foreground text-sm">
                 Upload unlimited files in one go - no restrictions
               </p>
@@ -245,7 +231,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* How It Works */}
         <section className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center text-foreground">
             How It Works
@@ -253,14 +238,11 @@ export default function Home() {
           <FeaturesShowcase />
         </section>
 
-        {/* Testimonials */}
         <TestimonialsSection />
 
-        {/* FAQ Section */}
         <FAQSection />
       </div>
 
-      {/* GitHub Repository Browser Dialog */}
       <GitHubRepositoryBrowser
         open={isGitHubBrowserOpen}
         onClose={() => setIsGitHubBrowserOpen(false)}

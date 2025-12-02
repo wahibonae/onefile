@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Mail } from "lucide-react";
 import GitHub from "@/components/icons/Github";
 import Linkedin from "@/components/icons/Linkedin";
 import X from "@/components/icons/X";
@@ -156,6 +157,15 @@ export function Footer() {
                 >
                   <X className="h-4 w-4" />
                   Twitter/X
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:hello@wahibabkari.com"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
+                >
+                  <Mail className="h-4 w-4" />
+                  Email
                 </a>
               </li>
             </ul>

@@ -18,9 +18,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
 
   return (
     <div className="space-y-16 md:space-y-24">
-      {/* Section A: Many Files In → One File Out (Image RIGHT) */}
       <section className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        {/* Text LEFT */}
         <div className="space-y-4">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">
             File Consolidation
@@ -35,11 +33,10 @@ export const FeaturesShowcase = (): React.JSX.Element => {
           </p>
         </div>
 
-        {/* Image RIGHT - Animated crossfade between problem and solution */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
-          <Image
-              src="/feature_0.jpg"
+            <Image
+              src="/after.png"
               alt="Automatically filters out unnecessary files like node_modules, images, and build artifacts."
               fill
               className="object-cover transition-all duration-300"
@@ -48,9 +45,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
         </div>
       </section>
 
-      {/* Section B: Upload Anything (Image LEFT) */}
       <section className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        {/* Image LEFT (on desktop, shows first due to order-first) */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm lg:order-first order-last">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
             <Image
@@ -62,7 +57,6 @@ export const FeaturesShowcase = (): React.JSX.Element => {
           </div>
         </div>
 
-        {/* Text RIGHT */}
         <div className="space-y-4">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">
             File Support
@@ -78,9 +72,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
         </div>
       </section>
 
-      {/* Section C: Smart Processing (Image RIGHT) */}
       <section className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        {/* Text LEFT */}
         <div className="space-y-4">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">
             Intelligent Filtering
@@ -95,7 +87,6 @@ export const FeaturesShowcase = (): React.JSX.Element => {
           </p>
         </div>
 
-        {/* Image RIGHT */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
             <Image
@@ -108,9 +99,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
         </div>
       </section>
 
-      {/* Section D: Open Source & Transparent (Image LEFT) */}
       <section className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        {/* Image LEFT (on desktop, shows first due to order-first) */}
         <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm lg:order-first order-last">
           <div className="aspect-[4/3] relative flex items-center justify-center bg-muted/30">
             <Image
@@ -122,7 +111,6 @@ export const FeaturesShowcase = (): React.JSX.Element => {
           </div>
         </div>
 
-        {/* Text RIGHT */}
         <div className="space-y-4">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">
             Privacy First

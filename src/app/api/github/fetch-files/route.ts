@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth, clerkClient } from '@clerk/nextjs/server'
 import { Octokit } from '@octokit/rest'
+import { DOCUMENT_EXTENSIONS } from '@/constants/files'
 
 interface FileRequest {
   path: string
@@ -70,7 +71,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
         // Check if it's a file (not a directory)
         if ('content' in data && data.type === 'file') {
-          // Decode base64 content
+          const extension = '.' + fileInfo.path.split('.').pop()?.toLowerCase()
+
+          if (DOCUMENT_EXTENSIONS.has(extension)) {
+            return {
+              path: fileInfo.path,
+              base64Content: data.content,
+              needsExtraction: true,
+              size: data.size,
+              success: true,
+            }
+          }
+
           const content = Buffer.from(data.content, 'base64').toString('utf-8')
 
           return {

@@ -144,36 +144,57 @@ async function processExcel(arrayBuffer: ArrayBuffer): Promise<string> {
 
 export async function POST(req: NextRequest) {
   try {
-    const formData = await req.formData();
-    const file = formData.get("file") as File;
+    const contentType = req.headers.get("content-type") || "";
 
-    if (!file) {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+    let arrayBuffer: ArrayBuffer;
+    let extension: string | undefined;
+
+    if (contentType.includes("application/json")) {
+      const { base64Data, fileName } = await req.json();
+
+      if (!base64Data || !fileName) {
+        return NextResponse.json(
+          { error: "Missing base64Data or fileName" },
+          { status: 400 }
+        );
+      }
+
+      const buffer = Buffer.from(base64Data, "base64");
+      arrayBuffer = buffer.buffer.slice(
+        buffer.byteOffset,
+        buffer.byteOffset + buffer.byteLength
+      );
+      extension = fileName.split(".").pop()?.toLowerCase();
+    } else {
+      const formData = await req.formData();
+      const file = formData.get("file") as File;
+
+      if (!file) {
+        return NextResponse.json({ error: "No file provided" }, { status: 400 });
+      }
+
+      arrayBuffer = await file.arrayBuffer();
+      extension = file.name.split(".").pop()?.toLowerCase();
     }
 
-    const extension = file.name.split(".").pop()?.toLowerCase();
     let text = "";
 
     switch (extension) {
       case "pdf":
-        const arrayBuffer = await file.arrayBuffer();
         text = await processPdf(arrayBuffer);
         break;
 
       case "docx":
-        const docxArrayBuffer = await file.arrayBuffer();
-        text = await processDocx(docxArrayBuffer);
+        text = await processDocx(arrayBuffer);
         break;
 
       case "pptx":
-        const pptxBuffer = Buffer.from(await file.arrayBuffer());
-        text = await processPptx(pptxBuffer);
+        text = await processPptx(Buffer.from(arrayBuffer));
         break;
 
       case "xlsx":
       case "xls":
-        const excelArrayBuffer = await file.arrayBuffer();
-        text = await processExcel(excelArrayBuffer);
+        text = await processExcel(arrayBuffer);
         break;
 
       default:

@@ -9,7 +9,7 @@ export const ALLOWED_EXTENSIONS = new Set([
   // Documentation and text files
   '.md', '.markdown', '.mdc', '.txt', '.rtf', '.tex',
   // Data files
-  '.sql', '.prisma', '.csv', '.tsv', '.log', '.xlsx', '.xls', '.ods',
+  '.sql', '.prisma', '.csv', '.tsv', '.log', '.xlsx', '.xls',
   // Additional development files
   '.vue', '.svelte', '.astro', '.razor', '.jsp', '.asp', '.aspx',
   '.pug', '.jade', '.haml', '.ejs', '.hbs', '.mustache',
@@ -18,15 +18,13 @@ export const ALLOWED_EXTENSIONS = new Set([
   // Shell and script files
   '.ps1', '.psm1', '.bat', '.cmd', '.vbs', '.awk', '.sed',
   // Document formats
-  '.pdf', '.docx', '.doc', '.pptx', '.ppt', '.odp', '.odt', '.txt', '.rtf',
+  '.pdf', '.docx', '.pptx', '.txt', '.rtf',
   // Academic and research files
   '.bib', '.bibtex', '.cls', '.sty', '.aux', '.bbl', '.blg',
   // Data and configuration
   '.dat', '.data', '.cfg', '.conf', '.settings', '.prefs',
-  // Email and communication
-  '.eml', '.msg', '.mbox',
-  // Presentation and notes
-  '.key', '.pages', '.numbers'
+  // Email formats
+  '.eml', '.msg', '.mbox'
 ])
 
 export const ALLOWED_MIME_TYPES = new Set([
@@ -65,7 +63,6 @@ export const ALLOWED_MIME_TYPES = new Set([
   'text/tab-separated-values',
   'application/vnd.ms-excel',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  'application/vnd.oasis.opendocument.spreadsheet',
   // Application types
   'application/json',
   'application/javascript',
@@ -91,11 +88,7 @@ export const ALLOWED_MIME_TYPES = new Set([
   // Document formats
   'application/pdf',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  'application/msword',
   'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-  'application/vnd.ms-powerpoint',
-  'application/vnd.oasis.opendocument.presentation',
-  'application/vnd.oasis.opendocument.text',
   'text/rtf',
   'application/rtf',
   // Email formats
@@ -135,4 +128,8 @@ export const IGNORED_PATHS = new Set([
   '.idea',
   '.vscode',
   '.vs'
+])
+
+export const DOCUMENT_EXTENSIONS = new Set([
+  '.pdf', '.docx', '.pptx', '.xlsx', '.xls'
 ]) 

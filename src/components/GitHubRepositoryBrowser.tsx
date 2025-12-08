@@ -167,9 +167,48 @@ export function GitHubRepositoryBrowser({
         toast.error(`Failed to fetch ${data.failed_count} file(s)`)
       }
 
-      if (data.successful > 0) {
-        onImport(data.files)
-        toast.success(`Imported ${data.successful} file(s) from GitHub`)
+      const textFiles: Array<{ path: string; content: string }> = []
+      const documentFiles: Array<{ path: string; base64Content: string }> = []
+
+      for (const file of data.files) {
+        if (file.needsExtraction && file.base64Content) {
+          documentFiles.push({ path: file.path, base64Content: file.base64Content })
+        } else if (file.content) {
+          textFiles.push({ path: file.path, content: file.content })
+        }
+      }
+
+      const extractedFiles: Array<{ path: string; content: string }> = []
+
+      for (const docFile of documentFiles) {
+        try {
+          const extractResponse = await fetch('/api/extract-text', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              base64Data: docFile.base64Content,
+              fileName: docFile.path,
+            }),
+          })
+
+          if (extractResponse.ok) {
+            const { text } = await extractResponse.json()
+            if (text && text.trim()) {
+              extractedFiles.push({ path: docFile.path, content: text })
+            }
+          } else {
+            console.error(`Failed to extract text from ${docFile.path}`)
+          }
+        } catch (err) {
+          console.error(`Error extracting ${docFile.path}:`, err)
+        }
+      }
+
+      const allFiles = [...textFiles, ...extractedFiles]
+
+      if (allFiles.length > 0) {
+        onImport(allFiles)
+        toast.success(`Imported ${allFiles.length} file(s) from GitHub`)
         onClose()
       } else {
         toast.error('No files were successfully imported')

@@ -14,10 +14,10 @@
  *      slug: "your-blog-post-slug",
  *      title: "Your Blog Post Title",
  *      description: "Your blog post description for SEO",
+ *      image: "/blog/your-image.png",
  *      publishedAt: "2025-01-20",
  *      author: "Mohamed Wahib ABKARI",
  *      readingTime: "5 min read",
- *      category: "Tutorials",
  *      tags: ["Tag1", "Tag2", "Tag3"],
  *      featured: false,
  *    }
@@ -25,7 +25,8 @@
  * 3. Write your content in the BlogPost component below
  *
  * 4. Use the available components:
- *    - <Callout variant="info|warning|tip">Content</Callout>
+ *    - <Callout variant="info|warning|tip|success">Content</Callout>
+ *    - <CodeBlock>Monospace text for prompts or examples</CodeBlock>
  *    - <BlogImage src="/path" alt="description" caption="optional" />
  *    - Regular HTML: <h2>, <h3>, <p>, <ul>, <ol>, <blockquote>, etc.
  *
@@ -38,6 +39,7 @@
  */
 
 import { Callout } from "@/components/blog/Callout";
+import { CodeBlock } from "@/components/blog/CodeBlock";
 import { BlogImage } from "@/components/blog/BlogImage";
 
 export default function BlogPost() {
@@ -132,6 +134,15 @@ function processFiles(files: File[]): Promise<string> {
     .join('\\n');
 }`}</code>
       </pre>
+
+      {/* CodeBlock Component Example */}
+      <p>For prompts, commands, or monospace text blocks, use the CodeBlock component:</p>
+
+      <CodeBlock>
+        This is an example prompt or command.<br />
+        Use line breaks for multiple lines.<br />
+        Perfect for AI prompts, terminal commands, or example text.
+      </CodeBlock>
 
       {/* Tip Callout Example */}
       <Callout variant="tip">

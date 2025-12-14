@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Callout } from "@/components/blog/Callout";
+import { CodeBlock } from "@/components/blog/CodeBlock";
 
 export default function BlogPost() {
   return (
@@ -39,18 +40,18 @@ export default function BlogPost() {
       <h3>ChatGPT Free Plan Limitations</h3>
 
       <ul>
-        <li><strong>Maximum 3 files per day</strong> &mdash; Can&apos;t upload more until the next day</li>
-        <li><strong>20MB per file limit</strong> &mdash; Large documents must be split</li>
-        <li><strong>Limited file types</strong> &mdash; Only common formats like PDF, DOCX, TXT</li>
-        <li><strong>No folder uploads</strong> &mdash; Each file must be selected individually</li>
+        <li><strong>Maximum 3 files per day</strong>: Can&apos;t upload more until the next day</li>
+        <li><strong>20MB per file limit</strong>: Large documents must be split</li>
+        <li><strong>Limited file types</strong>: Only common formats like PDF, DOCX, TXT</li>
+        <li><strong>No folder uploads</strong>: Each file must be selected individually</li>
       </ul>
 
       <h3>ChatGPT Plus Limitations ($20/month)</h3>
 
       <ul>
-        <li><strong>10-file limit per message</strong> &mdash; Still tedious for large projects with hundreds of files</li>
-        <li><strong>Same 20MB per file restriction</strong> &mdash; No improvement over free</li>
-        <li><strong>No folder or repository support</strong> &mdash; Can&apos;t upload entire projects at once</li>
+        <li><strong>10-file limit per message</strong>: Still tedious for large projects with hundreds of files</li>
+        <li><strong>Same 20MB per file restriction</strong>: No improvement over free</li>
+        <li><strong>No folder or repository support</strong>: Can&apos;t upload entire projects at once</li>
       </ul>
 
       <p>
@@ -71,17 +72,15 @@ export default function BlogPost() {
 
       <h3>How File Combining Works</h3>
 
-      <div className="bg-card border border-border rounded-lg p-4 my-4">
-        <p className="text-sm font-mono text-muted-foreground mb-0">
-          <strong>Instead of:</strong> 3 separate files (limit reached) ❌<br /><br />
-          <strong>Upload:</strong> 1 combined file containing 100+ files ✅<br />
-          ├─ research_paper_1.pdf<br />
-          ├─ research_paper_2.pdf<br />
-          ├─ notes.txt<br />
-          ├─ data.csv<br />
-          └─ 100+ more files...
-        </p>
-      </div>
+      <CodeBlock>
+        <strong>Instead of:</strong> 3 separate files (limit reached) ❌<br /><br />
+        <strong>Upload:</strong> 1 combined file containing 100+ files ✅<br />
+        ├─ research_paper_1.pdf<br />
+        ├─ research_paper_2.pdf<br />
+        ├─ notes.txt<br />
+        ├─ data.csv<br />
+        └─ 100+ more files...
+      </CodeBlock>
 
       <h2>Method 1: Using OneFile (Recommended)</h2>
 
@@ -92,14 +91,14 @@ export default function BlogPost() {
       <h3>Why OneFile is the Best Option</h3>
 
       <ul>
-        <li><strong>Completely free</strong> &mdash; No subscriptions, no usage limits, no hidden costs</li>
-        <li><strong>No account required</strong> &mdash; Works instantly without sign-up</li>
-        <li><strong>Unlimited files</strong> &mdash; Combine 10, 100, or 1,000+ files at once</li>
-        <li><strong>50+ file types supported</strong> &mdash; PDFs, Office docs, code files, CSV, and more</li>
-        <li><strong>Privacy-focused</strong> &mdash; Text files processed in your browser, never stored</li>
-        <li><strong>GitHub integration</strong> &mdash; Import entire repositories with one click</li>
-        <li><strong>.gitignore support</strong> &mdash; Automatically skips node_modules, .git, build folders</li>
-        <li><strong>Open source</strong> &mdash; Verify the code yourself on GitHub</li>
+        <li><strong>Completely free</strong>: No subscriptions, no usage limits, no hidden costs</li>
+        <li><strong>No account required</strong>: Works instantly without sign-up</li>
+        <li><strong>Unlimited files</strong>: Combine 10, 100, or 1,000+ files at once</li>
+        <li><strong>50+ file types supported</strong>: PDFs, Office docs, code files, CSV, and more</li>
+        <li><strong>Privacy-focused</strong>: Text files processed in your browser, never stored</li>
+        <li><strong>GitHub integration</strong>: Import entire repositories with one click</li>
+        <li><strong>.gitignore support</strong>: Automatically skips node_modules, .git, build folders</li>
+        <li><strong>Open source</strong>: Verify the code yourself on GitHub</li>
       </ul>
 
       <h3>Step-by-Step Guide</h3>
@@ -116,9 +115,9 @@ export default function BlogPost() {
       <h4>Step 2: Upload Your Files</h4>
       <p>Three options:</p>
       <ul>
-        <li><strong>Drag and drop files</strong> &mdash; Select multiple files and drag into the upload area</li>
-        <li><strong>Drag and drop a folder</strong> &mdash; Upload entire project folders (respects .gitignore)</li>
-        <li><strong>Import from GitHub</strong> &mdash; Sign in and select files from any repository</li>
+        <li><strong>Drag and drop files</strong>: Select multiple files and drag into the upload area</li>
+        <li><strong>Drag and drop a folder</strong>: Upload entire project folders (respects .gitignore)</li>
+        <li><strong>Import from GitHub</strong>: Sign in and select files from any repository</li>
       </ul>
 
       <Callout variant="tip">
@@ -164,19 +163,15 @@ export default function BlogPost() {
 
       <h3>Structure Your Prompts</h3>
       <p>Give ChatGPT context about what you uploaded:</p>
-      <div className="bg-card border border-border rounded-lg p-4 my-4">
-        <p className="text-sm font-mono text-muted-foreground mb-0">
-          &quot;I&apos;ve uploaded a combined file with [number] files from my [project]. Please analyze and [specific request].&quot;
-        </p>
-      </div>
+      <CodeBlock>
+        &quot;I&apos;ve uploaded a combined file with [number] files from my [project]. Please analyze and [specific request].&quot;
+      </CodeBlock>
 
       <h3>Reference Specific Files</h3>
       <p>OneFile adds file path markers. Use them for targeted questions:</p>
-      <div className="bg-card border border-border rounded-lg p-4 my-4">
-        <p className="text-sm font-mono text-muted-foreground mb-0">
-          &quot;Look at src/components/UserAuth.tsx and explain how authentication works.&quot;
-        </p>
-      </div>
+      <CodeBlock>
+        &quot;Look at src/components/UserAuth.tsx and explain how authentication works.&quot;
+      </CodeBlock>
 
       <h3>Mind the Token Limits</h3>
       <p>
@@ -202,7 +197,7 @@ export default function BlogPost() {
 
       <h3>Is my data private?</h3>
       <p>
-        Yes. Text files are processed in your browser and never reach our servers. Complex documents (PDFs, DOCX) are sent to our API for extraction, then immediately deleted. OneFile is open source&mdash;verify it yourself.
+        Yes. Text files are processed in your browser and never reach our servers. Complex documents (PDFs, DOCX) are sent to our API for extraction, then immediately deleted. OneFile is open source. Verify it yourself.
       </p>
 
       <h3>Can I upload an entire GitHub repository?</h3>
@@ -251,7 +246,7 @@ export default function BlogPost() {
       </div>
 
       <p>
-        Whether you&apos;re a student, developer, or professional&mdash;bypassing ChatGPT&apos;s file limits is now as simple as combining files into one.
+        Whether you&apos;re a student, developer, or professional, bypassing ChatGPT&apos;s file limits is now as simple as combining files into one.
       </p>
     </>
   );

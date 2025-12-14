@@ -184,7 +184,7 @@ export default function Home() {
                     src="/before.jpg"
                     alt="ChatGPT file upload limit error - You've reached your file upload limit, Upgrade to Plus"
                     fill
-                    className="object-cover dark:opacity-95"
+                    className="object-cover dark:brightness-90"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     priority
                   />
@@ -210,7 +210,7 @@ export default function Home() {
                     src="/after.jpg"
                     alt="OneFile success - your-onefile.txt ready to upload with unlimited files combined"
                     fill
-                    className="object-cover dark:opacity-95"
+                    className="object-cover dark:brightness-90"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     priority
                   />

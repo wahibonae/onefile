@@ -7,23 +7,41 @@ export interface BlogPost {
   updatedAt?: string;
   author: string;
   readingTime: string;
-  category: string;
   tags: string[];
   featured: boolean;
 }
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "chatgpt-github-import-free-alternative",
-    title: "ChatGPT GitHub Import for Free: How to Analyze Repos Without Plus",
+    slug: "generate-code-documentation-ai-2025",
+    title: "How to Generate Documentation from Code Using AI (2025 Guide)",
+    description:
+      "Generate code documentation with AI in minutes. Compare Mintlify, DocuWriter.ai, Cursor, Claude Code, and ChatGPT workflows with ready-to-use prompts.",
+    image: "/blog/generate-code-docs-ai.png",
+    publishedAt: "2025-12-14",
+    updatedAt: "2025-12-14",
+    author: "Mohamed Wahib ABKARI",
+    readingTime: "10 min read",
+    tags: [
+      "Documentation",
+      "AI Tools",
+      "Developer Productivity",
+      "Code Documentation",
+      "Mintlify",
+      "ChatGPT",
+    ],
+    featured: true,
+  },
+  {
+    slug: "chatgpt-github-import-free",
+    title: "How to Import GitHub to ChatGPT For Free)",
     description:
       "ChatGPT's GitHub connector requires Plus ($20/mo). Use OneFile to import any GitHub repository to ChatGPT for free. No account, no limits.",
-    image: "/blog/chatgpt-github-import-free.png",
+    image: "/blog/chatgpt-github-import.png",
     publishedAt: "2025-12-08",
     updatedAt: "2025-12-08",
     author: "Mohamed Wahib ABKARI",
     readingTime: "5 min read",
-    category: "Tutorials",
     tags: [
       "ChatGPT",
       "GitHub",
@@ -31,7 +49,7 @@ export const blogPosts: BlogPost[] = [
       "Code Analysis",
       "AI Development",
     ],
-    featured: true,
+    featured: false,
   },
   {
     slug: "bypass-chatgpt-file-upload-limit-2025",
@@ -43,7 +61,6 @@ export const blogPosts: BlogPost[] = [
     updatedAt: "2025-11-19",
     author: "Mohamed Wahib ABKARI",
     readingTime: "8 min read",
-    category: "Tutorials",
     tags: [
       "ChatGPT",
       "AI Upload Limits",
@@ -51,6 +68,6 @@ export const blogPosts: BlogPost[] = [
       "Productivity",
       "Tutorial",
     ],
-    featured: false,
+    featured: true,
   },
 ];

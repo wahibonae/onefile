@@ -34,7 +34,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "chatgpt-github-import-free",
-    title: "How to Import GitHub to ChatGPT For Free)",
+    title: "How to Import GitHub to ChatGPT For Free",
     description:
       "ChatGPT's GitHub connector requires Plus ($20/mo). Use OneFile to import any GitHub repository to ChatGPT for free. No account, no limits.",
     image: "/blog/chatgpt-github-import.png",

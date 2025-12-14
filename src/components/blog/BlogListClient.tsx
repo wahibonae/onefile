@@ -1,9 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import type { BlogPost } from "@/data/blog-posts";
 
@@ -12,38 +8,11 @@ interface BlogListClientProps {
 }
 
 export function BlogListClient({ posts }: BlogListClientProps): React.JSX.Element {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
-
-  const allCategories = [
-    "All",
-    ...Array.from(new Set(posts.map((post) => post.category))),
-  ];
-
-  const filteredPosts = posts.filter((post) => {
-    if (selectedCategory === "All") return true;
-    return post.category === selectedCategory;
-  });
-
   return (
     <>
-      {/* Category Filters */}
-      <div className="mb-8 sm:mb-12 flex flex-wrap justify-center gap-1.5 sm:gap-2">
-        {allCategories.map((category) => (
-          <Button
-            key={category}
-            variant={selectedCategory === category ? "default" : "outline"}
-            className="rounded-full text-sm sm:text-base px-3 sm:px-4 py-1.5 sm:py-2 h-auto"
-            onClick={(): void => setSelectedCategory(category)}
-          >
-            {category}
-          </Button>
-        ))}
-      </div>
-
       {/* Blog Posts Grid */}
-      {filteredPosts.length > 0 ? (
-        <div className="grid gap-4 sm:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredPosts.map((post) => (
+      <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
               <article className="flex h-full flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-border bg-card transition-colors group hover:border-primary/50">
                 {/* Image Container */}
@@ -52,7 +21,7 @@ export function BlogListClient({ posts }: BlogListClientProps): React.JSX.Elemen
                     src={post.image}
                     alt={post.title}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105 dark:brightness-90"
                   />
                   {/* Featured Badge */}
                   {post.featured && (
@@ -100,20 +69,7 @@ export function BlogListClient({ posts }: BlogListClientProps): React.JSX.Elemen
               </article>
             </Link>
           ))}
-        </div>
-      ) : (
-        <div className="py-12 text-center">
-          <p className="mb-4 text-lg text-muted-foreground">
-            No articles found in this category yet.
-          </p>
-          <Button
-            variant="outline"
-            onClick={(): void => setSelectedCategory("All")}
-          >
-            View All Posts
-          </Button>
-        </div>
-      )}
+      </div>
     </>
   );
 }

@@ -39,7 +39,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
               src="/feature_0.jpg"
               alt="Automatically filters out unnecessary files like node_modules, images, and build artifacts."
               fill
-              className="object-cover transition-all duration-300"
+              className="object-cover dark:brightness-90"
             />
           </div>
         </div>
@@ -52,7 +52,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
               src="/feature_1.jpg"
               alt="Upload files, folders, or import from GitHub"
               fill
-              className="object-cover"
+              className="object-cover dark:brightness-90"
             />
           </div>
         </div>
@@ -93,7 +93,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
               src="/feature_2.jpg"
               alt="Automatically filters out unnecessary files like node_modules, images, and build artifacts."
               fill
-              className="object-cover transition-all duration-300"
+              className="object-cover dark:brightness-90"
             />
           </div>
         </div>
@@ -106,7 +106,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
               src="/feature_3.jpg"
               alt="Open source code on GitHub - verify how your files are handled."
               fill
-              className="object-cover transition-all duration-300"
+              className="object-cover dark:brightness-90"
             />
           </div>
         </div>

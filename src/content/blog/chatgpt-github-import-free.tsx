@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Callout } from "@/components/blog/Callout";
+import { CodeBlock } from "@/components/blog/CodeBlock";
 
 export default function BlogPost() {
   return (
@@ -93,12 +94,12 @@ export default function BlogPost() {
       <h3>Why OneFile Works</h3>
 
       <ul>
-        <li><strong>100% free</strong> &mdash; No subscription, no limits, no hidden costs</li>
-        <li><strong>No account required</strong> &mdash; Works instantly in your browser</li>
-        <li><strong>GitHub integration</strong> &mdash; Import any public repo with one click</li>
-        <li><strong>Smart filtering</strong> &mdash; Automatically skips node_modules, .git, build folders</li>
-        <li><strong>Respects .gitignore</strong> &mdash; Only includes relevant source files</li>
-        <li><strong>Works everywhere</strong> &mdash; ChatGPT, Claude, Gemini, any AI platform</li>
+        <li><strong>100% free</strong>: No subscription, no limits, no hidden costs</li>
+        <li><strong>No account required</strong>: Works instantly in your browser</li>
+        <li><strong>GitHub integration</strong>: Import any public repo with one click</li>
+        <li><strong>Smart filtering</strong>: Automatically skips node_modules, .git, build folders</li>
+        <li><strong>Respects .gitignore</strong>: Only includes relevant source files</li>
+        <li><strong>Works everywhere</strong>: ChatGPT, Claude, Gemini, any AI platform</li>
       </ul>
 
       <Callout variant="tip">
@@ -139,8 +140,8 @@ export default function BlogPost() {
       <p>You have two options:</p>
 
       <ul>
-        <li><strong>Sign in with GitHub</strong> &mdash; Click &quot;Import from GitHub&quot; and select your repository</li>
-        <li><strong>Upload manually</strong> &mdash; Clone your repo locally, then drag the folder into OneFile</li>
+        <li><strong>Sign in with GitHub</strong>: Click &quot;Import from GitHub&quot; and select your repository</li>
+        <li><strong>Upload manually</strong>: Clone your repo locally, then drag the folder into OneFile</li>
       </ul>
 
       <p>
@@ -159,12 +160,10 @@ export default function BlogPost() {
         Open ChatGPT, click the attachment icon, and upload your downloaded file. Then ask ChatGPT to analyze, review, or explain your code.
       </p>
 
-      <div className="bg-card border border-border rounded-lg p-4">
-        <p className="text-sm font-mono text-muted-foreground">
-          <strong>Example prompt:</strong><br />
-          &quot;I&apos;ve uploaded my entire repository. Please review the code architecture, identify potential bugs, and suggest improvements.&quot;
-        </p>
-      </div>
+      <CodeBlock>
+        <strong>Example prompt:</strong><br />
+        &quot;I&apos;ve uploaded my entire repository. Please review the code architecture, identify potential bugs, and suggest improvements.&quot;
+      </CodeBlock>
 
       <Callout variant="success">
         <p>

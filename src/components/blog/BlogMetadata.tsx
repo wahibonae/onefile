@@ -1,16 +1,14 @@
-import { Calendar, Clock, Tag } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 
 interface BlogMetadataProps {
   publishedAt: string;
   readingTime: string;
-  category: string;
   updatedAt?: string;
 }
 
 export function BlogMetadata({
   publishedAt,
   readingTime,
-  category,
   updatedAt,
 }: BlogMetadataProps) {
   const formatDate = (dateString: string): string => {
@@ -28,15 +26,6 @@ export function BlogMetadata({
       </h3>
 
       <div className="space-y-3">
-        {/* Category */}
-        <div className="flex items-center gap-3">
-          <Tag className="h-4 w-4 text-muted-foreground" />
-          <div>
-            <div className="text-xs text-muted-foreground">Category</div>
-            <div className="text-sm font-medium">{category}</div>
-          </div>
-        </div>
-
         {/* Reading Time */}
         <div className="flex items-center gap-3">
           <Clock className="h-4 w-4 text-muted-foreground" />

@@ -8,14 +8,38 @@ interface Heading {
   text: string;
 }
 
+function TableOfContentsSkeleton() {
+  return (
+    <div className="space-y-4 rounded-xl border border-border bg-card p-6">
+      <div className="flex items-center gap-2">
+        <BookOpen className="h-4 w-4 text-muted-foreground" />
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          Table of Contents
+        </h3>
+      </div>
+      <div className="space-y-3">
+        <div className="h-3.5 w-full rounded bg-muted-foreground/15 animate-pulse" />
+        <div className="h-3.5 w-4/5 rounded bg-muted-foreground/15 animate-pulse" />
+        <div className="h-3.5 w-11/12 rounded bg-muted-foreground/15 animate-pulse" />
+        <div className="h-3.5 w-3/4 rounded bg-muted-foreground/15 animate-pulse" />
+        <div className="h-3.5 w-5/6 rounded bg-muted-foreground/15 animate-pulse" />
+      </div>
+    </div>
+  );
+}
+
 export function TableOfContents() {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Extract only H2 headings from the article (main sections only)
     const articleElement = document.querySelector("article");
-    if (!articleElement) return;
+    if (!articleElement) {
+      setIsLoading(false);
+      return;
+    }
 
     const headingElements = articleElement.querySelectorAll("h2");
     const headingData: Heading[] = [];
@@ -41,6 +65,7 @@ export function TableOfContents() {
     });
 
     setHeadings(headingData);
+    setIsLoading(false);
 
     // Scroll spy functionality
     const observer = new IntersectionObserver(
@@ -81,6 +106,10 @@ export function TableOfContents() {
       });
     }
   };
+
+  if (isLoading) {
+    return <TableOfContentsSkeleton />;
+  }
 
   if (headings.length === 0) {
     return <div />;

@@ -39,8 +39,8 @@ export function FileUpload({
         onDragLeave={onDragLeave}
         onDrop={onDrop}
         className={cn("relative rounded-xl border-2 border-dashed transition-all duration-200",
-          isDragging 
-            ? 'border-primary bg-primary/5' 
+          isDragging
+            ? 'border-primary bg-primary/5'
             : 'border-border hover:border-primary/70 hover:bg-muted/20'
         )}
       >
@@ -118,4 +118,4 @@ export function FileUpload({
       </div>
     </div>
   )
-} 
+}

@@ -73,6 +73,9 @@ export default function Home() {
                       <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
                         Input
                       </h2>
+                      <span className="bg-primary/10 text-primary text-xs px-3 py-1.5 rounded-full font-medium">
+                        NEW: Import public repos instantly
+                      </span>
                     </div>
 
                     <div className="space-y-4 sm:space-y-6">

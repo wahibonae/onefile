@@ -9,6 +9,8 @@ interface UseGitHubBrowserReturn {
   setIsGitHubBrowserOpen: (open: boolean) => void;
   handleSignInClick: () => void;
   handleGitHubImportClick: () => void;
+  triggerSignIn: () => void;
+  isSignedIn: boolean;
 }
 
 export function useGitHubBrowser(files: FileWithContent[]): UseGitHubBrowserReturn {
@@ -56,10 +58,18 @@ export function useGitHubBrowser(files: FileWithContent[]): UseGitHubBrowserRetu
     setIsGitHubBrowserOpen(true);
   };
 
+  const triggerSignIn = (): void => {
+    handleSignInClick(); // Save files before OAuth redirect
+    sessionStorage.setItem("onefile-pending-action", "github-import"); // Save intent
+    openSignIn(); // Open sign-in modal programmatically
+  };
+
   return {
     isGitHubBrowserOpen,
     setIsGitHubBrowserOpen,
     handleSignInClick,
     handleGitHubImportClick,
+    triggerSignIn,
+    isSignedIn: isSignedIn ?? false,
   };
 }

@@ -13,6 +13,26 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "chatgpt-file-upload-limits-2025",
+    title: "ChatGPT File Upload Limits 2025: Complete Guide for Every Plan",
+    description:
+      "Complete breakdown of ChatGPT file upload limits for Free, Plus, Pro, Team, and Enterprise plans. Learn the exact limits and how to upload more files.",
+    image: "/blog/chatgpt-file-upload-limits.png",
+    publishedAt: "2025-12-22",
+    updatedAt: "2025-12-22",
+    author: "Mohamed Wahib ABKARI",
+    readingTime: "7 min read",
+    tags: [
+      "ChatGPT",
+      "File Upload Limits",
+      "AI Tools",
+      "ChatGPT Plus",
+      "ChatGPT Pro",
+      "Productivity",
+    ],
+    featured: true,
+  },
+  {
     slug: "generate-code-documentation-ai-2025",
     title: "How to Generate Documentation from Code Using AI (2025 Guide)",
     description:

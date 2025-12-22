@@ -2,6 +2,7 @@ import Link from "next/link";
 import GitHub from "@/components/icons/Github";
 import Linkedin from "@/components/icons/Linkedin";
 import X from "@/components/icons/X";
+import Mail from "@/components/icons/Mail";
 
 interface AuthorCardProps {
   author: string;
@@ -12,6 +13,7 @@ const authorInfo: Record<
   string,
   {
     bio: string;
+    email: string;
     github: string;
     twitter: string;
     linkedin: string;
@@ -19,6 +21,7 @@ const authorInfo: Record<
 > = {
   "Mohamed Wahib ABKARI": {
     bio: "Developer and creator of OneFile. Building tools to make working with AI easier and more efficient.",
+    email: "hello@wahibabkari.com",
     github: "https://github.com/wahibonae",
     twitter: "https://twitter.com/wahibonae",
     linkedin: "https://www.linkedin.com/in/abkarimohamedwahib/",
@@ -73,6 +76,13 @@ export function AuthorCard({ author }: AuthorCardProps) {
             aria-label="LinkedIn"
           >
             <Linkedin className="h-5 w-5" />
+          </Link>
+          <Link
+            href={`mailto:${info.email}`}
+            className="text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="Email"
+          >
+            <Mail className="h-5 w-5" />
           </Link>
         </div>
       </div>

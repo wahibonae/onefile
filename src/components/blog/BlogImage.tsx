@@ -16,8 +16,8 @@ export function BlogImage({
   height = 675,
 }: BlogImageProps) {
   return (
-    <figure className="my-8">
-      <div className="overflow-hidden rounded-xl border border-border">
+    <figure className="not-prose my-8">
+      <div className="overflow-hidden rounded-xl border border-border bg-white">
         <Image
           src={src}
           alt={alt}

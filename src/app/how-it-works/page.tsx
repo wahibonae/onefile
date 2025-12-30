@@ -151,7 +151,7 @@ export default function HowItWorksPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12">
+      <div className="container max-w-4xl mx-auto px-6 py-6 sm:py-8 lg:py-12">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">

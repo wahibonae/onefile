@@ -1,6 +1,8 @@
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Upload, FileText, Folder, ChevronDown } from 'lucide-react'
+import { Upload, FileText, Folder, ChevronDown, Download } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { TextCursorInput } from '@hugeicons/core-free-icons'
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -10,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { cn } from '@/lib/utils'
 import GitHub from '@/components/icons/Github'
+import YouTube from '@/components/icons/YouTube'
 
 interface FileUploadProps {
   isDragging: boolean;
@@ -18,6 +21,8 @@ interface FileUploadProps {
   onDrop: (e: React.DragEvent) => void;
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onGitHubImport?: () => void;
+  onYouTubeImport?: () => void;
+  onTextContent?: () => void;
 }
 
 export function FileUpload({
@@ -26,8 +31,11 @@ export function FileUpload({
   onDragLeave,
   onDrop,
   onFileChange,
-  onGitHubImport
+  onGitHubImport,
+  onYouTubeImport,
+  onTextContent,
 }: FileUploadProps) {
+  const hasImportOptions = onGitHubImport || onYouTubeImport || onTextContent;
   const fileOnlyInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
 
@@ -101,17 +109,50 @@ export function FileUpload({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            {onGitHubImport && (
-              <Button
-                onClick={onGitHubImport}
-                variant="outline"
-                className="relative group bg-background hover:bg-muted border-border shadow-sm h-8 px-2.5 rounded-md font-medium"
-              >
-                <span className="flex items-center gap-1.5 text-muted-foreground transition-all duration-300">
-                  <GitHub className="h-3.5 w-3.5" />
-                  Import from GitHub
-                </span>
-              </Button>
+            {hasImportOptions && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="relative group bg-background hover:bg-muted border-border shadow-sm h-8 px-2.5 rounded-md font-medium"
+                  >
+                    <span className="flex items-center gap-1.5 text-muted-foreground transition-all duration-300">
+                      <Download className="h-3.5 w-3.5" strokeWidth={2.1} />
+                      Import from
+                      <ChevronDown className="h-3 w-3 transition-transform group-hover:translate-y-0.5" />
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="center" className="w-fit space-y-1 p-2">
+                  {onGitHubImport && (
+                    <DropdownMenuItem
+                      onClick={onGitHubImport}
+                      className="flex items-center gap-2.5 cursor-pointer text-muted-foreground"
+                    >
+                      <GitHub className="h-4 w-4" />
+                      GitHub Repository
+                    </DropdownMenuItem>
+                  )}
+                  {onYouTubeImport && (
+                    <DropdownMenuItem
+                      onClick={onYouTubeImport}
+                      className="flex items-center gap-2.5 cursor-pointer text-muted-foreground"
+                    >
+                      <YouTube className="h-4 w-4" />
+                      YouTube Video
+                    </DropdownMenuItem>
+                  )}
+                  {onTextContent && (
+                    <DropdownMenuItem
+                      onClick={onTextContent}
+                      className="flex items-center gap-2.5 cursor-pointer text-muted-foreground"
+                    >
+                      <HugeiconsIcon icon={TextCursorInput} className="h-4 w-4" />
+                      Text Content
+                    </DropdownMenuItem>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </div>
         </div>

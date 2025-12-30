@@ -94,7 +94,7 @@ export default async function BlogPostPage({
   };
 
   return (
-    <div className="container max-w-6xl mx-auto sm:px-6 py-8">
+    <div className="container max-w-6xl mx-auto px-6 py-8">
       {/* Back Button */}
       <div className="mb-10">
         <Button variant="outline" size="sm" asChild>
@@ -121,7 +121,7 @@ export default async function BlogPostPage({
         </h1>
 
         {/* Description */}
-        <p className="mb-7 text-lg leading-relaxed text-muted-foreground sm:text-xl">
+        <p className="mb-7 text-md leading-relaxed text-muted-foreground sm:text-xl">
           {post.description}
         </p>
 

@@ -14,7 +14,7 @@ import {
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-background">
-      <div className="container max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12">
+      <div className="container max-w-4xl mx-auto px-6 py-6 sm:py-8 lg:py-12">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="mx-auto w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
@@ -135,7 +135,10 @@ export default function TermsPage() {
                   Claude, and Gemini
                 </li>
                 <li>
-                  Allows GitHub repository import (requires optional sign-in)
+                  Allows GitHub repository import (requires sign-in)
+                </li>
+                <li>
+                  Allows YouTube transcript and text content import
                 </li>
               </ul>
               <p>

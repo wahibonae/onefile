@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail } from "lucide-react";
 import GitHub from "@/components/icons/Github";
 import Linkedin from "@/components/icons/Linkedin";
@@ -7,8 +8,8 @@ import X from "@/components/icons/X";
 export function Footer() {
   return (
     <footer className="bg-background mt-12">
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-6">
+      <div className="container max-w-6xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-6 mb-6">
           {/* Product */}
           <div className="flex flex-col items-center md:items-start">
             <h3 className="font-semibold text-foreground mb-3">Product</h3>
@@ -171,11 +172,11 @@ export function Footer() {
             </ul>
           </div>
           {/* More from wahib */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="col-span-2 sm:col-span-4 lg:col-span-1 flex flex-col items-center lg:items-start">
             <h3 className="font-semibold text-foreground mb-3">
               More from wahib
             </h3>
-            <ul className="space-y-3 flex flex-col items-center md:items-start">
+            <ul className="flex flex-col items-center lg:items-start space-y-3">
               <li>
                 <a
                   href="https://getskipit.com"
@@ -183,11 +184,12 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="group text-sm text-[#FE6F4F] hover:brightness-110 font-semibold transition-colors inline-flex items-center gap-1.5"
                 >
-                  <img
+                  <Image
                     src="https://icons.duckduckgo.com/ip3/getskipit.com.ico"
                     alt=""
                     width={14}
                     height={14}
+                    unoptimized
                   />
                   Skipit
                 </a>
@@ -202,11 +204,12 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1.5"
                 >
-                  <img
+                  <Image
                     src="https://icons.duckduckgo.com/ip3/chromewebstore.google.com.ico"
                     alt=""
                     width={14}
                     height={14}
+                    unoptimized
                   />
                   Hide Deepseek Thoughts
                 </a>

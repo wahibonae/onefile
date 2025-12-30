@@ -211,21 +211,17 @@ export default function AboutPage() {
                   message from the creator:
                 </h3>
                 <div className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 space-y-2">
-                  <div>hi everyone, my name is mohamed wahib, AI engineer.</div>
+                  <div>hey everyone, my name is mohamed wahib!</div>
+                  <div>I'm an AI engineer and the creator of OneFile.</div>
                   <div>
-                    always building apps and tools for fun or *professional*
-                    use.
+                    i was just like you, always getting hit by chatgpt upload limits.
+                  </div>
+                  <div>copying and pasting the same files to ChatGPT was a pain.</div>
+                  <div>
+                    so I built a tool that helps me and others get around these limits.
                   </div>
                   <div>
-                    i was just like you, copying and pasting the same files to
-                    ChatGPT
-                  </div>
-                  <div>making one long ahh prompt to get help from AI.</div>
-                  <div>
-                    so I decided to build a tool that would help me and others.
-                  </div>
-                  <div>
-                    please let me know what you think, and feel free to hit me up on socials.
+                    feel free to hit me up on socials below, would love to hear from you!
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-muted-foreground">
@@ -247,6 +243,65 @@ export default function AboutPage() {
                       </Button>
                     </motion.div>
                   ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Other Projects */}
+        <motion.section className="mb-12 sm:mb-16" {...fadeIn}>
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
+            Other Projects
+          </h2>
+          <div className="space-y-4">
+            <div className="bg-card rounded-2xl border dark:border-border p-4 sm:p-6">
+              <div className="flex items-start gap-4">
+                <div className="p-2 rounded-lg bg-primary/5 shrink-0">
+                  <img
+                    src="https://icons.duckduckgo.com/ip3/getskipit.com.ico"
+                    alt=""
+                    width={24}
+                    height={24}
+                  />
+                </div>
+                <div>
+                  <a
+                    href="https://getskipit.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg font-semibold hover:text-primary transition-colors"
+                  >
+                    Skipit →
+                  </a>
+                  <p className="text-sm sm:text-base text-muted-foreground mt-1">
+                    App that lets you skip unwanted scenes (nudity, gore, etc.) on Netflix automatically. Totally free and crowd-sourced.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-card rounded-2xl border dark:border-border p-4 sm:p-6">
+              <div className="flex items-start gap-4">
+                <div className="p-2 rounded-lg bg-primary/5 shrink-0">
+                  <img
+                    src="https://icons.duckduckgo.com/ip3/chromewebstore.google.com.ico"
+                    alt=""
+                    width={24}
+                    height={24}
+                  />
+                </div>
+                <div>
+                  <a
+                    href="https://chromewebstore.google.com/detail/Hide%20Deepseek%20Thoughts/emhghfdejlhbbnfmcgjkcedmlajcghpp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg font-semibold hover:text-primary transition-colors"
+                  >
+                    Hide Deepseek Thoughts →
+                  </a>
+                  <p className="text-sm sm:text-base text-muted-foreground mt-1">
+                    Browser extension that automatically cleans up the Deepseek chat interface by hiding the thinking processes with a single button.
+                  </p>
                 </div>
               </div>
             </div>

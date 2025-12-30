@@ -8,7 +8,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export function Navbar() {
   return (
-    <nav className="bg-transparent container max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 sm:pb-7">
+    <nav className="bg-transparent container max-w-6xl mx-auto px-6 pt-6 sm:pt-10 sm:pb-7">
       <div className="flex items-start justify-between">
         {/* Logo - Left Side */}
         <Link

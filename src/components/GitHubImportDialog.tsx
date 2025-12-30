@@ -21,6 +21,7 @@ import {
 import { toast } from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { ALLOWED_EXTENSIONS } from "@/constants/files";
+import GitHub from "./icons/Github";
 
 type PublicImportState = "idle" | "downloading" | "processing" | "extracting";
 
@@ -61,17 +62,17 @@ interface GitHubFile {
   size?: number;
 }
 
-interface GitHubRepositoryBrowserProps {
+interface GitHubImportDialogProps {
   open: boolean;
   onClose: () => void;
   onImport: (files: Array<{ path: string; content: string }>) => void;
 }
 
-export function GitHubRepositoryBrowser({
+export function GitHubImportDialog({
   open,
   onClose,
   onImport,
-}: GitHubRepositoryBrowserProps) {
+}: GitHubImportDialogProps) {
   const [repositories, setRepositories] = useState<Repository[]>([]);
   const [selectedRepo, setSelectedRepo] = useState<Repository | null>(null);
   const [files, setFiles] = useState<GitHubFile[]>([]);
@@ -382,7 +383,10 @@ export function GitHubRepositoryBrowser({
     <Dialog open={open} onOpenChange={handleDialogClose}>
       <DialogContent className="max-w-3xl max-h-[80vh] p-0">
         <DialogHeader className="p-6 pb-0">
-          <DialogTitle>Import from GitHub</DialogTitle>
+          <DialogTitle className="flex items-center gap-2">
+            <GitHub className="h-5 w-5" />
+            Import from GitHub
+          </DialogTitle>
         </DialogHeader>
 
         <div className="px-6 pb-6">

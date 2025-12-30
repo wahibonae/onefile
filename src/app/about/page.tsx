@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Upload,
@@ -102,7 +103,7 @@ export default function AboutPage() {
   ];
   return (
     <div className="min-h-screen bg-background">
-      <div className="container max-w-4xl mx-auto px-6 sm:px-6 py-6 sm:py-8 lg:py-12">
+      <div className="container max-w-4xl mx-auto p-6 sm:py-8 lg:py-12">
         {/* Header */}
         <motion.div className="text-center mb-8 sm:mb-12" {...fadeIn}>
           <div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-4">
@@ -212,7 +213,7 @@ export default function AboutPage() {
                 </h3>
                 <div className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 space-y-2">
                   <div>hey everyone, my name is mohamed wahib!</div>
-                  <div>I'm an AI engineer and the creator of OneFile.</div>
+                  <div>I&apos;m an AI engineer and the creator of OneFile.</div>
                   <div>
                     i was just like you, always getting hit by chatgpt upload limits.
                   </div>
@@ -258,11 +259,12 @@ export default function AboutPage() {
             <div className="bg-card rounded-2xl border dark:border-border p-4 sm:p-6">
               <div className="flex items-start gap-4">
                 <div className="p-2 rounded-lg bg-primary/5 shrink-0">
-                  <img
+                  <Image
                     src="https://icons.duckduckgo.com/ip3/getskipit.com.ico"
                     alt=""
                     width={24}
                     height={24}
+                    unoptimized
                   />
                 </div>
                 <div>
@@ -283,11 +285,12 @@ export default function AboutPage() {
             <div className="bg-card rounded-2xl border dark:border-border p-4 sm:p-6">
               <div className="flex items-start gap-4">
                 <div className="p-2 rounded-lg bg-primary/5 shrink-0">
-                  <img
+                  <Image
                     src="https://icons.duckduckgo.com/ip3/chromewebstore.google.com.ico"
                     alt=""
                     width={24}
                     height={24}
+                    unoptimized
                   />
                 </div>
                 <div>

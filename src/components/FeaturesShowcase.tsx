@@ -19,7 +19,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
   return (
     <div className="space-y-16 md:space-y-24">
       <section className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        <div className="space-y-4">
+        <div className="space-y-2 sm:space-y-4">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">
             File Consolidation
           </p>
@@ -57,7 +57,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-2 sm:space-y-4">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">
             File Support
           </p>
@@ -73,7 +73,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
       </section>
 
       <section className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        <div className="space-y-4">
+        <div className="space-y-2 sm:space-y-4">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">
             Intelligent Filtering
           </p>
@@ -111,7 +111,7 @@ export const FeaturesShowcase = (): React.JSX.Element => {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-2 sm:space-y-4">
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">
             Privacy First
           </p>

@@ -9,7 +9,9 @@ import Sparkles from "@/components/icons/Sparkles";
 import { FileUpload } from "@/components/FileUpload";
 import { FileList } from "@/components/FileList";
 import { cn } from "@/lib/utils";
-import { GitHubRepositoryBrowser } from "@/components/GitHubRepositoryBrowser";
+import { GitHubImportDialog } from "@/components/GitHubImportDialog";
+import { YouTubeImportDialog } from "@/components/YouTubeImportDialog";
+import { TextContentDialog } from "@/components/TextContentDialog";
 import { FAQSection } from "@/components/FAQSection";
 import { LogoCloud } from "@/components/LogoCloud";
 import { Navbar } from "@/components/Navbar";
@@ -18,6 +20,8 @@ import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { useFileManager } from "@/hooks/useFileManager";
 import { usePromptOutput } from "@/hooks/usePromptOutput";
 import { useGitHubBrowser } from "@/hooks/useGitHubBrowser";
+import { useYouTubeBrowser } from "@/hooks/useYouTubeBrowser";
+import { useTextContentDialog } from "@/hooks/useTextContentDialog";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
 
 export default function Home() {
@@ -30,6 +34,16 @@ export default function Home() {
     setIsGitHubBrowserOpen,
     handleGitHubImportClick,
   } = useGitHubBrowser(files);
+  const {
+    isYouTubeBrowserOpen,
+    setIsYouTubeBrowserOpen,
+    handleYouTubeImportClick,
+  } = useYouTubeBrowser();
+  const {
+    isTextContentDialogOpen,
+    setIsTextContentDialogOpen,
+    handleTextContentClick,
+  } = useTextContentDialog();
   const {
     isDragging,
     handleDragOver,
@@ -48,7 +62,7 @@ export default function Home() {
         <div className="relative z-10">
           <Navbar />
 
-          <div className="flex-grow container max-w-6xl mx-auto px-4 sm:px-6 pb-8 sm:pb-12">
+          <div className="flex-grow container max-w-6xl mx-auto px-6 pb-8 sm:pb-12">
             <div className="space-y-4 sm:space-y-6">
               <div className="text-center space-y-3 sm:space-y-4 py-6 sm:py-8 md:py-4">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
@@ -74,7 +88,7 @@ export default function Home() {
                         Input
                       </h2>
                       <span className="bg-primary/10 text-primary text-xs px-3 py-1.5 rounded-full font-medium">
-                        NEW: Import public repos instantly
+                        NEW: Import from YouTube and more!
                       </span>
                     </div>
 
@@ -86,6 +100,8 @@ export default function Home() {
                         onDrop={handleDrop}
                         onFileChange={handleFileChange}
                         onGitHubImport={handleGitHubImportClick}
+                        onYouTubeImport={handleYouTubeImportClick}
+                        onTextContent={handleTextContentClick}
                       />
 
                       {files.length === 0 && (
@@ -155,7 +171,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-32">
+      <div className="container max-w-6xl mx-auto px-6 py-12 space-y-32">
         <LogoCloud />
 
         <section className="max-w-5xl mx-auto">
@@ -230,9 +246,21 @@ export default function Home() {
         <FAQSection />
       </div>
 
-      <GitHubRepositoryBrowser
+      <GitHubImportDialog
         open={isGitHubBrowserOpen}
         onClose={() => setIsGitHubBrowserOpen(false)}
+        onImport={handleGitHubImport}
+      />
+
+      <YouTubeImportDialog
+        open={isYouTubeBrowserOpen}
+        onClose={() => setIsYouTubeBrowserOpen(false)}
+        onImport={handleGitHubImport}
+      />
+
+      <TextContentDialog
+        open={isTextContentDialogOpen}
+        onClose={() => setIsTextContentDialogOpen(false)}
         onImport={handleGitHubImport}
       />
     </div>

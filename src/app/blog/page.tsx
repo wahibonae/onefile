@@ -3,7 +3,7 @@ import { BlogListClient } from "@/components/blog/BlogListClient";
 
 export default function BlogPage(): React.JSX.Element {
   return (
-    <div className="container max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 lg:py-12 space-y-6 sm:space-y-10">
+    <div className="container max-w-5xl mx-auto px-6 py-6 sm:py-8 lg:py-12 space-y-6 sm:space-y-10">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-3 sm:mb-4">

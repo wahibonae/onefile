@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className="bg-background mt-12">
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-6">
           {/* Product */}
           <div className="flex flex-col items-center md:items-start">
             <h3 className="font-semibold text-foreground mb-3">Product</h3>
@@ -167,6 +167,52 @@ export function Footer() {
                   <Mail className="h-4 w-4" />
                   Email
                 </a>
+              </li>
+            </ul>
+          </div>
+          {/* More from wahib */}
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="font-semibold text-foreground mb-3">
+              More from wahib
+            </h3>
+            <ul className="space-y-3 flex flex-col items-center md:items-start">
+              <li>
+                <a
+                  href="https://getskipit.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group text-sm text-[#FE6F4F] hover:brightness-110 font-semibold transition-colors inline-flex items-center gap-1.5"
+                >
+                  <img
+                    src="https://icons.duckduckgo.com/ip3/getskipit.com.ico"
+                    alt=""
+                    width={14}
+                    height={14}
+                  />
+                  Skipit
+                </a>
+                <p className="text-xs text-muted-foreground/70 mt-0.5">
+                  Skip unwanted scenes on Netflix
+                </p>
+              </li>
+              <li>
+                <a
+                  href="https://chromewebstore.google.com/detail/Hide%20Deepseek%20Thoughts/emhghfdejlhbbnfmcgjkcedmlajcghpp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1.5"
+                >
+                  <img
+                    src="https://icons.duckduckgo.com/ip3/chromewebstore.google.com.ico"
+                    alt=""
+                    width={14}
+                    height={14}
+                  />
+                  Hide Deepseek Thoughts
+                </a>
+                <p className="text-xs text-muted-foreground/70 mt-0.5">
+                  Clean up Deepseek&apos;s thinking process
+                </p>
               </li>
             </ul>
           </div>

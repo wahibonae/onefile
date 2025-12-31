@@ -10,7 +10,6 @@ import { FileUpload } from "@/components/FileUpload";
 import { FileList } from "@/components/FileList";
 import { cn } from "@/lib/utils";
 import { GitHubImportDialog } from "@/components/GitHubImportDialog";
-import { YouTubeImportDialog } from "@/components/YouTubeImportDialog";
 import { TextContentDialog } from "@/components/TextContentDialog";
 import { FAQSection } from "@/components/FAQSection";
 import { LogoCloud } from "@/components/LogoCloud";
@@ -20,11 +19,10 @@ import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { useFileManager } from "@/hooks/useFileManager";
 import { usePromptOutput } from "@/hooks/usePromptOutput";
 import { useGitHubBrowser } from "@/hooks/useGitHubBrowser";
-import { useYouTubeBrowser } from "@/hooks/useYouTubeBrowser";
 import { useTextContentDialog } from "@/hooks/useTextContentDialog";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
 
-const IMPORT_SOURCES = ["YouTube", "text content", "public repositories"];
+const IMPORT_SOURCES = ["text content", "public repositories"];
 
 export default function Home() {
   const { files, handleFiles, removeFile, clearAllFiles, handleGitHubImport } =
@@ -36,11 +34,6 @@ export default function Home() {
     setIsGitHubBrowserOpen,
     handleGitHubImportClick,
   } = useGitHubBrowser(files);
-  const {
-    isYouTubeBrowserOpen,
-    setIsYouTubeBrowserOpen,
-    handleYouTubeImportClick,
-  } = useYouTubeBrowser();
   const {
     isTextContentDialogOpen,
     setIsTextContentDialogOpen,
@@ -125,7 +118,6 @@ export default function Home() {
                         onDrop={handleDrop}
                         onFileChange={handleFileChange}
                         onGitHubImport={handleGitHubImportClick}
-                        onYouTubeImport={handleYouTubeImportClick}
                         onTextContent={handleTextContentClick}
                       />
 
@@ -274,12 +266,6 @@ export default function Home() {
       <GitHubImportDialog
         open={isGitHubBrowserOpen}
         onClose={() => setIsGitHubBrowserOpen(false)}
-        onImport={handleGitHubImport}
-      />
-
-      <YouTubeImportDialog
-        open={isYouTubeBrowserOpen}
-        onClose={() => setIsYouTubeBrowserOpen(false)}
         onImport={handleGitHubImport}
       />
 

@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { cn } from '@/lib/utils'
 import GitHub from '@/components/icons/Github'
-import YouTube from '@/components/icons/YouTube'
 
 interface FileUploadProps {
   isDragging: boolean;
@@ -21,7 +20,6 @@ interface FileUploadProps {
   onDrop: (e: React.DragEvent) => void;
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onGitHubImport?: () => void;
-  onYouTubeImport?: () => void;
   onTextContent?: () => void;
 }
 
@@ -32,10 +30,9 @@ export function FileUpload({
   onDrop,
   onFileChange,
   onGitHubImport,
-  onYouTubeImport,
   onTextContent,
 }: FileUploadProps) {
-  const hasImportOptions = onGitHubImport || onYouTubeImport || onTextContent;
+  const hasImportOptions = onGitHubImport || onTextContent;
   const fileOnlyInputRef = useRef<HTMLInputElement>(null)
   const folderInputRef = useRef<HTMLInputElement>(null)
 
@@ -131,15 +128,6 @@ export function FileUpload({
                     >
                       <GitHub className="h-4 w-4" />
                       GitHub Repository
-                    </DropdownMenuItem>
-                  )}
-                  {onYouTubeImport && (
-                    <DropdownMenuItem
-                      onClick={onYouTubeImport}
-                      className="flex items-center gap-2.5 cursor-pointer text-muted-foreground"
-                    >
-                      <YouTube className="h-4 w-4" />
-                      YouTube Video
                     </DropdownMenuItem>
                   )}
                   {onTextContent && (

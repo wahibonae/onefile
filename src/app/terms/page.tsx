@@ -138,7 +138,7 @@ export default function TermsPage() {
                   Allows GitHub repository import (requires sign-in)
                 </li>
                 <li>
-                  Allows YouTube transcript and text content import
+                  Allows text content import
                 </li>
               </ul>
               <p>

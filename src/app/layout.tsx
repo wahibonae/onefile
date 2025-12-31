@@ -148,7 +148,6 @@ export default function RootLayout({
         "Combine unlimited files into one",
         "Support for 50+ file types",
         "GitHub repository import",
-        "YouTube video import",
         "Text content import",
         "Open source and transparent",
       ],

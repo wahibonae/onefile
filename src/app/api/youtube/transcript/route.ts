@@ -32,8 +32,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       generate_session_locally: true,
     });
 
-    // Get video info
-    const info = await yt.getInfo(videoId);
+    // Get basic video info (avoids parsing description section which can cause parser errors)
+    const info = await yt.getBasicInfo(videoId);
 
     if (!info) {
       return NextResponse.json({ error: "Video not found" }, { status: 404 });

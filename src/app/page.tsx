@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -23,6 +23,8 @@ import { useGitHubBrowser } from "@/hooks/useGitHubBrowser";
 import { useYouTubeBrowser } from "@/hooks/useYouTubeBrowser";
 import { useTextContentDialog } from "@/hooks/useTextContentDialog";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
+
+const IMPORT_SOURCES = ["YouTube", "text content", "public repositories"];
 
 export default function Home() {
   const { files, handleFiles, removeFile, clearAllFiles, handleGitHubImport } =
@@ -51,6 +53,21 @@ export default function Home() {
     handleDrop,
     handleFileChange,
   } = useDragAndDrop(handleFiles);
+
+  const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsVisible(false);
+      setTimeout(() => {
+        setCurrentSourceIndex((prev) => (prev + 1) % IMPORT_SOURCES.length);
+        setIsVisible(true);
+      }, 400);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background flex flex-col space-y-6">
@@ -87,8 +104,16 @@ export default function Home() {
                       <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
                         Input
                       </h2>
-                      <span className="bg-primary/10 text-primary text-xs px-3 py-1.5 rounded-full font-medium">
-                        NEW: Import from YouTube and more!
+                      <span className="bg-primary/10 text-primary text-xs px-3 py-1.5 rounded-full font-medium whitespace-nowrap">
+                        NEW: Import from{" "}
+                        <span
+                          className={cn(
+                            "inline-block transition-opacity duration-300",
+                            isVisible ? "opacity-100" : "opacity-0"
+                          )}
+                        >
+                          {IMPORT_SOURCES[currentSourceIndex]}!
+                        </span>
                       </span>
                     </div>
 

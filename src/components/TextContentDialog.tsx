@@ -64,7 +64,7 @@ export function TextContentDialog({
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <HugeiconsIcon icon={TextCursorInput} className="h-5 w-5" />
+            <HugeiconsIcon icon={TextCursorInput} className="h-5 w-5" strokeWidth={2.1} />
             Add Text Content
           </DialogTitle>
           <DialogDescription>

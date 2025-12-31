@@ -35,12 +35,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // Get basic video info (avoids parsing description section which can cause parser errors)
     const info = await yt.getBasicInfo(videoId);
 
-    // Debug logging
-    console.log("[YouTube Debug] Video ID:", videoId);
-    console.log("[YouTube Debug] Info exists:", !!info);
-    console.log("[YouTube Debug] Has captions:", !!info?.captions);
-    console.log("[YouTube Debug] Caption tracks:", info?.captions?.caption_tracks?.length ?? 0);
-
     if (!info) {
       return NextResponse.json({ error: "Video not found" }, { status: 404 });
     }
@@ -49,7 +43,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const captionTracks = info.captions?.caption_tracks as CaptionTrack[] | undefined;
 
     if (!captionTracks || captionTracks.length === 0) {
-      console.log("[YouTube Debug] No captions - full captions object:", JSON.stringify(info.captions, null, 2));
       return NextResponse.json(
         {
           error:

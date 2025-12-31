@@ -147,7 +147,7 @@ export function FileUpload({
                       onClick={onTextContent}
                       className="flex items-center gap-2.5 cursor-pointer text-muted-foreground"
                     >
-                      <HugeiconsIcon icon={TextCursorInput} className="h-4 w-4" />
+                      <HugeiconsIcon icon={TextCursorInput} className="h-4 w-4" strokeWidth={2.1} />
                       Text Content
                     </DropdownMenuItem>
                   )}

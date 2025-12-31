@@ -32,8 +32,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       generate_session_locally: true,
     });
 
-    // Get basic video info (avoids parsing description section which can cause parser errors)
-    const info = await yt.getBasicInfo(videoId);
+    // Get full video info (parser warnings are non-fatal and can be ignored)
+    const info = await yt.getInfo(videoId);
 
     if (!info) {
       return NextResponse.json({ error: "Video not found" }, { status: 404 });
@@ -45,8 +45,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     if (!captionTracks || captionTracks.length === 0) {
       return NextResponse.json(
         {
-          error:
-            "No captions available for this video. The video may not have subtitles enabled.",
+          error: "No captions available for this video. The video may not have subtitles enabled.",
         },
         { status: 404 }
       );
@@ -80,7 +79,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       );
     }
 
-    // Fetch the captions XML - request JSON format for easier parsing
+    // Fetch the captions - request JSON format for easier parsing
     const captionUrl = new URL(selectedTrack.base_url);
     captionUrl.searchParams.set("fmt", "json3");
 

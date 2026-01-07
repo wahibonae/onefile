@@ -15,6 +15,43 @@ export default function FAQPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const faqs: FAQItem[] = [
+    {
+      category: "ChatGPT Limits",
+      question: "What is ChatGPT's file upload limit?",
+      answer:
+        "ChatGPT Free allows 3 file uploads per day. ChatGPT Plus allows ~80 files per 3-hour rolling window (and 10 files per message). ChatGPT Pro ($200/month) offers unlimited uploads. All plans have a 512MB per-file size limit. You can bypass these limits by combining files into one using OneFile.",
+    },
+    {
+      category: "ChatGPT Limits",
+      question: "What is the maximum file size for ChatGPT uploads?",
+      answer:
+        "ChatGPT allows files up to 512MB per file across all plans (Free, Plus, Pro, Team, Enterprise). Images are limited to 20MB, and spreadsheets to 50MB. If your file is too large, consider splitting it or using OneFile to combine multiple smaller files.",
+    },
+    {
+      category: "ChatGPT Limits",
+      question: "Why does ChatGPT say 'You've reached your file upload limit'?",
+      answer:
+        "This error appears when you've hit your plan's upload cap. Free users see this after 3 files per day. Plus users see it after ~80 files in a 3-hour window. The fix: combine your files into one using OneFile, then upload the single combined file to ChatGPT.",
+    },
+    {
+      category: "ChatGPT Limits",
+      question: "How many files can I upload to ChatGPT for free?",
+      answer:
+        "ChatGPT Free allows 3 file uploads per day. This limit resets every 24 hours. To upload more, either upgrade to Plus ($20/month) for ~80 files per 3 hours, or use OneFile to combine unlimited files into one and upload that single file.",
+    },
+    {
+      category: "ChatGPT Limits",
+      question: "When does ChatGPT's file upload limit reset?",
+      answer:
+        "For Free users, the 3-file limit resets every 24 hours. For Plus, Team, and Pro users, the limit uses a rolling 3-hour window that continuously refreshes as older uploads age out. You don't have to wait for a full reset.",
+    },
+    {
+      category: "ChatGPT Limits",
+      question: "Is there an AI with unlimited file uploads?",
+      answer:
+        "ChatGPT Pro ($200/month) offers unlimited file uploads. For other plans or AI platforms with limits, you can effectively get unlimited uploads by combining multiple files into one before uploading. OneFile does this for free.",
+    },
+
     // Getting Started
     {
       category: "Getting Started",

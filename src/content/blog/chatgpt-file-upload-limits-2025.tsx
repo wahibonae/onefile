@@ -44,6 +44,58 @@ export default function BlogPost() {
         when you need to work with more files than allowed.
       </p>
 
+      {/* Quick Reference Table - Placed early for featured snippets */}
+      <div className="overflow-x-auto my-6">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="text-left py-3 px-4 font-semibold">Plan</th>
+              <th className="text-left py-3 px-4 font-semibold">Price</th>
+              <th className="text-left py-3 px-4 font-semibold">Upload Limit</th>
+              <th className="text-left py-3 px-4 font-semibold">File Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-border">
+              <td className="py-3 px-4">Free</td>
+              <td className="py-3 px-4">$0</td>
+              <td className="py-3 px-4">3 files/day</td>
+              <td className="py-3 px-4">512MB</td>
+            </tr>
+            <tr className="border-b border-border">
+              <td className="py-3 px-4">Go</td>
+              <td className="py-3 px-4">$5.50/mo</td>
+              <td className="py-3 px-4">Extended</td>
+              <td className="py-3 px-4">512MB</td>
+            </tr>
+            <tr className="border-b border-border">
+              <td className="py-3 px-4">Plus</td>
+              <td className="py-3 px-4">$20/mo</td>
+              <td className="py-3 px-4">~80/3hrs, 10/message</td>
+              <td className="py-3 px-4">512MB</td>
+            </tr>
+            <tr className="border-b border-border">
+              <td className="py-3 px-4 font-semibold text-green-600 dark:text-green-400">Pro</td>
+              <td className="py-3 px-4">$200/mo</td>
+              <td className="py-3 px-4 font-semibold text-green-600 dark:text-green-400">Unlimited</td>
+              <td className="py-3 px-4">512MB</td>
+            </tr>
+            <tr className="border-b border-border">
+              <td className="py-3 px-4">Team</td>
+              <td className="py-3 px-4">$25/user/mo</td>
+              <td className="py-3 px-4">~80/3hrs, 10/message</td>
+              <td className="py-3 px-4">512MB</td>
+            </tr>
+            <tr>
+              <td className="py-3 px-4">Enterprise</td>
+              <td className="py-3 px-4">Custom</td>
+              <td className="py-3 px-4">Negotiable</td>
+              <td className="py-3 px-4">512MB+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <h2>ChatGPT File Upload Limits by Plan</h2>
 
       <p>
@@ -207,63 +259,6 @@ export default function BlogPost() {
         requires custom pricing discussions with OpenAI&apos;s sales team.
       </p>
 
-      <h2>Quick Comparison Table</h2>
-
-      <div className="overflow-x-auto my-6">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="text-left py-3 px-4 font-semibold">Plan</th>
-              <th className="text-left py-3 px-4 font-semibold">Price</th>
-              <th className="text-left py-3 px-4 font-semibold">
-                Upload Limit
-              </th>
-              <th className="text-left py-3 px-4 font-semibold">File Size</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-b border-border">
-              <td className="py-3 px-4">Free</td>
-              <td className="py-3 px-4">$0</td>
-              <td className="py-3 px-4">Limited (~3/day)</td>
-              <td className="py-3 px-4">512MB</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="py-3 px-4">Go</td>
-              <td className="py-3 px-4">$5.50/mo</td>
-              <td className="py-3 px-4">Extended</td>
-              <td className="py-3 px-4">512MB</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="py-3 px-4">Plus</td>
-              <td className="py-3 px-4">$20/mo</td>
-              <td className="py-3 px-4">Expanded (~80/3hrs)</td>
-              <td className="py-3 px-4">512MB</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="py-3 px-4">Pro</td>
-              <td className="py-3 px-4">$200/mo</td>
-              <td className="py-3 px-4 font-semibold text-green-600 dark:text-green-400">
-                Unlimited
-              </td>
-              <td className="py-3 px-4">512MB</td>
-            </tr>
-            <tr className="border-b border-border">
-              <td className="py-3 px-4">Team</td>
-              <td className="py-3 px-4">$25/user/mo</td>
-              <td className="py-3 px-4">Expanded (~80/3hrs)</td>
-              <td className="py-3 px-4">512MB</td>
-            </tr>
-            <tr>
-              <td className="py-3 px-4">Enterprise</td>
-              <td className="py-3 px-4">Custom</td>
-              <td className="py-3 px-4">Negotiable</td>
-              <td className="py-3 px-4">512MB+</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
       <h2>ChatGPT File Size and Format Limits</h2>
 
       <p>
@@ -421,6 +416,13 @@ export default function BlogPost() {
           respects .gitignore rules for cleaner output.
         </p>
       </Callout>
+
+      <p>
+        For a detailed step-by-step guide with tips, see our{" "}
+        <Link href="/blog/bypass-chatgpt-file-upload-limit-2025" className="text-primary hover:underline">
+          complete guide to bypassing ChatGPT&apos;s file upload limit
+        </Link>.
+      </p>
 
       <h3>Option 2: Batch Your Uploads</h3>
 

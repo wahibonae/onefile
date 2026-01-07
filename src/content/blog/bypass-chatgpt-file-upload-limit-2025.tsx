@@ -11,7 +11,7 @@ export default function BlogPost() {
           TL;DR
         </h3>
         <p className="text-sm leading-normal text-muted-foreground mb-2">
-          ChatGPT limits you to 3 files/day (free) or 10 files/message (Plus). The fix: combine all your files into one text file before uploading.
+          ChatGPT limits you to 3 files/day (Free) or ~80 files/3hrs (Plus). The fix: combine all your files into one text file before uploading.
         </p>
         <p className="text-sm leading-normal text-muted-foreground">
           <span className="font-medium">Quick solution:</span> Go to{" "}
@@ -41,21 +41,25 @@ export default function BlogPost() {
 
       <ul>
         <li><strong>Maximum 3 files per day</strong>: Can&apos;t upload more until the next day</li>
-        <li><strong>20MB per file limit</strong>: Large documents must be split</li>
-        <li><strong>Limited file types</strong>: Only common formats like PDF, DOCX, TXT</li>
+        <li><strong>512MB per file limit</strong>: Most files fit, but there&apos;s a daily cap</li>
+        <li><strong>Limited file types</strong>: Common formats like PDF, DOCX, TXT, code files</li>
         <li><strong>No folder uploads</strong>: Each file must be selected individually</li>
       </ul>
 
       <h3>ChatGPT Plus Limitations ($20/month)</h3>
 
       <ul>
-        <li><strong>10-file limit per message</strong>: Still tedious for large projects with hundreds of files</li>
-        <li><strong>Same 20MB per file restriction</strong>: No improvement over free</li>
+        <li><strong>10 files per message</strong>: Must upload in batches for large projects</li>
+        <li><strong>~80 files per 3-hour window</strong>: Rolling limit resets over time</li>
+        <li><strong>512MB per file</strong>: Same size limit as Free</li>
         <li><strong>No folder or repository support</strong>: Can&apos;t upload entire projects at once</li>
       </ul>
 
       <p>
-        These limits exist to manage server costs, but they&apos;re a bottleneck for legitimate use cases like analyzing research papers, reviewing codebases, or processing multiple documents.
+        These limits exist to manage server costs, but they&apos;re a bottleneck for legitimate use cases like analyzing research papers, reviewing codebases, or processing multiple documents. For a complete breakdown of all plans including Pro, Team, and Enterprise, see our{" "}
+        <Link href="/blog/chatgpt-file-upload-limits-2025" className="text-primary hover:underline">
+          ChatGPT File Upload Limits 2025 guide
+        </Link>.
       </p>
 
       <h2>The Solution: Combine Files Before Uploading</h2>
@@ -187,7 +191,7 @@ export default function BlogPost() {
 
       <h3>Does this work with ChatGPT Plus?</h3>
       <p>
-        Yes. Plus users bypass the 10-file batch limit and can upload unlimited content in one file.
+        Yes. Plus users bypass both the 10-file per message limit and the ~80 files per 3-hour window limit. Upload unlimited content in one file.
       </p>
 
       <h3>Will this work with Claude or Gemini?</h3>
@@ -202,7 +206,10 @@ export default function BlogPost() {
 
       <h3>Can I upload an entire GitHub repository?</h3>
       <p>
-        Yes. Sign in with GitHub and import any repository. OneFile respects .gitignore and skips node_modules, .git, and build artifacts.
+        Yes. Sign in with GitHub and import any repository. OneFile respects .gitignore and skips node_modules, .git, and build artifacts. See our{" "}
+        <Link href="/blog/chatgpt-github-import-free" className="text-primary hover:underline">
+          guide to importing GitHub to ChatGPT for free
+        </Link>.
       </p>
 
       <h3>How large can the combined file be?</h3>
@@ -228,7 +235,7 @@ export default function BlogPost() {
       <h2>Conclusion</h2>
 
       <p>
-        ChatGPT&apos;s 3-file limit (or 10-file limit for Plus) doesn&apos;t have to slow you down. Combine your files into one before uploading, and you can work with unlimited content.
+        ChatGPT&apos;s 3-file limit (Free) or 80-file rolling limit (Plus) doesn&apos;t have to slow you down. Combine your files into one before uploading, and you can work with unlimited content.
       </p>
 
       <p>

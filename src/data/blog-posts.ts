@@ -13,13 +13,31 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "how-many-files-upload-chatgpt",
+    title: "How Many Files Can You Upload to ChatGPT? (2026 Limits)",
+    description:
+      "ChatGPT Free: 3 files/day. Plus: ~80 files/3 hours. Pro: Unlimited. Complete breakdown of upload limits for every plan, plus how to upload more.",
+    image: "/blog/how-many-files-chatgpt.png",
+    publishedAt: "2026-01-07",
+    author: "Mohamed Wahib ABKARI",
+    readingTime: "6 min read",
+    tags: [
+      "ChatGPT",
+      "File Upload Limits",
+      "ChatGPT Free",
+      "ChatGPT Plus",
+      "AI Tools",
+    ],
+    featured: false,
+  },
+  {
     slug: "chatgpt-file-upload-limits-2025",
     title: "ChatGPT File Upload Limits 2025: Complete Guide for Every Plan",
     description:
       "Complete breakdown of ChatGPT file upload limits for Free, Plus, Pro, Team, and Enterprise plans. Learn the exact limits and how to upload more files.",
     image: "/blog/chatgpt-file-upload-limits.png",
     publishedAt: "2025-12-22",
-    updatedAt: "2025-12-22",
+    updatedAt: "2026-01-07",
     author: "Mohamed Wahib ABKARI",
     readingTime: "7 min read",
     tags: [
@@ -59,7 +77,7 @@ export const blogPosts: BlogPost[] = [
       "ChatGPT's GitHub connector requires Plus ($20/mo). Use OneFile to import any GitHub repository to ChatGPT for free. No account, no limits.",
     image: "/blog/chatgpt-github-import.png",
     publishedAt: "2025-12-08",
-    updatedAt: "2025-12-08",
+    updatedAt: "2026-01-07",
     author: "Mohamed Wahib ABKARI",
     readingTime: "5 min read",
     tags: [
@@ -73,12 +91,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "bypass-chatgpt-file-upload-limit-2025",
-    title: "How to Bypass ChatGPT's 3-File Upload Limit (Complete Guide 2025)",
+    title: "ChatGPT File Upload Limit? Upload Unlimited Files (Free Fix 2026)",
     description:
-      "Bypass ChatGPT's 3-file limit with OneFile. Upload unlimited files to AI platforms - free, open-source, no account required.",
+      "Say goodbye to hitting ChatGPT's file upload limit. Combine unlimited files into one and upload instantly. Free tool, no account, works on Free & Plus plans.",
     image: "/blog/bypass-chatgpt-limit.png",
     publishedAt: "2025-11-19",
-    updatedAt: "2025-11-19",
+    updatedAt: "2026-01-07",
     author: "Mohamed Wahib ABKARI",
     readingTime: "8 min read",
     tags: [

@@ -13,6 +13,24 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "how-many-files-upload-chatgpt",
+    title: "How Many Files Can You Upload to ChatGPT? (2026 Limits)",
+    description:
+      "ChatGPT Free: 3 files/day. Plus: ~80 files/3 hours. Pro: Unlimited. Complete breakdown of upload limits for every plan, plus how to upload more.",
+    image: "/blog/how-many-files-chatgpt.png",
+    publishedAt: "2026-01-07",
+    author: "Mohamed Wahib ABKARI",
+    readingTime: "6 min read",
+    tags: [
+      "ChatGPT",
+      "File Upload Limits",
+      "ChatGPT Free",
+      "ChatGPT Plus",
+      "AI Tools",
+    ],
+    featured: false,
+  },
+  {
     slug: "chatgpt-file-upload-limits-2025",
     title: "ChatGPT File Upload Limits 2025: Complete Guide for Every Plan",
     description:

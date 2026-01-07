@@ -82,7 +82,11 @@ export default function BlogPost() {
       </div>
 
       <p>
-        That&apos;s $20/month minimum just to analyze your own code. For students, hobbyists, or developers who occasionally need AI code review, that&apos;s a steep price.
+        That&apos;s $20/month minimum just to analyze your own code. For students, hobbyists, or developers who occasionally need AI code review, that&apos;s a steep price. (See our{" "}
+        <Link href="/blog/chatgpt-file-upload-limits-2025" className="text-primary hover:underline">
+          complete guide to ChatGPT file upload limits
+        </Link>{" "}
+        for all plan details.)
       </p>
 
       <h2>The Free Alternative: OneFile</h2>
@@ -253,7 +257,10 @@ export default function BlogPost() {
 
       <h3>What about large repositories?</h3>
       <p>
-        ChatGPT has a context limit (~128K tokens). For very large codebases, consider importing only the relevant directories or splitting into multiple conversations.
+        ChatGPT has a context limit (~128K tokens). For very large codebases, consider importing only the relevant directories or splitting into multiple conversations. You can also use OneFile to{" "}
+        <Link href="/blog/bypass-chatgpt-file-upload-limit-2025" className="text-primary hover:underline">
+          bypass ChatGPT&apos;s file upload limits
+        </Link>.
       </p>
 
       <h3>Does this work with Claude and Gemini?</h3>

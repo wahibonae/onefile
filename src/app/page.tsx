@@ -76,14 +76,14 @@ export default function Home() {
             <div className="space-y-4 sm:space-y-6">
               <div className="text-center space-y-3 sm:space-y-4 py-6 sm:py-8 md:py-4">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
-                  Bypass AI Upload Limits
+                  Upload Unlimited Files to AI
                 </h1>
                 <p className="text-muted-foreground max-w-3xl mx-auto text-sm sm:text-base lg:text-lg leading-relaxed px-4 sm:px-0">
-                  Break through ChatGPT&apos;s 3-file limit. Combine unlimited
-                  files into one AI-ready file.
+                  Bypass ChatGPT&apos;s 3-file limit. Combine unlimited files into
+                  one AI-ready file.
                   <br className="hidden sm:block" />
-                  <span className="sm:inline"> </span>Works with Claude, Gemini,
-                  Grok, and all AI platforms.
+                  <span className="sm:inline"> </span>Free tool for ChatGPT,
+                  Claude, Gemini, and all AI platforms.
                 </p>
               </div>
 

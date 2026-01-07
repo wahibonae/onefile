@@ -17,9 +17,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const title =
-  "OneFile - Bypass ChatGPT Upload Limits | Free AI File Tool";
+  "OneFile - Upload Unlimited Files to ChatGPT | Free AI File Tool";
 const description =
-  "Break through ChatGPT's 3-file limit. Combine unlimited files (PDFs, code, docs, Excel) into one AI-ready file. Free tool for Claude, Gemini, Grok, and all AI platforms. No account required.";
+  "ChatGPT limits you to 3 files? Combine unlimited files into one and upload to any AI. Free, no account, works with PDFs, code, docs.";
 const url = "https://www.onefileapp.com";
 
 export const metadata: Metadata = {
@@ -209,6 +209,22 @@ export default function RootLayout({
             "@type": "Answer",
             text: "Yes, completely free with no hidden costs, no account required, and no usage limits. OneFile is open-source software released under the MIT license.",
           },
+        },
+        {
+          "@type": "Question",
+          name: "How do I upload more than 3 files to ChatGPT?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Combine your files into one using OneFile (free tool), then upload the single combined file to ChatGPT. This bypasses the 3-file daily limit on Free plans."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Does this work with ChatGPT Free plan?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes! ChatGPT Free limits you to 3 files per day. OneFile lets you merge unlimited files into one, so you only use 1 of your 3 daily uploads while including all your content."
+          }
         },
       ],
     },

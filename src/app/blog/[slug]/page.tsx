@@ -93,7 +93,118 @@ export default async function BlogPostPage({
     });
   };
 
+  // Check if this post was updated this month (for showing "Updated" badge)
+  const isRecentlyUpdated = (): boolean => {
+    if (!post.updatedAt || post.updatedAt === post.publishedAt) return false;
+    const updatedDate = new Date(post.updatedAt);
+    const now = new Date();
+    return (
+      updatedDate.getMonth() === now.getMonth() &&
+      updatedDate.getFullYear() === now.getFullYear()
+    );
+  };
+
+  // Format relative time (e.g., "3 days ago", "2 weeks ago")
+  const getRelativeTime = (dateString: string): string => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "today";
+    if (diffDays === 1) return "yesterday";
+    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays < 14) return "1 week ago";
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    if (diffDays < 60) return "1 month ago";
+    return `${Math.floor(diffDays / 30)} months ago`;
+  };
+
+  // HowTo schema for the bypass blog post
+  const howToSchema = slug === "bypass-chatgpt-file-upload-limit-2025" ? {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Upload More Than 3 Files to ChatGPT",
+    "description": "Step-by-step guide to bypass ChatGPT's file upload limits using OneFile",
+    "totalTime": "PT2M",
+    "tool": {
+      "@type": "SoftwareApplication",
+      "name": "OneFile",
+      "url": "https://www.onefileapp.com",
+      "applicationCategory": "WebApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Go to OneFile",
+        "text": "Visit onefileapp.com in your browser. No downloads or account needed.",
+        "url": "https://www.onefileapp.com"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Upload your files",
+        "text": "Drag and drop your files or folders into OneFile. You can also import directly from GitHub."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Download combined file",
+        "text": "Click 'Download' to save all your files as a single .txt file."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 4,
+        "name": "Upload to ChatGPT",
+        "text": "Upload the single combined file to ChatGPT and ask questions about any of your files."
+      }
+    ]
+  } : null;
+
+  // Article schema for all blog posts
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.description,
+    "image": `${BASE_URL}${post.image}`,
+    "datePublished": post.publishedAt,
+    "dateModified": post.updatedAt || post.publishedAt,
+    "author": {
+      "@type": "Person",
+      "name": post.author,
+      "url": "https://www.linkedin.com/in/abkarimohamedwahib/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "OneFile",
+      "url": BASE_URL,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${BASE_URL}/android-chrome-512x512.png`
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${BASE_URL}/blog/${slug}`
+    }
+  };
+
   return (
+    <>
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(howToSchema ? [articleSchema, howToSchema] : articleSchema),
+        }}
+      />
     <div className="container max-w-6xl mx-auto px-6 py-8">
       {/* Back Button */}
       <div className="mb-10">
@@ -130,6 +241,14 @@ export default async function BlogPostPage({
           <a href="#author" className="font-medium text-foreground hover:text-primary transition-colors">By {post.author}</a>
           <span>•</span>
           <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+          {isRecentlyUpdated() && (
+            <>
+              <span>•</span>
+              <span className="text-green-600 dark:text-green-400 font-medium">
+                Updated {getRelativeTime(post.updatedAt!)}
+              </span>
+            </>
+          )}
           <span>•</span>
           <span>{post.readingTime}</span>
         </div>
@@ -157,5 +276,6 @@ export default async function BlogPostPage({
         </article>
       </div>
     </div>
+    </>
   );
 }

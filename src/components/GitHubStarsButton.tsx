@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import GitHub from "@/components/icons/Github";
-import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const GITHUB_REPO = "wahibonae/onefile";

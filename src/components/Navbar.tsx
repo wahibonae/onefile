@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import GitHub from "@/components/icons/Github";
+import { GitHubStarsButton } from "@/components/GitHubStarsButton";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export function Navbar() {
@@ -46,26 +46,11 @@ export function Navbar() {
               </Button>
             </div>
 
-            <Button
-              variant="outline"
-              size="icon"
+            <GitHubStarsButton
+              showText={false}
               className="flex sm:hidden text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
-              asChild
-            >
-              <Link href="https://github.com/wahibonae/onefile">
-                <GitHub className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="hidden sm:inline-flex px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
-              asChild
-            >
-              <Link href="https://github.com/wahibonae/onefile">
-                <GitHub className="h-4 w-4" />
-              </Link>
-            </Button>
+            />
+            <GitHubStarsButton />
             <ThemeToggle />
             <SignedOut>
               <SignInButton mode="modal">

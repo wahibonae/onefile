@@ -4,12 +4,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { GitHubStarsButton } from "@/components/GitHubStarsButton";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from "@clerk/nextjs";
 
 export function Navbar() {
+  const { isLoaded } = useAuth();
+
   return (
     <nav className="bg-transparent container max-w-6xl mx-auto px-6 pt-6 sm:pt-10 sm:pb-7">
-      <div className="flex items-start justify-between">
+      <div className="flex items-center justify-between">
         {/* Logo - Left Side */}
         <Link
           href="/"
@@ -42,32 +44,42 @@ export function Navbar() {
                 className="px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
                 asChild
               >
+                <Link href="/how-it-works">How It Works</Link>
+              </Button>
+
+              <Button
+                variant="ghost"
+                className="px-3 text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
+                asChild
+              >
                 <Link href="/about">About</Link>
               </Button>
             </div>
 
-            <GitHubStarsButton
-              showText={false}
-              className="flex sm:hidden text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
-            />
             <GitHubStarsButton />
             <ThemeToggle />
-            <SignedOut>
-              <SignInButton mode="modal">
-                <Button variant="outline" className="px-3 sm:px-4">
-                  Sign In
-                </Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox: "w-8 h-8 sm:w-9 sm:h-9",
-                  },
-                }}
-              />
-            </SignedIn>
+            {!isLoaded ? (
+              <div className="w-[70px] sm:w-[79px] h-9 rounded-md bg-foreground/5 animate-pulse" />
+            ) : (
+              <>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <Button variant="outline" className="px-3 sm:px-4">
+                      Sign In
+                    </Button>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-8 h-8 sm:w-9 sm:h-9",
+                      },
+                    }}
+                  />
+                </SignedIn>
+              </>
+            )}
           </div>
         </div>
       </div>

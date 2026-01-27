@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Copy, FileText, Download, X, Check } from "lucide-react";
+import { Copy, FileText, Download, X, Check, ChevronDown } from "lucide-react";
 import Sparkles from "@/components/icons/Sparkles";
 import { FileUpload } from "@/components/FileUpload";
 import { FileList } from "@/components/FileList";
@@ -22,7 +22,7 @@ import { useGitHubBrowser } from "@/hooks/useGitHubBrowser";
 import { useTextContentDialog } from "@/hooks/useTextContentDialog";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
 
-const IMPORT_SOURCES = ["text content", "public repositories"];
+const IMPORT_SOURCES = ["text content", "public GitHub repos"];
 
 export default function Home() {
   const { files, handleFiles, removeFile, clearAllFiles, handleGitHubImport } =
@@ -33,6 +33,7 @@ export default function Home() {
     isGitHubBrowserOpen,
     setIsGitHubBrowserOpen,
     handleGitHubImportClick,
+    isAuthLoaded,
   } = useGitHubBrowser(files);
   const {
     isTextContentDialogOpen,
@@ -65,7 +66,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background flex flex-col space-y-6">
       <div className="relative pb-8 sm:pb-12 md:pb-20">
-        <div className="absolute inset-0 bg-[url('/hero-bg.png')] dark:bg-[url('/hero-bg-dark.png')] bg-cover bg-center bg-no-repeat">
+        <div className="absolute inset-0 bg-[url('/hero-bg.png')] dark:bg-[url('/hero-bg-dark.png')] bg-cover bg-center bg-no-repeat saturate-130">
           <div className="absolute bottom-0 left-0 right-0 h-[20%] dark:h-[35%] bg-gradient-to-b from-transparent to-background"></div>
         </div>
 
@@ -75,7 +76,7 @@ export default function Home() {
           <div className="flex-grow container max-w-6xl mx-auto px-6 pb-8 sm:pb-12">
             <div className="space-y-4 sm:space-y-6">
               <div className="text-center space-y-3 sm:space-y-4 py-6 sm:py-8 md:py-4">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
                   Upload Unlimited Files to AI
                 </h1>
                 <p className="text-muted-foreground max-w-3xl mx-auto text-sm sm:text-base lg:text-lg leading-relaxed px-4 sm:px-0">
@@ -97,7 +98,7 @@ export default function Home() {
                       <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
                         Input
                       </h2>
-                      <span className="bg-primary/10 text-primary text-xs px-3 py-1.5 rounded-full font-medium whitespace-nowrap">
+                      <span className="hidden sm:block bg-primary/10 text-primary text-xs px-3 py-1.5 rounded-full font-medium whitespace-nowrap">
                         NEW: Import from{" "}
                         <span
                           className={cn(
@@ -119,6 +120,7 @@ export default function Home() {
                         onFileChange={handleFileChange}
                         onGitHubImport={handleGitHubImportClick}
                         onTextContent={handleTextContentClick}
+                        isImportDisabled={!isAuthLoaded}
                       />
 
                       {files.length === 0 && (
@@ -184,11 +186,19 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            <button
+              onClick={() => document.getElementById("content")?.scrollIntoView({ behavior: "smooth" })}
+              className="hidden md:flex flex-col items-center mx-auto mt-8 animate-pulse cursor-pointer text-muted-foreground hover:text-primary transition-all"
+            >
+              <span className="text-sm mb-1">Learn More</span>
+              <ChevronDown className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="container max-w-6xl mx-auto px-6 py-12 space-y-32">
+      <div id="content" className="container max-w-6xl mx-auto px-6 py-12 space-y-32">
         <LogoCloud />
 
         <section className="max-w-5xl mx-auto">

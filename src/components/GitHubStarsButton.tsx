@@ -72,8 +72,10 @@ export function GitHubStarsButton({
     >
       <Link href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
         <GitHub className="h-4 w-4" />
-        {showText && stars !== null && (
+        {showText && stars !== null ? (
             <span className="tabular-nums">{formatStars(stars)}</span>
+        ) : showText && (
+            <span className="h-4 w-2 animate-pulse rounded-sm bg-foreground/10"></span>
         )}
       </Link>
     </Button>

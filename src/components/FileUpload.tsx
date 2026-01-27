@@ -21,6 +21,7 @@ interface FileUploadProps {
   onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onGitHubImport?: () => void;
   onTextContent?: () => void;
+  isImportDisabled?: boolean;
 }
 
 export function FileUpload({
@@ -31,6 +32,7 @@ export function FileUpload({
   onFileChange,
   onGitHubImport,
   onTextContent,
+  isImportDisabled = false,
 }: FileUploadProps) {
   const hasImportOptions = onGitHubImport || onTextContent;
   const fileOnlyInputRef = useRef<HTMLInputElement>(null)
@@ -108,10 +110,14 @@ export function FileUpload({
             </DropdownMenu>
             {hasImportOptions && (
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger asChild disabled={isImportDisabled}>
                   <Button
                     variant="outline"
-                    className="relative group bg-background hover:bg-muted border-border shadow-sm h-8 px-2.5 rounded-md font-medium"
+                    className={cn(
+                      "relative group bg-background hover:bg-muted border-border shadow-sm h-8 px-2.5 rounded-md font-medium",
+                      isImportDisabled && "opacity-50 cursor-not-allowed"
+                    )}
+                    disabled={isImportDisabled}
                   >
                     <span className="flex items-center gap-1.5 text-muted-foreground transition-all duration-300">
                       <Download className="h-3.5 w-3.5" strokeWidth={2.1} />

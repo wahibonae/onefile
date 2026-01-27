@@ -43,11 +43,17 @@ const testimonials: Testimonial[] = [
     name: "Salah A.",
     role: "Software Engineer",
   },
+  {
+    text: "This is actually a super useful idea. Upload limits are always annoying, great job!",
+    gender: "man",
+    name: "Ali L.",
+    role: "Full Stack Developer",
+  },
 ];
 
 const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
-const thirdColumn = testimonials.slice(6, 9);
+const thirdColumn = testimonials.slice(7, 9);
 
 export const TestimonialsSection = () => {
   return (

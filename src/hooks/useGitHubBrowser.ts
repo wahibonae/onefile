@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useUser, useClerk } from "@clerk/nextjs";
+import { useUser, useClerk, useAuth } from "@clerk/nextjs";
 import { FileWithContent } from "@/types";
 
 interface UseGitHubBrowserReturn {
@@ -11,11 +11,13 @@ interface UseGitHubBrowserReturn {
   handleGitHubImportClick: () => void;
   triggerSignIn: () => void;
   isSignedIn: boolean;
+  isAuthLoaded: boolean;
 }
 
 export function useGitHubBrowser(files: FileWithContent[]): UseGitHubBrowserReturn {
   const [isGitHubBrowserOpen, setIsGitHubBrowserOpen] = useState(false);
   const { isSignedIn } = useUser();
+  const { isLoaded } = useAuth();
   const { openSignIn } = useClerk();
 
   // Check for pending actions after OAuth redirect
@@ -71,5 +73,6 @@ export function useGitHubBrowser(files: FileWithContent[]): UseGitHubBrowserRetu
     handleGitHubImportClick,
     triggerSignIn,
     isSignedIn: isSignedIn ?? false,
+    isAuthLoaded: isLoaded,
   };
 }

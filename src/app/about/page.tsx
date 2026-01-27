@@ -277,7 +277,7 @@ export default function AboutPage() {
                     Skipit →
                   </a>
                   <p className="text-sm sm:text-base text-muted-foreground mt-1">
-                    App that lets you skip unwanted scenes (nudity, gore, etc.) on Netflix automatically. Totally free and crowd-sourced.
+                    App for skipping unwanted scenes (nudity, gore, etc.) automatically on Netflix. Totally free and crowd-sourced.
                   </p>
                 </div>
               </div>

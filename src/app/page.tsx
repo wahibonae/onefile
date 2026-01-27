@@ -14,6 +14,7 @@ import { TextContentDialog } from "@/components/TextContentDialog";
 import { FAQSection } from "@/components/FAQSection";
 import { LogoCloud } from "@/components/LogoCloud";
 import { Navbar } from "@/components/Navbar";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { FeaturesShowcase } from "@/components/FeaturesShowcase";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { useFileManager } from "@/hooks/useFileManager";
@@ -64,9 +65,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col space-y-6">
-      <div className="relative pb-8 sm:pb-12 md:pb-20">
-        <div className="absolute inset-0 bg-[url('/hero-bg.png')] dark:bg-[url('/hero-bg-dark.png')] bg-cover bg-center bg-no-repeat saturate-130">
+    <>
+      <ScrollProgress />
+      <div className="min-h-screen bg-background flex flex-col space-y-6">
+        <div className="relative pb-8 sm:pb-12 md:pb-20">
+        <div className="absolute bottom-14 inset-0 bg-[url('/hero-bg.png')] dark:bg-[url('/hero-bg-dark.png')] bg-cover bg-center bg-no-repeat saturate-130">
           <div className="absolute bottom-0 left-0 right-0 h-[20%] dark:h-[35%] bg-gradient-to-b from-transparent to-background"></div>
         </div>
 
@@ -284,6 +287,7 @@ export default function Home() {
         onClose={() => setIsTextContentDialogOpen(false)}
         onImport={handleGitHubImport}
       />
-    </div>
+      </div>
+    </>
   );
 }

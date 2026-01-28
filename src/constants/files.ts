@@ -1,11 +1,11 @@
 export const ALLOWED_EXTENSIONS = new Set([
   // Programming languages
-  '.js', '.jsx', '.ts', '.tsx', '.py', '.java', '.rb', '.php', '.go', '.rs', '.c', '.cpp', '.h', '.cs', 
-  '.swift', '.kt', '.scala', '.m', '.mm', '.r', '.pl', '.sh', '.bash', '.zsh', '.fish',
+  '.js', '.jsx', '.ts', '.tsx', '.py', '.java', '.rb', '.php', '.go', '.rs', '.c', '.cpp', '.h', '.cs',
+  '.swift', '.kt', '.kts', '.scala', '.groovy', '.dart', '.lua', '.ex', '.exs', '.m', '.mm', '.r', '.pl', '.sh', '.bash', '.zsh', '.fish',
   // Web technologies
   '.html', '.htm', '.css', '.scss', '.sass', '.less', '.json', '.xml', '.yaml', '.yml', '.graphql', '.gql',
   // Configuration files
-  '.env', '.ini', '.conf', '.config', '.toml', '.properties',
+  '.env', '.ini', '.conf', '.config', '.toml', '.properties', '.tf', '.tfvars', '.hcl', '.proto',
   // Documentation and text files
   '.md', '.markdown', '.mdc', '.txt', '.rtf', '.tex',
   // Data files
@@ -55,6 +55,17 @@ export const ALLOWED_MIME_TYPES = new Set([
   'text/x-swift',
   'text/x-kotlin',
   'text/x-scala',
+  'text/x-groovy',
+  'application/x-groovy',
+  'text/x-dart',
+  'application/dart',
+  'text/x-lua',
+  'application/x-lua',
+  'text/x-elixir',
+  'text/x-hcl',
+  'application/x-hcl',
+  'text/x-protobuf',
+  'application/x-protobuf',
   'text/x-r',
   'text/x-perl',
   'text/x-sh',

@@ -301,6 +301,11 @@ export default function RootLayout({
               __html: JSON.stringify(structuredData),
             }}
           />
+          <script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id="9ea2fab0-bc2c-4b56-987d-f3c1ddc3267c"
+          />
         </head>
         <body className={`${spaceGrotesk.className} ${inter.className} bg-background`}>
           <ThemeProvider

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ConditionalNavbar } from "@/components/ConditionalNavbar";
@@ -341,7 +340,6 @@ export default function RootLayout({
               },
             }}
           />
-          <Analytics />
         </body>
       </html>
     </ClerkProvider>

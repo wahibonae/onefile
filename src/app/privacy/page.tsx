@@ -96,7 +96,7 @@ export default function PrivacyPage() {
               </ul>
               <p>
                 <strong>Usage Data:</strong> We collect minimal, anonymized
-                usage statistics via Vercel Analytics (if deployed there):
+                usage statistics:
               </p>
               <ul className="list-disc pl-6">
                 <li>Page views (no personal identifiers)</li>

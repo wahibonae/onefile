@@ -69,7 +69,23 @@ export default function Home() {
       <ScrollProgress />
       <div className="min-h-screen bg-background flex flex-col space-y-6">
         <div className="relative pb-8 sm:pb-12 md:pb-20">
-        <div className="absolute bottom-14 inset-0 bg-[url('/hero-bg.png')] dark:bg-[url('/hero-bg-dark.png')] bg-cover bg-center bg-no-repeat saturate-130">
+        <div className="absolute bottom-14 inset-0 saturate-130">
+          <Image
+            src="/hero-bg.webp"
+            alt=""
+            fill
+            className="object-cover dark:hidden"
+            sizes="100vw"
+            priority
+          />
+          <Image
+            src="/hero-bg-dark.webp"
+            alt=""
+            fill
+            className="object-cover hidden dark:block"
+            sizes="100vw"
+            priority
+          />
           <div className="absolute bottom-0 left-0 right-0 h-[20%] dark:h-[35%] bg-gradient-to-b from-transparent to-background"></div>
         </div>
 
@@ -214,12 +230,12 @@ export default function Home() {
               <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
                 <div className="aspect-[4/3] relative">
                   <Image
-                    src="/before.jpg"
+                    src="/before.webp"
                     alt="ChatGPT file upload limit error - You've reached your file upload limit, Upgrade to Plus"
                     fill
                     className="object-cover dark:brightness-90"
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
+                    loading="lazy"
                   />
                 </div>
 
@@ -240,12 +256,12 @@ export default function Home() {
               <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
                 <div className="aspect-[4/3] relative">
                   <Image
-                    src="/after.jpg"
+                    src="/after.webp"
                     alt="OneFile success - your-onefile.txt ready to upload with unlimited files combined"
                     fill
                     className="object-cover dark:brightness-90"
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
+                    loading="lazy"
                   />
                 </div>
 

@@ -4,6 +4,10 @@ import mammoth from "mammoth";
 import { getDocument } from "pdfjs-serverless";
 import ExcelJS from "exceljs";
 
+// Next.js enforces a 10MB request body limit on API routes.
+// Files must be validated client-side before upload.
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
 // Use pdfjs-serverless for PDF processing (designed for serverless)
 async function processPdf(arrayBuffer: ArrayBuffer): Promise<string> {
   try {
@@ -149,7 +153,24 @@ export async function POST(req: NextRequest) {
     let arrayBuffer: ArrayBuffer;
     let extension: string | undefined;
 
-    if (contentType.includes("application/json")) {
+    if (contentType.includes("multipart/form-data")) {
+      const formData = await req.formData();
+      const file = formData.get("file") as File;
+
+      if (!file) {
+        return NextResponse.json({ error: "No file provided" }, { status: 400 });
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        return NextResponse.json(
+          { error: `File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB.` },
+          { status: 413 }
+        );
+      }
+
+      arrayBuffer = await file.arrayBuffer();
+      extension = file.name.split(".").pop()?.toLowerCase();
+    } else {
       const { base64Data, fileName } = await req.json();
 
       if (!base64Data || !fileName) {
@@ -160,21 +181,19 @@ export async function POST(req: NextRequest) {
       }
 
       const buffer = Buffer.from(base64Data, "base64");
+
+      if (buffer.byteLength > MAX_FILE_SIZE) {
+        return NextResponse.json(
+          { error: `File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB.` },
+          { status: 413 }
+        );
+      }
+
       arrayBuffer = buffer.buffer.slice(
         buffer.byteOffset,
         buffer.byteOffset + buffer.byteLength
       );
       extension = fileName.split(".").pop()?.toLowerCase();
-    } else {
-      const formData = await req.formData();
-      const file = formData.get("file") as File;
-
-      if (!file) {
-        return NextResponse.json({ error: "No file provided" }, { status: 400 });
-      }
-
-      arrayBuffer = await file.arrayBuffer();
-      extension = file.name.split(".").pop()?.toLowerCase();
     }
 
     let text = "";

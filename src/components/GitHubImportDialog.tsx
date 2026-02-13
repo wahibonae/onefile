@@ -230,13 +230,18 @@ export function GitHubImportDialog({
 
       for (const docFile of documentFiles) {
         try {
+          const byteChars = atob(docFile.base64Content);
+          const byteArray = new Uint8Array(byteChars.length);
+          for (let i = 0; i < byteChars.length; i++) {
+            byteArray[i] = byteChars.charCodeAt(i);
+          }
+          const blob = new Blob([byteArray]);
+          const formData = new FormData();
+          formData.append("file", blob, docFile.path.split("/").pop() || "file");
+
           const extractResponse = await fetch("/api/extract-text", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              base64Data: docFile.base64Content,
-              fileName: docFile.path,
-            }),
+            body: formData,
           });
 
           if (extractResponse.ok) {
@@ -326,13 +331,18 @@ export function GitHubImportDialog({
 
         for (const docFile of data.documentFiles) {
           try {
+            const byteChars = atob(docFile.base64Content);
+            const byteArray = new Uint8Array(byteChars.length);
+            for (let i = 0; i < byteChars.length; i++) {
+              byteArray[i] = byteChars.charCodeAt(i);
+            }
+            const blob = new Blob([byteArray]);
+            const formData = new FormData();
+            formData.append("file", blob, docFile.path.split("/").pop() || "file");
+
             const extractResponse = await fetch("/api/extract-text", {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                base64Data: docFile.base64Content,
-                fileName: docFile.path,
-              }),
+              body: formData,
             });
 
             if (extractResponse.ok) {

@@ -104,7 +104,7 @@ export default function BlogPost() {
       </p>
 
       <BlogImage
-        src="/blog/chatgpt-plans-comparison.png"
+        src="/blog/chatgpt-plans-comparison.webp"
         alt="ChatGPT plans comparison showing file upload limits for Free, Plus, Pro, Team, and Enterprise tiers"
         caption="ChatGPT pricing tiers and their respective file upload capabilities"
       />

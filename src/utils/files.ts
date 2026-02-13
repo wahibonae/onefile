@@ -1,6 +1,8 @@
 import { ALLOWED_EXTENSIONS, ALLOWED_MIME_TYPES, IGNORED_PATHS } from '@/constants/files'
 import { FileWithContent } from '@/types'
 
+const MAX_DOCUMENT_SIZE = 10 * 1024 * 1024 // 10MB
+
 // GitIgnore pattern matching class
 class GitignoreParser {
   private patterns: Array<{ pattern: string; isNegation: boolean; isDirectory: boolean }> = []
@@ -242,6 +244,11 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
       
       // Handle document formats through the API
       if (['.pdf', '.docx', '.pptx', '.xlsx', '.xls'].includes(extension)) {
+        if (file.size > MAX_DOCUMENT_SIZE) {
+          reject(new Error(`File "${file.name}" is too large (${Math.round(file.size / 1024 / 1024)}MB). Maximum size for document processing is 10MB.`))
+          return
+        }
+
         const formData = new FormData()
         formData.append('file', file)
         
@@ -251,9 +258,10 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
         })
         
         if (!response.ok) {
-          throw new Error(`Failed to process ${extension} file`)
+          const errData = await response.json().catch(() => null)
+          throw new Error(errData?.error || `Failed to process ${extension} file`)
         }
-        
+
         const data = await response.json()
         
         // Check if content is empty or only whitespace

@@ -1,0 +1,13 @@
+node_modules
+.next
+.git
+.gitignore
+.DS_Store
+.env*
+.claude
+.cursor
+.vercel
+*.md
+netlify.toml
+google-analytics/
+changelog/

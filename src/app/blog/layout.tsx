@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-const url = "https://www.onefileapp.com";
+const url = "https://onefileapp.com";
 
 export const metadata: Metadata = {
   title: "OneFile Blog - Tips & Guides for AI File Uploads",

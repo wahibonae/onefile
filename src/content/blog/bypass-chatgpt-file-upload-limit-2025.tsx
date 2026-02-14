@@ -16,7 +16,7 @@ export default function BlogPost() {
         <p className="text-sm leading-normal text-muted-foreground">
           <span className="font-medium">Quick solution:</span> Go to{" "}
           <a
-            href="https://www.onefileapp.com"
+            href="https://onefileapp.com"
             className="text-primary bg-primary/10 p-1.5 py-0.5 rounded-sm font-semibold"
             target="_blank"
             rel="noopener noreferrer"
@@ -110,7 +110,7 @@ export default function BlogPost() {
       <h4>Step 1: Go to OneFile</h4>
       <p>
         Visit{" "}
-        <a href="https://www.onefileapp.com" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
+        <a href="https://onefileapp.com" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
           onefileapp.com
         </a>
         {" "}in any browser. No downloads needed.
@@ -245,7 +245,7 @@ export default function BlogPost() {
       <div className="bg-card border border-border rounded-lg p-5 my-6">
         <p className="text-base mb-3"><strong>Quick Recap:</strong></p>
         <ol className="text-sm space-y-1 mb-0 list-decimal list-inside">
-          <li>Go to <a href="https://www.onefileapp.com" className="text-primary hover:underline">onefileapp.com</a></li>
+          <li>Go to <a href="https://onefileapp.com" className="text-primary hover:underline">onefileapp.com</a></li>
           <li>Upload files, folders, or import from GitHub</li>
           <li>Download the combined file</li>
           <li>Upload to ChatGPT and ask questions about any file</li>

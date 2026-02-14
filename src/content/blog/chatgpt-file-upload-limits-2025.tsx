@@ -19,7 +19,7 @@ export default function BlogPost() {
         <p className="text-sm leading-normal text-muted-foreground">
           <span className="font-medium">Need to upload more?</span> Use{" "}
           <a
-            href="https://www.onefileapp.com"
+            href="https://onefileapp.com"
             className="text-primary bg-primary/10 p-1.5 py-0.5 rounded-sm font-semibold"
             target="_blank"
             rel="noopener noreferrer"
@@ -51,7 +51,9 @@ export default function BlogPost() {
             <tr className="border-b border-border">
               <th className="text-left py-3 px-4 font-semibold">Plan</th>
               <th className="text-left py-3 px-4 font-semibold">Price</th>
-              <th className="text-left py-3 px-4 font-semibold">Upload Limit</th>
+              <th className="text-left py-3 px-4 font-semibold">
+                Upload Limit
+              </th>
               <th className="text-left py-3 px-4 font-semibold">File Size</th>
             </tr>
           </thead>
@@ -75,9 +77,13 @@ export default function BlogPost() {
               <td className="py-3 px-4">512MB</td>
             </tr>
             <tr className="border-b border-border">
-              <td className="py-3 px-4 font-semibold text-green-600 dark:text-green-400">Pro</td>
+              <td className="py-3 px-4 font-semibold text-green-600 dark:text-green-400">
+                Pro
+              </td>
               <td className="py-3 px-4">$200/mo</td>
-              <td className="py-3 px-4 font-semibold text-green-600 dark:text-green-400">Unlimited</td>
+              <td className="py-3 px-4 font-semibold text-green-600 dark:text-green-400">
+                Unlimited
+              </td>
               <td className="py-3 px-4">512MB</td>
             </tr>
             <tr className="border-b border-border">
@@ -396,7 +402,7 @@ export default function BlogPost() {
         <li>
           Go to{" "}
           <a
-            href="https://www.onefileapp.com"
+            href="https://onefileapp.com"
             className="text-primary hover:underline"
             target="_blank"
             rel="noopener noreferrer"
@@ -419,9 +425,13 @@ export default function BlogPost() {
 
       <p>
         For a detailed step-by-step guide with tips, see our{" "}
-        <Link href="/blog/bypass-chatgpt-file-upload-limit-2025" className="text-primary hover:underline">
+        <Link
+          href="/blog/bypass-chatgpt-file-upload-limit-2025"
+          className="text-primary hover:underline"
+        >
           complete guide to bypassing ChatGPT&apos;s file upload limit
-        </Link>.
+        </Link>
+        .
       </p>
 
       <h3>Option 2: Batch Your Uploads</h3>

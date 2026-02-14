@@ -6,4 +6,4 @@ Allow: /*.png
 Allow: /*.svg
 Allow: /*.ico
 
-Sitemap: https://www.onefileapp.com/sitemap.xml 
+Sitemap: https://onefileapp.com/sitemap.xml 

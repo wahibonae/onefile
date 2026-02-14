@@ -19,7 +19,7 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
   }));
 }
 
-const BASE_URL = "https://www.onefileapp.com";
+const BASE_URL = "https://onefileapp.com";
 
 // Generate metadata for SEO
 export async function generateMetadata({
@@ -121,79 +121,83 @@ export default async function BlogPostPage({
   };
 
   // HowTo schema for the bypass blog post
-  const howToSchema = slug === "bypass-chatgpt-file-upload-limit-2025" ? {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "How to Upload More Than 3 Files to ChatGPT",
-    "description": "Step-by-step guide to bypass ChatGPT's file upload limits using OneFile",
-    "totalTime": "PT2M",
-    "tool": {
-      "@type": "SoftwareApplication",
-      "name": "OneFile",
-      "url": "https://www.onefileapp.com",
-      "applicationCategory": "WebApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    },
-    "step": [
-      {
-        "@type": "HowToStep",
-        "position": 1,
-        "name": "Go to OneFile",
-        "text": "Visit onefileapp.com in your browser. No downloads or account needed.",
-        "url": "https://www.onefileapp.com"
-      },
-      {
-        "@type": "HowToStep",
-        "position": 2,
-        "name": "Upload your files",
-        "text": "Drag and drop your files or folders into OneFile. You can also import directly from GitHub."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 3,
-        "name": "Download combined file",
-        "text": "Click 'Download' to save all your files as a single .txt file."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 4,
-        "name": "Upload to ChatGPT",
-        "text": "Upload the single combined file to ChatGPT and ask questions about any of your files."
-      }
-    ]
-  } : null;
+  const howToSchema =
+    slug === "bypass-chatgpt-file-upload-limit-2025"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: "How to Upload More Than 3 Files to ChatGPT",
+          description:
+            "Step-by-step guide to bypass ChatGPT's file upload limits using OneFile",
+          totalTime: "PT2M",
+          tool: {
+            "@type": "SoftwareApplication",
+            name: "OneFile",
+            url: "https://onefileapp.com",
+            applicationCategory: "WebApplication",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+          },
+          step: [
+            {
+              "@type": "HowToStep",
+              position: 1,
+              name: "Go to OneFile",
+              text: "Visit onefileapp.com in your browser. No downloads or account needed.",
+              url: "https://onefileapp.com",
+            },
+            {
+              "@type": "HowToStep",
+              position: 2,
+              name: "Upload your files",
+              text: "Drag and drop your files or folders into OneFile. You can also import directly from GitHub.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 3,
+              name: "Download combined file",
+              text: "Click 'Download' to save all your files as a single .txt file.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 4,
+              name: "Upload to ChatGPT",
+              text: "Upload the single combined file to ChatGPT and ask questions about any of your files.",
+            },
+          ],
+        }
+      : null;
 
   // Article schema for all blog posts
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": post.title,
-    "description": post.description,
-    "image": `${BASE_URL}${post.image}`,
-    "datePublished": post.publishedAt,
-    "dateModified": post.updatedAt || post.publishedAt,
-    "author": {
+    headline: post.title,
+    description: post.description,
+    image: `${BASE_URL}${post.image}`,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt || post.publishedAt,
+    author: {
       "@type": "Person",
-      "name": post.author,
-      "url": "https://www.linkedin.com/in/abkarimohamedwahib/"
+      name: post.author,
+      url: "https://www.linkedin.com/in/abkarimohamedwahib/",
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "OneFile",
-      "url": BASE_URL,
-      "logo": {
+      name: "OneFile",
+      url: BASE_URL,
+      logo: {
         "@type": "ImageObject",
-        "url": `${BASE_URL}/android-chrome-512x512.png`
-      }
+        url: `${BASE_URL}/android-chrome-512x512.png`,
+      },
     },
-    "mainEntityOfPage": {
+    mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${BASE_URL}/blog/${slug}`
-    }
+      "@id": `${BASE_URL}/blog/${slug}`,
+    },
   };
 
   return (
@@ -202,80 +206,92 @@ export default async function BlogPostPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(howToSchema ? [articleSchema, howToSchema] : articleSchema),
+          __html: JSON.stringify(
+            howToSchema ? [articleSchema, howToSchema] : articleSchema
+          ),
         }}
       />
-    <div className="container max-w-6xl mx-auto px-6 py-8">
-      {/* Back Button */}
-      <div className="mb-10">
-        <Button variant="outline" size="sm" asChild>
-          <Link href="/blog" className="inline-flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" />
-            Back to Blog
-          </Link>
-        </Button>
-      </div>
+      <div className="container max-w-6xl mx-auto px-6 py-8">
+        {/* Back Button */}
+        <div className="mb-10">
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/blog" className="inline-flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Blog
+            </Link>
+          </Button>
+        </div>
 
-      <div className="lg:grid lg:grid-cols-[210px_1fr] lg:gap-8 xl:grid-cols-[230px_1fr] xl:gap-10">
-        {/* Left Sidebar - Table of Contents (hidden on mobile/tablet) */}
-        <aside className="hidden lg:block">
-          <div className="sticky top-24">
-            <TableOfContents />
-          </div>
-        </aside>
+        <div className="lg:grid lg:grid-cols-[210px_1fr] lg:gap-8 xl:grid-cols-[230px_1fr] xl:gap-10">
+          {/* Left Sidebar - Table of Contents (hidden on mobile/tablet) */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-24">
+              <TableOfContents />
+            </div>
+          </aside>
 
-        {/* Main Content */}
-        <article className="min-w-0">
-        {/* Title */}
-        <h1 className="mb-7 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-          {post.title}
-        </h1>
+          {/* Main Content */}
+          <article className="min-w-0">
+            {/* Title */}
+            <h1 className="mb-7 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+              {post.title}
+            </h1>
 
-        {/* Description */}
-        <p className="mb-7 text-md leading-relaxed text-muted-foreground sm:text-xl">
-          {post.description}
-        </p>
+            {/* Description */}
+            <p className="mb-7 text-md leading-relaxed text-muted-foreground sm:text-xl">
+              {post.description}
+            </p>
 
-        {/* Meta info */}
-        <div className="mb-8 flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
-          <a href="#author" className="font-medium text-foreground hover:text-primary transition-colors">By {post.author}</a>
-          <span>•</span>
-          <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-          {isRecentlyUpdated() && (
-            <>
+            {/* Meta info */}
+            <div className="mb-8 flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+              <a
+                href="#author"
+                className="font-medium text-foreground hover:text-primary transition-colors"
+              >
+                By {post.author}
+              </a>
               <span>•</span>
-              <span className="text-green-600 dark:text-green-400 font-medium">
-                Updated {getRelativeTime(post.updatedAt!)}
-              </span>
-            </>
-          )}
-          <span>•</span>
-          <span>{post.readingTime}</span>
-        </div>
+              <time dateTime={post.publishedAt}>
+                {formatDate(post.publishedAt)}
+              </time>
+              {isRecentlyUpdated() && (
+                <>
+                  <span>•</span>
+                  <span className="text-green-600 dark:text-green-400 font-medium">
+                    Updated {getRelativeTime(post.updatedAt!)}
+                  </span>
+                </>
+              )}
+              <span>•</span>
+              <span>{post.readingTime}</span>
+            </div>
 
-        {/* Blog Image */}
-        <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-xl bg-muted">
-          <Image
-            src={post.image}
-            alt={post.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
+            {/* Blog Image */}
+            <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-xl bg-muted">
+              <Image
+                src={post.image}
+                alt={post.title}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
 
-        {/* Article Content */}
-        <div className="prose prose-neutral max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground prose-h2:mb-4 prose-h2:mt-12 prose-h2:text-2xl prose-h2:border-b prose-h2:border-border/40 prose-h2:pb-3 prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-lg prose-h4:mb-2 prose-h4:mt-6 prose-h4:text-base prose-p:text-muted-foreground prose-p:leading-6 prose-p:mb-4 prose-a:font-medium prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-semibold prose-strong:text-foreground prose-ul:my-4 prose-ul:space-y-1 prose-ol:my-4 prose-ol:space-y-1 prose-li:text-muted-foreground prose-li:leading-7 prose-li:my-0 prose-code:rounded-sm prose-code:bg-muted-foreground/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:text-muted-foreground prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:border prose-pre:border-border prose-pre:bg-card prose-blockquote:border-l-2 prose-blockquote:border-primary/50 prose-blockquote:bg-muted/30 prose-blockquote:py-1 prose-blockquote:pl-4 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-muted-foreground">
-          <BlogContent />
-        </div>
+            {/* Article Content */}
+            <div className="prose prose-neutral max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground prose-h2:mb-4 prose-h2:mt-12 prose-h2:text-2xl prose-h2:border-b prose-h2:border-border/40 prose-h2:pb-3 prose-h3:mb-3 prose-h3:mt-8 prose-h3:text-lg prose-h4:mb-2 prose-h4:mt-6 prose-h4:text-base prose-p:text-muted-foreground prose-p:leading-6 prose-p:mb-4 prose-a:font-medium prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-semibold prose-strong:text-foreground prose-ul:my-4 prose-ul:space-y-1 prose-ol:my-4 prose-ol:space-y-1 prose-li:text-muted-foreground prose-li:leading-7 prose-li:my-0 prose-code:rounded-sm prose-code:bg-muted-foreground/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:text-muted-foreground prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:border prose-pre:border-border prose-pre:bg-card prose-blockquote:border-l-2 prose-blockquote:border-primary/50 prose-blockquote:bg-muted/30 prose-blockquote:py-1 prose-blockquote:pl-4 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-muted-foreground">
+              <BlogContent />
+            </div>
 
-        {/* Author Section */}
-        <footer id="author" className="mt-12 border-t border-border pt-8 scroll-mt-24">
-          <AuthorCard author={post.author} />
-        </footer>
-        </article>
+            {/* Author Section */}
+            <footer
+              id="author"
+              className="mt-12 border-t border-border pt-8 scroll-mt-24"
+            >
+              <AuthorCard author={post.author} />
+            </footer>
+          </article>
+        </div>
       </div>
-    </div>
     </>
   );
 }

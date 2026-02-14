@@ -19,7 +19,7 @@ const title =
   "OneFile - Upload Unlimited Files to ChatGPT | Free AI File Tool";
 const description =
   "ChatGPT limits you to 3 files? Combine unlimited files into one and upload to any AI. Free, no account, works with PDFs, code, docs.";
-const url = "https://www.onefileapp.com";
+const url = "https://onefileapp.com";
 
 export const metadata: Metadata = {
   title,

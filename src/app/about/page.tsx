@@ -85,7 +85,7 @@ export default function AboutPage() {
       label: "GitHub",
     },
     {
-      href: "https://www.linkedin.com/in/abkarimohamedwahib/",
+      href: "https://www.linkedin.com/company/onefileapp/",
       icon: Linkedin,
       label: "LinkedIn",
     },

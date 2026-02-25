@@ -140,7 +140,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://www.linkedin.com/in/abkarimohamedwahib/"
+                  href="https://www.linkedin.com/company/onefileapp/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"

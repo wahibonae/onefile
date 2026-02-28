@@ -458,7 +458,7 @@ export default function BlogPost() {
           href="/blog/chatgpt-file-upload-limits-2025"
           className="text-primary hover:underline"
         >
-          ChatGPT File Upload Limits 2025 guide
+          ChatGPT File Upload Limits 2026 guide
         </Link>
         .
       </p>

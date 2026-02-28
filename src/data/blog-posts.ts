@@ -13,6 +13,28 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ai-file-upload-limits-compared",
+    title:
+      "AI File Upload Limits Compared: ChatGPT vs Claude vs Gemini vs Grok (2026)",
+    description:
+      "Side-by-side comparison of file upload limits for ChatGPT, Claude, Gemini, Grok, and Perplexity in 2026. Max file size, supported types, free vs paid limits, and how to bypass them all.",
+    image: "/blog/ai-file-upload-limits-compared.webp",
+    publishedAt: "2026-02-28",
+    author: "Mohamed Wahib ABKARI",
+    readingTime: "12 min read",
+    tags: [
+      "AI Tools",
+      "File Upload Limits",
+      "ChatGPT",
+      "Claude",
+      "Gemini",
+      "Grok",
+      "Perplexity",
+      "Comparison",
+    ],
+    featured: true,
+  },
+  {
     slug: "how-many-files-upload-chatgpt",
     title: "How Many Files Can You Upload to ChatGPT? (2026 Limits)",
     description:
@@ -32,12 +54,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "chatgpt-file-upload-limits-2025",
-    title: "ChatGPT File Upload Limits 2025: Complete Guide for Every Plan",
+    title: "ChatGPT File Upload Limits 2026: Complete Guide for Every Plan",
     description:
-      "Complete breakdown of ChatGPT file upload limits for Free, Plus, Pro, Team, and Enterprise plans. Learn the exact limits and how to upload more files.",
+      "Complete breakdown of ChatGPT file upload limits for Free, Plus, Pro, Team, and Enterprise plans in 2026. Learn the exact limits and how to upload more files.",
     image: "/blog/chatgpt-file-upload-limits.webp",
     publishedAt: "2025-12-22",
-    updatedAt: "2026-01-07",
+    updatedAt: "2026-02-28",
     author: "Mohamed Wahib ABKARI",
     readingTime: "7 min read",
     tags: [
@@ -52,12 +74,12 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "generate-code-documentation-ai-2025",
-    title: "How to Generate Documentation from Code Using AI (2025 Guide)",
+    title: "How to Generate Documentation from Code Using AI (2026 Guide)",
     description:
       "Generate code documentation with AI in minutes. Compare Mintlify, DocuWriter.ai, Cursor, Claude Code, and ChatGPT workflows with ready-to-use prompts.",
     image: "/blog/generate-code-docs-ai.webp",
     publishedAt: "2025-12-14",
-    updatedAt: "2025-12-14",
+    updatedAt: "2026-02-28",
     author: "Mohamed Wahib ABKARI",
     readingTime: "10 min read",
     tags: [
@@ -77,7 +99,7 @@ export const blogPosts: BlogPost[] = [
       "ChatGPT's GitHub connector requires Plus ($20/mo). Use OneFile to import any GitHub repository to ChatGPT for free. No account, no limits.",
     image: "/blog/chatgpt-github-import.webp",
     publishedAt: "2025-12-08",
-    updatedAt: "2026-01-07",
+    updatedAt: "2026-02-28",
     author: "Mohamed Wahib ABKARI",
     readingTime: "5 min read",
     tags: [
@@ -96,7 +118,7 @@ export const blogPosts: BlogPost[] = [
       "Say goodbye to hitting ChatGPT's file upload limit. Combine unlimited files into one and upload instantly. Free tool, no account, works on Free & Plus plans.",
     image: "/blog/bypass-chatgpt-limit.webp",
     publishedAt: "2025-11-19",
-    updatedAt: "2026-01-07",
+    updatedAt: "2026-02-28",
     author: "Mohamed Wahib ABKARI",
     readingTime: "8 min read",
     tags: [

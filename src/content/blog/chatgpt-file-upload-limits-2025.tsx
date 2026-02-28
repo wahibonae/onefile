@@ -40,7 +40,7 @@ export default function BlogPost() {
 
       <p>
         This guide covers the exact file upload limits for every ChatGPT plan in
-        2025, including the newer Pro and Team tiers, plus practical solutions
+        2026, including the newer Pro and Team tiers, plus practical solutions
         when you need to work with more files than allowed.
       </p>
 

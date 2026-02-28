@@ -39,7 +39,7 @@ export default function BlogPost() {
       </p>
 
       <p>
-        But in 2025, AI has fundamentally changed how we approach documentation.
+        But in 2026, AI has fundamentally changed how we approach documentation.
         You can now generate comprehensive, accurate documentation for an entire
         codebase in minutes, not days.
       </p>
@@ -791,7 +791,7 @@ export default function BlogPost() {
 
       <p>
         Documentation no longer has to be the task you dread. With AI tools
-        available in 2025, you can generate comprehensive docs in minutes
+        available in 2026, you can generate comprehensive docs in minutes
         instead of days.
       </p>
 

@@ -6,6 +6,23 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { faqs } from "./faq-data";
 
+function renderAnswerWithLinks(answer: string): React.ReactNode {
+  const urlPattern = /(https:\/\/onefileapp\.com\/blog\/[a-zA-Z0-9-]+)/g;
+  const parts = answer.split(urlPattern);
+  if (parts.length === 1) return answer;
+  return parts.map((part, i) => {
+    if (part.startsWith("https://onefileapp.com/blog/")) {
+      const path = part.replace("https://onefileapp.com", "");
+      return (
+        <Link key={i} href={path} className="text-primary hover:underline font-medium">
+          read more here
+        </Link>
+      );
+    }
+    return part;
+  });
+}
+
 export default function FAQContent() {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -70,7 +87,7 @@ export default function FAQContent() {
                       {faq.question}
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      {faq.answer}
+                      {renderAnswerWithLinks(faq.answer)}
                     </p>
                   </div>
                 ))}

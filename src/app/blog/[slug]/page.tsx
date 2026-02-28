@@ -120,6 +120,60 @@ export default async function BlogPostPage({
     return `${Math.floor(diffDays / 30)} months ago`;
   };
 
+  // FAQ schema for blog posts with FAQ sections
+  const faqSchemaMap: Record<string, Array<{ question: string; answer: string }>> = {
+    "bypass-chatgpt-file-upload-limit-2025": [
+      { question: "Does this work with ChatGPT Plus?", answer: "Yes. Plus users bypass both the 10-file per message limit and the ~80 files per 3-hour window limit. Upload unlimited content in one file." },
+      { question: "Will this work with Claude or Gemini?", answer: "Yes. OneFile's output works with all AI platforms: Claude, Gemini, Grok, Perplexity, and any LLM." },
+      { question: "Is my data private?", answer: "Yes. Text files are processed in your browser and never reach our servers. Complex documents (PDFs, DOCX) are sent to our API for extraction, then immediately deleted. OneFile is open source." },
+      { question: "Can I upload an entire GitHub repository?", answer: "Yes. Sign in with GitHub and import any repository. OneFile respects .gitignore and skips node_modules, .git, and build artifacts." },
+      { question: "How large can the combined file be?", answer: "No limit in OneFile, but ChatGPT has a ~128K token context window. Keep combined files under 1-2MB for best results." },
+      { question: "What file types are supported?", answer: "50+ file types including PDFs, Microsoft Office (DOCX, PPTX, XLSX), code files (JS, TS, PY, Java, Go, Rust, Ruby, PHP, C, C++), web files (HTML, CSS, JSON, XML, YAML), data files (CSV, TSV, SQL), and config files." },
+      { question: "Does this violate ChatGPT's Terms of Service?", answer: "No. You're uploading a single text file, which is allowed. The file just contains content from multiple sources." },
+    ],
+    "chatgpt-file-upload-limits-2025": [
+      { question: "How many files can I upload to ChatGPT for free?", answer: "ChatGPT Free allows 3 file uploads per day. This limit resets every 24 hours." },
+      { question: "What is the ChatGPT Plus file upload limit?", answer: "ChatGPT Plus allows 80 files per 3-hour rolling window. Each file can be up to 512MB." },
+      { question: "Does ChatGPT Pro have higher file limits than Plus?", answer: "Yes! ChatGPT Pro ($200/month) offers unlimited file uploads, while Plus is capped at around 80 files per 3-hour window." },
+      { question: "When does the ChatGPT file upload limit reset?", answer: "For Free users, the 3-file limit resets every 24 hours. For paid plans, the 80-file limit uses a rolling 3-hour window that continuously refreshes." },
+      { question: "Can I upload a ZIP file to ChatGPT?", answer: "ChatGPT can accept ZIP files, but extraction and processing can be unreliable. For code projects, combining files into a readable text format with OneFile produces better results." },
+      { question: "Is there an AI with unlimited file uploads?", answer: "ChatGPT Pro ($200/month) offers unlimited file uploads. For other plans or platforms, you can bypass restrictions by combining multiple files into one before uploading using OneFile." },
+    ],
+    "ai-file-upload-limits-compared": [
+      { question: "Which AI allows the most file uploads for free?", answer: "Google Gemini allows 10 files per prompt on the free plan, the most of any platform. However, it doesn't support code files or spreadsheets on the free tier. ChatGPT Free allows only 3 files per day but supports all file types." },
+      { question: "What AI has unlimited file uploads?", answer: "ChatGPT Pro ($200/month) is the only plan with truly unlimited file uploads. Perplexity Pro ($20/mo) offers unlimited daily uploads but caps at 10 files per prompt. For a free alternative, use OneFile to combine unlimited files into one upload." },
+      { question: "Can I upload a folder to ChatGPT, Claude, or Gemini?", answer: "No. None of the major AI platforms support direct folder uploads. You must select files individually. To upload entire folders or projects, use OneFile to combine the folder contents into a single file first." },
+      { question: "Which AI has the largest file size limit?", answer: "ChatGPT allows files up to 512 MB, the largest of any AI platform. Gemini allows 100 MB (2 GB for video), Grok caps at 48 MB, Perplexity at ~50 MB, and Claude at 30 MB." },
+      { question: "What file types does every AI support?", answer: "PDF, TXT, and images (JPEG, PNG) are supported by all 5 platforms. DOCX is supported by all except some Grok surfaces. CSV is universally supported. XLSX, PPTX, and code files have varying support across platforms." },
+      { question: "Is there a free AI with unlimited uploads?", answer: "No AI platform offers unlimited free uploads. The closest is Gemini Free (10 files/prompt) but with file type restrictions. The practical solution is using OneFile to combine unlimited files into a single upload — it's free and works on every platform." },
+      { question: "ChatGPT vs Claude: which is better for file uploads?", answer: "ChatGPT has higher file size limits (512 MB vs 30 MB) and more uploads per day (~80 vs 20). Claude has a larger context window (200K vs 128K tokens), meaning it can read more text content at once. For large individual files, choose ChatGPT. For analyzing lots of text content, choose Claude." },
+    ],
+    "how-many-files-upload-chatgpt": [
+      { question: "How many files can I upload to ChatGPT for free?", answer: "ChatGPT Free allows 3 file uploads per day. The limit resets every 24 hours." },
+      { question: "How many files can ChatGPT Plus users upload?", answer: "ChatGPT Plus users can upload approximately 80 files per 3-hour rolling window, with a maximum of 10 files per message." },
+      { question: "Why does ChatGPT say 'You've reached your file upload limit'?", answer: "This error appears when you've hit your plan's upload cap. Free users see it after 3 files per day. Plus users see it after ~80 files in 3 hours." },
+      { question: "Can I upload a folder to ChatGPT?", answer: "No, ChatGPT doesn't support folder uploads directly. You need to select files individually. However, you can use OneFile to upload entire folders, combine them into one file, and then upload that to ChatGPT." },
+      { question: "What's the maximum file size for ChatGPT?", answer: "512MB per file for documents, 20MB for images, and 50MB for spreadsheets. These limits apply to all plans." },
+      { question: "How do I upload more than 10 files to ChatGPT at once?", answer: "ChatGPT limits you to 10 files per message. To upload more at once, combine your files into a single file using OneFile, then upload that one file containing all your content." },
+      { question: "Does ChatGPT Pro really have unlimited uploads?", answer: "Yes, ChatGPT Pro ($200/month) has no explicit file upload limits. However, OpenAI may throttle extreme usage to prevent abuse." },
+    ],
+  };
+
+  const faqSchema = faqSchemaMap[slug]
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqSchemaMap[slug].map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      }
+    : null;
+
   // HowTo schema for the bypass blog post
   const howToSchema =
     slug === "bypass-chatgpt-file-upload-limit-2025"
@@ -207,13 +261,13 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            howToSchema ? [articleSchema, howToSchema] : articleSchema
+            [articleSchema, howToSchema, faqSchema].filter(Boolean)
           ),
         }}
       />
       <div className="container max-w-6xl mx-auto px-6 py-8">
         {/* Back Button */}
-        <div className="mb-10">
+        <div className="mb-8">
           <Button variant="outline" size="sm" asChild>
             <Link href="/blog" className="inline-flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />

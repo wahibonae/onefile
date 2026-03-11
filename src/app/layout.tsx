@@ -113,6 +113,10 @@ export default function RootLayout({
         "@type": "Organization",
         name: "OneFile",
         url: url,
+        sameAs: [
+          "https://github.com/wahibonae/onefile",
+          "https://www.linkedin.com/company/onefileapp/",
+        ],
         logo: {
           "@type": "ImageObject",
           url: `${url}/android-chrome-512x512.png`,
@@ -225,6 +229,18 @@ export default function RootLayout({
             text: "Yes! ChatGPT Free limits you to 3 files per day. OneFile lets you merge unlimited files into one, so you only use 1 of your 3 daily uploads while including all your content."
           }
         },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Mohamed Wahib ABKARI",
+      jobTitle: "AI Engineer",
+      url: "https://www.linkedin.com/in/abkarimohamedwahib/",
+      sameAs: [
+        "https://github.com/wahibonae",
+        "https://twitter.com/wahibonae",
+        "https://www.linkedin.com/in/abkarimohamedwahib/",
       ],
     },
   ];

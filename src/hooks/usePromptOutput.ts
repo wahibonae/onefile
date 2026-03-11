@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { toast } from "react-hot-toast";
 import { FileWithContent } from "@/types";
 import { generatePromptText } from "@/utils/files";
@@ -8,13 +8,15 @@ import { generatePromptText } from "@/utils/files";
 interface UsePromptOutputReturn {
   finalPrompt: string;
   copyToClipboard: () => void;
-  downloadPrompt: () => void;
+  triggerDownload: () => void;
+  executeDownload: () => void;
+  downloadRequested: number;
 }
 
 export function usePromptOutput(files: FileWithContent[]): UsePromptOutputReturn {
   const [finalPrompt, setFinalPrompt] = useState("");
+  const [downloadRequested, setDownloadRequested] = useState(0);
 
-  // Update the final prompt whenever files change
   useEffect(() => {
     if (files.length > 0) {
       const result = generatePromptText(files);
@@ -24,15 +26,24 @@ export function usePromptOutput(files: FileWithContent[]): UsePromptOutputReturn
     }
   }, [files]);
 
-  const copyToClipboard = (): void => {
-    navigator.clipboard
-      .writeText(finalPrompt)
-      .then(() => toast.success("Copied to clipboard!"))
-      .catch(() => toast.error("Failed to copy to clipboard"));
-  };
+  const finalPromptRef = useRef(finalPrompt);
+  finalPromptRef.current = finalPrompt;
 
-  const downloadPrompt = (): void => {
-    const blob = new Blob([finalPrompt], { type: "text/plain" });
+  const copyToClipboard = useCallback((): void => {
+    navigator.clipboard
+      .writeText(finalPromptRef.current)
+      .then(() => {
+        toast.success("Copied to clipboard!");
+      })
+      .catch(() => toast.error("Failed to copy to clipboard"));
+  }, []);
+
+  const triggerDownload = useCallback((): void => {
+    setDownloadRequested((c) => c + 1);
+  }, []);
+
+  const executeDownload = useCallback((): void => {
+    const blob = new Blob([finalPromptRef.current], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -41,12 +52,13 @@ export function usePromptOutput(files: FileWithContent[]): UsePromptOutputReturn
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success("One File downloaded successfully");
-  };
+  }, []);
 
   return {
     finalPrompt,
     copyToClipboard,
-    downloadPrompt,
+    triggerDownload,
+    executeDownload,
+    downloadRequested,
   };
 }

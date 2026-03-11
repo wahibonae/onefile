@@ -1,0 +1,43 @@
+# OneFile
+
+> OneFile is a free, open-source web tool that solves file upload limits on AI platforms. ChatGPT Free allows only 3 file uploads per day, Plus offers 10 files max per message, and no platform supports direct folder uploads. OneFile combines unlimited files into a single formatted text file that can be uploaded to any AI as one file. No account required. MIT licensed.
+
+OneFile extracts text content from uploaded files and formats them into a single structured .txt file with clear file path separators. The combined file works universally across ChatGPT, Claude, Gemini, Grok, Perplexity, and any LLM that accepts text input.
+
+Key capabilities:
+
+- Combine unlimited files into one AI-ready .txt file (bypasses per-day and per-message upload limits)
+- Supports 50+ file types: PDF, DOCX, PPTX, XLSX, and code files (JS, TS, PY, Java, Go, Rust, C, C++, PHP, Ruby, and more)
+- GitHub repository import: public repos without login, private repos via OAuth
+- Text content import: paste raw text or notes directly
+- Respects .gitignore rules when processing folders, auto-skips node_modules, .git, build artifacts
+- Browser-based processing for text and code files (content never leaves the device)
+- Server-side extraction for documents (PDF, DOCX, PPTX, XLSX): processed but never stored
+- Completely free, no usage limits, no account required
+
+Creator: Mohamed Wahib ABKARI, AI Engineer. LinkedIn: https://www.linkedin.com/in/abkarimohamedwahib/
+
+## Pages
+
+- [Home](https://onefileapp.com): Main tool for uploading files or folders and combining them into one AI-ready file to copy or download
+- [How It Works](https://onefileapp.com/how-it-works): Step-by-step explanation of the file combining process with examples
+- [Supported Files](https://onefileapp.com/supported-files): Full list of 50+ supported file types across code, documents, data, and config formats
+- [Use Cases](https://onefileapp.com/use-cases): Practical examples for developers sharing codebases, students combining study materials, researchers merging papers, and professionals processing reports
+- [FAQ](https://onefileapp.com/faq): Detailed answers on ChatGPT file limits (Free: 3/day, Plus: 10 per message, Pro: unlimited), Claude limits (20 files/day), Gemini limits (10 files/prompt), and how to bypass them
+- [About](https://onefileapp.com/about): Background on why OneFile was built and information about the creator
+
+## Blog
+
+- [AI File Upload Limits Compared: ChatGPT vs Claude vs Gemini vs Grok (2026)](https://onefileapp.com/blog/ai-file-upload-limits-compared): Side-by-side comparison of file upload limits, max file sizes, and supported types across all major AI platforms
+- [How Many Files Can You Upload to ChatGPT? (2026 Limits)](https://onefileapp.com/blog/how-many-files-upload-chatgpt): Exact file count limits for ChatGPT Free (3/day), Plus (~80/3hrs), Pro (unlimited), with reset timing details
+- [ChatGPT File Upload Limits 2026: Complete Guide for Every Plan](https://onefileapp.com/blog/chatgpt-file-upload-limits-2025): Complete breakdown for Free, Plus, Pro, Team, and Enterprise plans including file size limits per type
+- [How to Bypass ChatGPT File Upload Limit: Upload Unlimited Files Free](https://onefileapp.com/blog/bypass-chatgpt-file-upload-limit-2025): Step-by-step guide to combining unlimited files and uploading as one, works on Free and Plus plans
+- [How to Import GitHub to ChatGPT For Free](https://onefileapp.com/blog/chatgpt-github-import-free): Guide to importing any GitHub repository into ChatGPT without a Plus subscription
+- [How to Generate Documentation from Code Using AI (2026)](https://onefileapp.com/blog/generate-code-documentation-ai-2025): Workflow guide for using AI to generate code documentation, including using OneFile to provide full codebase context
+
+## Optional
+
+- [Contact](https://onefileapp.com/contact): Support and feedback form
+- [Privacy Policy](https://onefileapp.com/privacy): Data handling: text files processed in-browser, documents processed server-side and never stored
+- [Terms of Service](https://onefileapp.com/terms): Usage terms for the free service
+- [GitHub Repository](https://github.com/wahibonae/onefile): Open source code, MIT license, contributions welcome

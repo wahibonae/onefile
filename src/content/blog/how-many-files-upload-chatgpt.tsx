@@ -127,7 +127,14 @@ export default function BlogPost() {
       <p>
         Once you hit the limit, you&apos;ll see the error:{" "}
         <em>&quot;You&apos;ve reached your file upload limit.&quot;</em>{" "}
-        You&apos;ll need to wait until the next day or upgrade your plan.
+        See our{" "}
+        <Link
+          href="/blog/chatgpt-file-upload-limit-error"
+          className="text-primary hover:underline"
+        >
+          guide to fixing ChatGPT&apos;s upload limit error
+        </Link>{" "}
+        for how to resolve it instantly.
       </p>
 
       <Callout variant="warning">

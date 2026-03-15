@@ -17,6 +17,29 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "chatgpt-file-upload-limit-error",
+    title:
+      "\"You've Reached Our Limit of File Uploads\" on ChatGPT: How to Fix It",
+    description:
+      "Getting the \"You've reached our limit of file uploads\" error on ChatGPT? Here's why it happens, when the limit resets, and how to keep working instantly without waiting.",
+    metaTitle:
+      "\"You've Reached Our Limit of File Uploads\": ChatGPT Fix (2026)",
+    metaDescription:
+      "ChatGPT says \"You've reached our limit of file uploads\"? Free: resets in 24hrs. Plus: 1-3hrs. Or fix it now: merge your files and paste them into ChatGPT directly.",
+    image: "/blog/chatgpt-upload-limit-error.webp",
+    publishedAt: "2026-03-15",
+    author: "Mohamed Wahib ABKARI",
+    readingTime: "5 min read",
+    tags: [
+      "ChatGPT",
+      "File Upload Limits",
+      "Troubleshooting",
+      "Error Fix",
+      "AI Tools",
+    ],
+    featured: true,
+  },
+  {
     slug: "ai-file-upload-limits-compared",
     title:
       "AI File Upload Limits Compared: ChatGPT vs Claude vs Gemini vs Grok (2026)",
@@ -25,7 +48,7 @@ export const blogPosts: BlogPost[] = [
     metaTitle:
       "AI Upload Limits Compared (2026): Which AI Lets You Upload the Most?",
     metaDescription:
-      "Which AI has unlimited uploads? We compared ChatGPT, Claude, Gemini, Grok & Perplexity file limits side by side. See the winner — plus a free tool to bypass them all.",
+      "Which AI has unlimited uploads? We compared ChatGPT, Claude, Gemini, Grok & Perplexity file limits side by side. See the winner, plus a free tool to bypass them all.",
     image: "/blog/ai-file-upload-limits-compared.webp",
     publishedAt: "2026-02-28",
     author: "Mohamed Wahib ABKARI",
@@ -50,7 +73,7 @@ export const blogPosts: BlogPost[] = [
     metaTitle:
       "How Many Files Can You Upload to ChatGPT? (Free: 3, Plus: 80, Pro: Unlimited)",
     metaDescription:
-      "ChatGPT Free: 3 files/day. Plus: ~80 per 3 hours. Pro: Unlimited. Exact 2026 upload limits for every ChatGPT plan — and a free workaround to upload more.",
+      "ChatGPT Free: 3 files/day. Plus: ~80 per 3 hours. Pro: Unlimited. Exact 2026 upload limits for every ChatGPT plan, and a free workaround to upload more.",
     image: "/blog/how-many-files-chatgpt.webp",
     publishedAt: "2026-01-07",
     author: "Mohamed Wahib ABKARI",
@@ -72,7 +95,7 @@ export const blogPosts: BlogPost[] = [
     metaTitle:
       "Generate Code Documentation with AI in Minutes (2026 Guide)",
     metaDescription:
-      "Turn your codebase into documentation automatically. We compare Mintlify, DocuWriter.ai, Cursor, Claude Code & ChatGPT — with ready-to-use prompts for each.",
+      "Turn your codebase into documentation automatically. We compare Mintlify, DocuWriter.ai, Cursor, Claude Code & ChatGPT, with ready-to-use prompts for each.",
     image: "/blog/generate-code-docs-ai.webp",
     publishedAt: "2025-12-14",
     updatedAt: "2026-02-28",
@@ -96,7 +119,7 @@ export const blogPosts: BlogPost[] = [
     metaTitle:
       "Import GitHub Repos to ChatGPT for Free (No Plus Required)",
     metaDescription:
-      "ChatGPT's GitHub connector needs Plus ($20/mo). Skip it — import any GitHub repo to ChatGPT for free with OneFile. No account, no file limits, 30 seconds.",
+      "ChatGPT's GitHub connector needs Plus ($20/mo). Skip it, import any GitHub repo to ChatGPT for free with OneFile. No account, no file limits, 30 seconds.",
     image: "/blog/chatgpt-github-import.webp",
     publishedAt: "2025-12-08",
     updatedAt: "2026-02-28",

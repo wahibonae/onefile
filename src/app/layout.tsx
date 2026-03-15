@@ -233,6 +233,37 @@ export default function RootLayout({
     },
     {
       "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "OneFile",
+      alternateName: "OneFileApp",
+      url: url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${url}/android-chrome-512x512.png`,
+        width: 512,
+        height: 512,
+      },
+      image: `${url}/seo-card.jpg`,
+      description: description,
+      foundingDate: "2025",
+      founder: {
+        "@type": "Person",
+        name: "Mohamed Wahib ABKARI",
+        url: "https://www.linkedin.com/in/abkarimohamedwahib/",
+      },
+      sameAs: [
+        "https://github.com/wahibonae/onefile",
+        "https://www.linkedin.com/company/onefileapp/",
+        "https://twitter.com/wahibonae",
+      ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        url: `${url}/contact`,
+      },
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "Person",
       name: "Mohamed Wahib ABKARI",
       jobTitle: "AI Engineer",

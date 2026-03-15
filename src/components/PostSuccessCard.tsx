@@ -16,7 +16,7 @@ import {
 
 const GITHUB_URL = "https://github.com/wahibonae/onefile";
 const SKIPIT_URL = "https://getskipit.com";
-const COUNTDOWN_SECONDS = 4;
+const COUNTDOWN_SECONDS = 5;
 
 interface PostSuccessCardProps {
   downloadRequested: number;

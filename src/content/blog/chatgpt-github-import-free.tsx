@@ -95,10 +95,10 @@ export default function BlogPost() {
         students, hobbyists, or developers who occasionally need AI code review,
         that&apos;s a steep price. (See our{" "}
         <Link
-          href="/blog/chatgpt-file-upload-limits-2025"
+          href="/blog/how-many-files-upload-chatgpt"
           className="text-primary hover:underline"
         >
-          complete guide to ChatGPT file upload limits
+          how many files you can upload to ChatGPT
         </Link>{" "}
         for all plan details.)
       </p>

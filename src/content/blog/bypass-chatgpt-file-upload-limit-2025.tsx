@@ -57,8 +57,8 @@ export default function BlogPost() {
 
       <p>
         These limits exist to manage server costs, but they&apos;re a bottleneck for legitimate use cases like analyzing research papers, reviewing codebases, or processing multiple documents. For a complete breakdown of all plans including Pro, Team, and Enterprise, see our{" "}
-        <Link href="/blog/chatgpt-file-upload-limits-2025" className="text-primary hover:underline">
-          ChatGPT File Upload Limits 2026 guide
+        <Link href="/blog/how-many-files-upload-chatgpt" className="text-primary hover:underline">
+          exact ChatGPT upload limits by plan
         </Link>.
       </p>
 
@@ -196,7 +196,11 @@ export default function BlogPost() {
 
       <h3>Will this work with Claude or Gemini?</h3>
       <p>
-        Yes. OneFile&apos;s output works with all AI platforms: Claude, Gemini, Grok, Perplexity, and any LLM.
+        Yes. OneFile&apos;s output works with all AI platforms: Claude, Gemini, Grok, Perplexity, and any LLM. See our{" "}
+        <Link href="/blog/ai-file-upload-limits-compared" className="text-primary hover:underline">
+          AI upload limits comparison
+        </Link>{" "}
+        for each platform&apos;s specific limits.
       </p>
 
       <h3>Is my data private?</h3>

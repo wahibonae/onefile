@@ -344,14 +344,14 @@ export default function BlogPost() {
       </ul>
 
       <p>
-        See our{" "}
+        Want to see how ChatGPT stacks up against other AI platforms? See our{" "}
         <Link
-          href="/blog/onefile-vs-chatgpt-plus-file-uploads"
+          href="/blog/ai-file-upload-limits-compared"
           className="text-primary hover:underline"
         >
-          OneFile vs. ChatGPT Plus comparison
+          AI file upload limits comparison
         </Link>{" "}
-        to decide if upgrading is worth it for your use case.
+        for a side-by-side breakdown.
       </p>
 
       <h3>Option 3: Batch Your Uploads</h3>
@@ -452,13 +452,12 @@ export default function BlogPost() {
       </p>
 
       <p>
-        For a complete breakdown of all limits including message caps and
-        feature access, see our{" "}
+        Need to upload more than your plan allows? See our{" "}
         <Link
-          href="/blog/chatgpt-file-upload-limits-2025"
+          href="/blog/bypass-chatgpt-file-upload-limit-2025"
           className="text-primary hover:underline"
         >
-          ChatGPT File Upload Limits 2026 guide
+          guide to bypassing ChatGPT&apos;s file upload limit
         </Link>
         .
       </p>

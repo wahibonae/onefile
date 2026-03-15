@@ -9,7 +9,7 @@ export const faqs: FAQItem[] = [
     category: "ChatGPT Limits",
     question: "What is ChatGPT's file upload limit?",
     answer:
-      "ChatGPT Free allows 3 file uploads per day. ChatGPT Plus allows ~80 files per 3-hour rolling window (but 10 files per message). ChatGPT Pro ($200/month) offers unlimited uploads. All plans have a 512MB per-file size limit. You can bypass these limits by combining all your files into one using OneFile. See our complete guide: https://onefileapp.com/blog/chatgpt-file-upload-limits-2025",
+      "ChatGPT Free allows 3 file uploads per day. ChatGPT Plus allows ~80 files per 3-hour rolling window (but 10 files per message). ChatGPT Pro ($200/month) offers unlimited uploads. All plans have a 512MB per-file size limit. You can bypass these limits by combining all your files into one using OneFile. See our complete guide: https://onefileapp.com/blog/how-many-files-upload-chatgpt",
   },
   {
     category: "ChatGPT Limits",
@@ -45,13 +45,13 @@ export const faqs: FAQItem[] = [
     category: "ChatGPT Limits",
     question: "What is ChatGPT Plus file upload limit?",
     answer:
-      "ChatGPT Plus ($20/month) allows approximately 80 file uploads per 3-hour rolling window, with a maximum of 10 files per message. Each file can be up to 512MB. Need to upload more? Use OneFile to merge everything into one file. Full plan comparison: https://onefileapp.com/blog/chatgpt-file-upload-limits-2025",
+      "ChatGPT Plus ($20/month) allows approximately 80 file uploads per 3-hour rolling window, with a maximum of 10 files per message. Each file can be up to 512MB. Need to upload more? Use OneFile to merge everything into one file. Full plan comparison: https://onefileapp.com/blog/how-many-files-upload-chatgpt",
   },
   {
     category: "ChatGPT Limits",
     question: "What is ChatGPT Go file upload limit?",
     answer:
-      "ChatGPT Go has similar limits to ChatGPT Plus: approximately 80 uploads per 3-hour window. The daily limit depends on your usage pattern within the rolling window. Use OneFile to merge your files into one, upload once, use one slot. See all plans: https://onefileapp.com/blog/chatgpt-file-upload-limits-2025",
+      "ChatGPT Go has similar limits to ChatGPT Plus: approximately 80 uploads per 3-hour window. The daily limit depends on your usage pattern within the rolling window. Use OneFile to merge your files into one, upload once, use one slot. See all plans: https://onefileapp.com/blog/how-many-files-upload-chatgpt",
   },
 
   // Getting Started

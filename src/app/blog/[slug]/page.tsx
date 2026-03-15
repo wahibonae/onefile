@@ -36,16 +36,19 @@ export async function generateMetadata({
 
   const postUrl = `${BASE_URL}/blog/${slug}`;
 
+  const seoTitle = post.metaTitle || post.title;
+  const seoDescription = post.metaDescription || post.description;
+
   return {
-    title: post.title,
-    description: post.description,
+    title: seoTitle,
+    description: seoDescription,
     authors: [{ name: post.author }],
     alternates: {
       canonical: postUrl,
     },
     openGraph: {
-      title: post.title,
-      description: post.description,
+      title: seoTitle,
+      description: seoDescription,
       url: postUrl,
       type: "article",
       publishedTime: post.publishedAt,
@@ -65,8 +68,8 @@ export async function generateMetadata({
       card: "summary_large_image",
       site: "@wahibonae",
       creator: "@wahibonae",
-      title: post.title,
-      description: post.description,
+      title: seoTitle,
+      description: seoDescription,
       images: [`${BASE_URL}${post.image}`],
     },
   };
@@ -131,14 +134,6 @@ export default async function BlogPostPage({
       { question: "What file types are supported?", answer: "50+ file types including PDFs, Microsoft Office (DOCX, PPTX, XLSX), code files (JS, TS, PY, Java, Go, Rust, Ruby, PHP, C, C++), web files (HTML, CSS, JSON, XML, YAML), data files (CSV, TSV, SQL), and config files." },
       { question: "Does this violate ChatGPT's Terms of Service?", answer: "No. You're uploading a single text file, which is allowed. The file just contains content from multiple sources." },
     ],
-    "chatgpt-file-upload-limits-2025": [
-      { question: "How many files can I upload to ChatGPT for free?", answer: "ChatGPT Free allows 3 file uploads per day. This limit resets every 24 hours." },
-      { question: "What is the ChatGPT Plus file upload limit?", answer: "ChatGPT Plus allows 80 files per 3-hour rolling window. Each file can be up to 512MB." },
-      { question: "Does ChatGPT Pro have higher file limits than Plus?", answer: "Yes! ChatGPT Pro ($200/month) offers unlimited file uploads, while Plus is capped at around 80 files per 3-hour window." },
-      { question: "When does the ChatGPT file upload limit reset?", answer: "For Free users, the 3-file limit resets every 24 hours. For paid plans, the 80-file limit uses a rolling 3-hour window that continuously refreshes." },
-      { question: "Can I upload a ZIP file to ChatGPT?", answer: "ChatGPT can accept ZIP files, but extraction and processing can be unreliable. For code projects, combining files into a readable text format with OneFile produces better results." },
-      { question: "Is there an AI with unlimited file uploads?", answer: "ChatGPT Pro ($200/month) offers unlimited file uploads. For other plans or platforms, you can bypass restrictions by combining multiple files into one before uploading using OneFile." },
-    ],
     "ai-file-upload-limits-compared": [
       { question: "Which AI allows the most file uploads for free?", answer: "Google Gemini allows 10 files per prompt on the free plan, the most of any platform. However, it doesn't support code files or spreadsheets on the free tier. ChatGPT Free allows only 3 files per day but supports all file types." },
       { question: "What AI has unlimited file uploads?", answer: "ChatGPT Pro ($200/month) is the only plan with truly unlimited file uploads. Perplexity Pro ($20/mo) offers unlimited daily uploads but caps at 10 files per prompt. For a free alternative, use OneFile to combine unlimited files into one upload." },
@@ -163,6 +158,7 @@ export default async function BlogPostPage({
     ? {
         "@context": "https://schema.org",
         "@type": "FAQPage",
+        name: post.title,
         mainEntity: faqSchemaMap[slug].map((faq) => ({
           "@type": "Question",
           name: faq.question,
@@ -256,15 +252,29 @@ export default async function BlogPostPage({
 
   return (
     <>
-      {/* Structured Data */}
+      {/* Structured Data - separate script tags for each schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            [articleSchema, howToSchema, faqSchema].filter(Boolean)
-          ),
+          __html: JSON.stringify(articleSchema),
         }}
       />
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(howToSchema),
+          }}
+        />
+      )}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
+      )}
       <div className="container max-w-6xl mx-auto px-6 py-8">
         {/* Back Button */}
         <div className="mb-8">

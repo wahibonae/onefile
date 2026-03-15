@@ -30,7 +30,6 @@ Creator: Mohamed Wahib ABKARI, AI Engineer. LinkedIn: https://www.linkedin.com/i
 
 - [AI File Upload Limits Compared: ChatGPT vs Claude vs Gemini vs Grok (2026)](https://onefileapp.com/blog/ai-file-upload-limits-compared): Side-by-side comparison of file upload limits, max file sizes, and supported types across all major AI platforms
 - [How Many Files Can You Upload to ChatGPT? (2026 Limits)](https://onefileapp.com/blog/how-many-files-upload-chatgpt): Exact file count limits for ChatGPT Free (3/day), Plus (~80/3hrs), Pro (unlimited), with reset timing details
-- [ChatGPT File Upload Limits 2026: Complete Guide for Every Plan](https://onefileapp.com/blog/chatgpt-file-upload-limits-2025): Complete breakdown for Free, Plus, Pro, Team, and Enterprise plans including file size limits per type
 - [How to Bypass ChatGPT File Upload Limit: Upload Unlimited Files Free](https://onefileapp.com/blog/bypass-chatgpt-file-upload-limit-2025): Step-by-step guide to combining unlimited files and uploading as one, works on Free and Plus plans
 - [How to Import GitHub to ChatGPT For Free](https://onefileapp.com/blog/chatgpt-github-import-free): Guide to importing any GitHub repository into ChatGPT without a Plus subscription
 - [How to Generate Documentation from Code Using AI (2026)](https://onefileapp.com/blog/generate-code-documentation-ai-2025): Workflow guide for using AI to generate code documentation, including using OneFile to provide full codebase context

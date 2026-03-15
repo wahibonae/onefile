@@ -3,9 +3,9 @@ import FAQContent from "./FAQContent";
 import { faqs } from "./faq-data";
 
 export const metadata: Metadata = {
-  title: "ChatGPT File Upload Limits 2026 | Free: 3/day, Plus: 80/3hrs, Pro: Unlimited",
+  title: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
   description:
-    "What is ChatGPT's file upload limit? Free: 3 files/day. Plus: ~80 files per 3 hours (10 per message). Pro: Unlimited. Complete FAQ with exact limits for every plan and how to bypass them for free.",
+    "Answers to every ChatGPT upload question. Free: 3 files/day. Plus: ~80/3hrs (10 per message). Pro: Unlimited. Includes a free workaround to upload unlimited files to any AI.",
   keywords: [
     "ChatGPT file upload limit",
     "ChatGPT Plus file upload limit",
@@ -14,19 +14,21 @@ export const metadata: Metadata = {
     "how many files ChatGPT",
     "ChatGPT upload limit bypass",
     "AI unlimited file upload",
+    "you've reached our limit of file uploads",
+    "chatgpt reached limit of file uploads",
   ],
   openGraph: {
-    title: "ChatGPT File Upload Limits 2026 | Free, Plus, Pro Limits",
+    title: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
     description:
-      "What is ChatGPT's file upload limit? Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. Complete FAQ with how to bypass limits for free.",
+      "Answers to every ChatGPT upload question. Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. Plus a free workaround to bypass limits.",
     type: "website",
     url: "https://onefileapp.com/faq",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ChatGPT File Upload Limits 2026 | Free, Plus, Pro",
+    title: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
     description:
-      "Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. FAQ with exact limits for every ChatGPT plan.",
+      "Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. Every ChatGPT upload limit answered, plus a free bypass.",
   },
   alternates: {
     canonical: "https://onefileapp.com/faq",

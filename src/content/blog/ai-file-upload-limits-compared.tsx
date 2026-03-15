@@ -240,8 +240,8 @@ export default function BlogPost() {
 
       <p>
         For a deeper breakdown of ChatGPT limits, see our{" "}
-        <Link href="/blog/chatgpt-file-upload-limits-2025" className="text-primary hover:underline">
-          complete ChatGPT file upload limits guide
+        <Link href="/blog/how-many-files-upload-chatgpt" className="text-primary hover:underline">
+          how many files you can upload to ChatGPT
         </Link>.
       </p>
 
@@ -557,7 +557,11 @@ export default function BlogPost() {
       <h2>How to Bypass File Upload Limits on Any AI</h2>
 
       <p>
-        No matter which platform you use, there&apos;s a universal workaround: <strong>combine all your files into one before uploading</strong>.
+        No matter which platform you use, there&apos;s a universal workaround: <strong>combine all your files into one before uploading</strong>. We wrote a{" "}
+        <Link href="/blog/bypass-chatgpt-file-upload-limit-2025" className="text-primary hover:underline">
+          step-by-step guide to bypassing ChatGPT&apos;s upload limit
+        </Link>{" "}
+        that works on every platform.
       </p>
 
       <p>

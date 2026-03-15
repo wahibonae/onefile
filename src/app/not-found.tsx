@@ -50,11 +50,11 @@ export default function NotFound() {
             </li>
             <li>
               <Link
-                href="/blog/chatgpt-file-upload-limits-2025"
+                href="/blog/how-many-files-upload-chatgpt"
                 className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
               >
                 <ArrowLeft className="h-3 w-3 flex-shrink-0" />
-                <span className="line-clamp-1">ChatGPT File Upload Limits 2025</span>
+                <span className="line-clamp-1">How Many Files Can You Upload to ChatGPT?</span>
               </Link>
             </li>
             <li>

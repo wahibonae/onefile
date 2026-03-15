@@ -21,7 +21,7 @@ export const faqs: FAQItem[] = [
     category: "ChatGPT Limits",
     question: "Why does ChatGPT say 'You've reached your file upload limit'?",
     answer:
-      "This error appears when you've hit your plan's upload cap. Free users see this after 3 files per day. Plus users see it after ~80 files in a 3-hour window. The fix: combine your files into one using OneFile, then upload the single combined file. Learn how: https://onefileapp.com/blog/bypass-chatgpt-file-upload-limit-2025",
+      "This error appears when you've hit your plan's upload cap. Free users see this after 3 files per day. Plus users see it after ~80 files in a 3-hour window. The fix: combine your files into one using OneFile, then upload the single combined file. Full troubleshooting guide: https://onefileapp.com/blog/chatgpt-file-upload-limit-error",
   },
   {
     category: "ChatGPT Limits",

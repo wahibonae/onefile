@@ -5,6 +5,15 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/webp", "image/avif"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/blog/chatgpt-file-upload-limits-2025",
+        destination: "/blog/how-many-files-upload-chatgpt",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

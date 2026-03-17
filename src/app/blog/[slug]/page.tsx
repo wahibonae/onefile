@@ -172,6 +172,7 @@ export default async function BlogPostPage({
           name: faq.question,
           acceptedAnswer: {
             "@type": "Answer",
+            name: faq.question,
             text: faq.answer,
           },
         })),

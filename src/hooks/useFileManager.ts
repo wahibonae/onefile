@@ -10,8 +10,14 @@ import {
   skippedStats,
   getFileHash,
   getUniquePath,
+  getTotalContentSize,
+  formatFileSize,
+  MAX_TOTAL_CONTENT_SIZE,
 } from "@/utils/files";
 import { IGNORED_PATHS } from "@/constants/files";
+
+// Maximum size we'll attempt to store in sessionStorage (~4MB to stay under quota)
+const MAX_SESSION_STORAGE_SIZE = 4 * 1024 * 1024;
 
 interface UseFileManagerReturn {
   files: FileWithContent[];
@@ -44,16 +50,29 @@ export function useFileManager(): UseFileManagerReturn {
     }
   }, []);
 
-  // Save files to sessionStorage whenever they change
+  // Save files to sessionStorage whenever they change (only if small enough)
   useEffect(() => {
     try {
       if (files.length === 0) {
         sessionStorage.removeItem("onefile-temp-files");
-      } else {
-        sessionStorage.setItem("onefile-temp-files", JSON.stringify(files));
+        return;
       }
+      // Estimate total content size before attempting JSON.stringify
+      const totalSize = getTotalContentSize(files);
+      if (totalSize > MAX_SESSION_STORAGE_SIZE) {
+        // Data too large for sessionStorage — skip silently
+        sessionStorage.removeItem("onefile-temp-files");
+        return;
+      }
+      sessionStorage.setItem("onefile-temp-files", JSON.stringify(files));
     } catch (error) {
-      console.error("Failed to sync files to sessionStorage:", error);
+      // Catch QuotaExceededError or any other storage error gracefully
+      console.warn("Failed to sync files to sessionStorage (data too large):", error);
+      try {
+        sessionStorage.removeItem("onefile-temp-files");
+      } catch {
+        // Ignore cleanup errors
+      }
     }
   }, [files]);
 
@@ -257,6 +276,27 @@ export function useFileManager(): UseFileManagerReturn {
         });
 
         if (successfulFiles.length > 0) {
+          // Check if adding these files would exceed the safe memory limit
+          const currentSize = getTotalContentSize(files);
+          const newSize = getTotalContentSize(successfulFiles);
+          const totalSize = currentSize + newSize;
+
+          if (totalSize > MAX_TOTAL_CONTENT_SIZE) {
+            toast.dismiss(loadingToastId);
+            toast.error(
+              `Total content size (${formatFileSize(totalSize)}) exceeds the ${formatFileSize(MAX_TOTAL_CONTENT_SIZE)} browser limit. Please upload fewer or smaller files.`
+            );
+            return;
+          }
+
+          // Warn if approaching the limit (over 75%)
+          if (totalSize > MAX_TOTAL_CONTENT_SIZE * 0.75) {
+            toast(
+              `Content size is ${formatFileSize(totalSize)} — approaching the ${formatFileSize(MAX_TOTAL_CONTENT_SIZE)} browser limit.`,
+              { icon: "⚠️" }
+            );
+          }
+
           setFiles((prev: FileWithContent[]) => [...prev, ...successfulFiles]);
         }
 

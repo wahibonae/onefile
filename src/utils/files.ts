@@ -273,7 +273,7 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
         // Trim whitespace from beginning and end
         const trimmedContent = data.text.trim()
         
-        resolve({ path: relativePath, content: trimmedContent })
+        resolve({ path: relativePath, content: trimmedContent, size: trimmedContent.length })
         return
       }
 
@@ -281,14 +281,14 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
       const reader = new FileReader()
       reader.onload = (e) => {
         const content = e.target?.result as string
-        
+
         // Check if content is empty or only whitespace
         if (!content || content.trim().length === 0) {
           reject(new Error(`File appears to be empty: ${file.name}`))
           return
         }
-        
-        resolve({ path: relativePath, content: content })
+
+        resolve({ path: relativePath, content: content, size: content.length })
       }
       reader.onerror = () => reject(new Error(`Failed to read file: ${file.name}`))
       reader.readAsText(file)
@@ -426,12 +426,28 @@ export const processEntry = async (entry: FileSystemEntry, path: string = ''): P
   })
 }
 
+// Maximum safe total size for in-memory prompt generation (~200MB)
+// V8 has a ~512MB string limit; we stay well under it
+export const MAX_TOTAL_CONTENT_SIZE = 200 * 1024 * 1024
+
+export const getTotalContentSize = (files: FileWithContent[]): number => {
+  return files.reduce((total, file) => total + (file.size ?? file.content.length), 0)
+}
+
+export const formatFileSize = (bytes: number): string => {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`
+}
+
 export const generatePromptText = (files: FileWithContent[]): string => {
-  let result = '======== FILES ========\n'
-  files.forEach(file => {
-    result += `*** ${file.path} ***\n${file.content}\n\n`
-  })
-  return result
+  // Use Array.join instead of += concatenation for better memory efficiency
+  const parts: string[] = ['======== FILES ========\n']
+  for (const file of files) {
+    parts.push(`*** ${file.path} ***\n${file.content}\n\n`)
+  }
+  return parts.join('')
 }
 
 // Compute SHA-256 hash of file content for duplicate detection

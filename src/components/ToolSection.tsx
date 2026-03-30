@@ -7,7 +7,7 @@ import { Copy, FileText, Download } from "lucide-react";
 import Sparkles from "@/components/icons/Sparkles";
 import { FileUpload } from "@/components/FileUpload";
 import { FileList } from "@/components/FileList";
-import { cn } from "@/lib/utils";
+import { cn, formatBytes } from "@/lib/utils";
 import { GitHubImportDialog } from "@/components/GitHubImportDialog";
 import { TextContentDialog } from "@/components/TextContentDialog";
 import { PostSuccessCard } from "@/components/PostSuccessCard";
@@ -22,8 +22,16 @@ const IMPORT_SOURCES = ["text content", "public GitHub repos"];
 export function ToolSection() {
   const { files, handleFiles, removeFile, clearAllFiles, handleGitHubImport } =
     useFileManager();
-  const { finalPrompt, copyToClipboard, triggerDownload, executeDownload, downloadRequested } =
-    usePromptOutput(files);
+  const {
+    finalPrompt,
+    outputSize,
+    isTruncated,
+    fileCount,
+    copyToClipboard,
+    triggerDownload,
+    executeDownload,
+    downloadRequested,
+  } = usePromptOutput(files);
   const {
     isGitHubBrowserOpen,
     setIsGitHubBrowserOpen,
@@ -133,12 +141,22 @@ export function ToolSection() {
             </div>
 
             <div className="space-y-4 sm:space-y-6">
-              <ScrollArea className="h-[300px] sm:h-[400px] rounded-xl border border-border bg-muted/30 p-4 sm:p-6">
-                <pre className="text-xs sm:text-sm whitespace-pre-wrap font-mono text-foreground leading-relaxed">
-                  {finalPrompt ||
-                    "Your one file (extracted content from your files) will appear here..."}
-                </pre>
-              </ScrollArea>
+              <div className="h-[300px] sm:h-[400px] rounded-xl border border-border bg-muted/30 flex flex-col">
+                <ScrollArea className="flex-1 min-h-0">
+                  <div className="p-4 sm:p-6">
+                    <pre className="text-xs sm:text-sm whitespace-pre-wrap break-all font-mono text-foreground leading-relaxed">
+                      {finalPrompt ||
+                        "Your one file (extracted content from your files) will appear here..."}
+                    </pre>
+                  </div>
+                </ScrollArea>
+                {isTruncated && (
+                  <p className="shrink-0 text-xs text-muted-foreground text-center border-t border-border px-4 py-2">
+                    Showing preview. Full output: {formatBytes(outputSize)},{" "}
+                    {fileCount} file{fileCount === 1 ? "" : "s"}
+                  </p>
+                )}
+              </div>
 
               {finalPrompt && (
                 <div className="flex flex-col sm:flex-row gap-3">

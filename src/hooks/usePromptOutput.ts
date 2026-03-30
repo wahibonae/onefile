@@ -6,6 +6,7 @@ import { FileWithContent } from "@/types";
 import {
   generatePromptText,
   generatePromptBlob,
+  generateMarkdownBlob,
   calculateOutputSize,
 } from "@/utils/files";
 import { formatBytes } from "@/lib/utils";
@@ -13,13 +14,15 @@ import { formatBytes } from "@/lib/utils";
 const PREVIEW_LIMIT = 50_000; // ~50KB preview
 const COPY_SIZE_LIMIT = 100 * 1024 * 1024; // 100MB safety guard for clipboard
 
+export type DownloadFormat = "txt" | "md";
+
 interface UsePromptOutputReturn {
   finalPrompt: string;
   outputSize: number;
   isTruncated: boolean;
   fileCount: number;
   copyToClipboard: () => void;
-  triggerDownload: () => void;
+  triggerDownload: (format?: DownloadFormat) => void;
   executeDownload: () => void;
   downloadRequested: number;
 }
@@ -50,6 +53,8 @@ export function usePromptOutput(
 
   const filesRef = useRef(files);
   filesRef.current = files;
+
+  const pendingFormatRef = useRef<DownloadFormat>("txt");
 
   useEffect(() => {
     if (files.length > 0) {
@@ -94,16 +99,27 @@ export function usePromptOutput(
     }
   }, []);
 
-  const triggerDownload = useCallback((): void => {
+  const triggerDownload = useCallback((format: DownloadFormat = "txt"): void => {
+    pendingFormatRef.current = format;
     setDownloadRequested((c) => c + 1);
   }, []);
 
   const executeDownload = useCallback((): void => {
-    const blob = generatePromptBlob(filesRef.current);
+    const format = pendingFormatRef.current;
+    const currentFiles = filesRef.current;
+
+    const blob =
+      format === "md"
+        ? generateMarkdownBlob(currentFiles)
+        : generatePromptBlob(currentFiles);
+
+    const filename =
+      format === "md" ? "onefile-prompt.md" : "onefile-prompt.txt";
+
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "onefile-prompt.txt";
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

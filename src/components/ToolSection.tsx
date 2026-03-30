@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Copy, FileText, Download } from "lucide-react";
+import { Copy, FileText, Download, ChevronDown, File } from "lucide-react";
 import Sparkles from "@/components/icons/Sparkles";
 import { FileUpload } from "@/components/FileUpload";
 import { FileList } from "@/components/FileList";
@@ -11,6 +11,12 @@ import { cn, formatBytes } from "@/lib/utils";
 import { GitHubImportDialog } from "@/components/GitHubImportDialog";
 import { TextContentDialog } from "@/components/TextContentDialog";
 import { PostSuccessCard } from "@/components/PostSuccessCard";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useFileManager } from "@/hooks/useFileManager";
 import { usePromptOutput } from "@/hooks/usePromptOutput";
 import { useGitHubBrowser } from "@/hooks/useGitHubBrowser";
@@ -167,16 +173,42 @@ export function ToolSection() {
                     <Copy className="h-4 w-4 mr-2" />
                     Copy To Clipboard
                   </Button>
-                  <Button
-                    className={cn(
-                      "flex-1 bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-10 sm:h-11 rounded-lg font-medium"
-                    )}
-                    onClick={triggerDownload}
-                    variant="outline"
-                  >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download
-                  </Button>
+                  <div className="flex-1 flex">
+                    <Button
+                      className="flex-1 bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-10 sm:h-11 rounded-l-lg rounded-r-none border-none font-medium focus-visible:ring-0 focus-visible:ring-offset-0"
+                      onClick={() => triggerDownload("txt")}
+                      variant="outline"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download .txt
+                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          className="bg-primary text-white hover:text-white hover:bg-primary/95 shadow-sm h-10 sm:h-11 rounded-l-none rounded-r-lg border-l border-white/20 border-y-0 border-r-0 px-2 font-medium ring-0 ring-offset-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 outline-none transition-none"
+                          variant="outline"
+                        >
+                          <ChevronDown className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-fit space-y-1 p-2">
+                        <DropdownMenuItem
+                          onClick={() => triggerDownload("txt")}
+                          className="flex items-center gap-2.5 cursor-pointer text-muted-foreground"
+                        >
+                          <File className="h-4 w-4" />
+                          Download as .txt
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => triggerDownload("md")}
+                          className="flex items-center gap-2.5 cursor-pointer text-muted-foreground"
+                        >
+                          <FileText className="h-4 w-4" />
+                          Download as .md
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </div>
               )}
             </div>

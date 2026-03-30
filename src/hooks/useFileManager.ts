@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "react-hot-toast";
 import { FileWithContent } from "@/types";
 import {
@@ -12,6 +12,7 @@ import {
   getUniquePath,
 } from "@/utils/files";
 import { IGNORED_PATHS } from "@/constants/files";
+import { saveFiles, loadFiles, clearFiles } from "@/lib/fileStorage";
 
 interface UseFileManagerReturn {
   files: FileWithContent[];
@@ -23,38 +24,46 @@ interface UseFileManagerReturn {
 
 export function useFileManager(): UseFileManagerReturn {
   const [files, setFiles] = useState<FileWithContent[]>([]);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Restore files from sessionStorage on mount (after OAuth redirect)
+  // Restore files from IndexedDB on mount (after OAuth redirect or page refresh)
   useEffect(() => {
-    try {
-      const savedFiles = sessionStorage.getItem("onefile-temp-files");
-      if (savedFiles) {
-        const parsed = JSON.parse(savedFiles) as FileWithContent[];
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setFiles(parsed);
+    loadFiles()
+      .then((restored) => {
+        if (restored) {
+          setFiles(restored);
           toast.success(
-            `Restored ${parsed.length} file${parsed.length === 1 ? "" : "s"}`
+            `Restored ${restored.length} file${restored.length === 1 ? "" : "s"}`
           );
+          clearFiles().catch(console.error);
         }
-        sessionStorage.removeItem("onefile-temp-files");
-      }
-    } catch (error) {
-      console.error("Failed to restore files from sessionStorage:", error);
-      sessionStorage.removeItem("onefile-temp-files");
-    }
+      })
+      .catch((error) => {
+        console.error("Failed to restore files from IndexedDB:", error);
+        clearFiles().catch(console.error);
+      });
   }, []);
 
-  // Save files to sessionStorage whenever they change
+  // Save files to IndexedDB whenever they change (debounced)
   useEffect(() => {
-    try {
-      if (files.length === 0) {
-        sessionStorage.removeItem("onefile-temp-files");
-      } else {
-        sessionStorage.setItem("onefile-temp-files", JSON.stringify(files));
-      }
-    } catch (error) {
-      console.error("Failed to sync files to sessionStorage:", error);
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
     }
+
+    if (files.length === 0) {
+      clearFiles().catch(console.error);
+      return;
+    }
+
+    debounceRef.current = setTimeout(() => {
+      saveFiles(files).catch(console.error);
+    }, 1000);
+
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
   }, [files]);
 
   const handleFiles = async (fileList: FileList | null): Promise<void> => {
@@ -307,6 +316,7 @@ export function useFileManager(): UseFileManagerReturn {
 
   const clearAllFiles = (): void => {
     setFiles([]);
+    clearFiles().catch(console.error);
   };
 
   const handleGitHubImport = (

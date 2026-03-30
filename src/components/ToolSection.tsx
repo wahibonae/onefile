@@ -149,8 +149,8 @@ export function ToolSection() {
             <div className="space-y-4 sm:space-y-6">
               <div className="h-[300px] sm:h-[400px] rounded-xl border border-border bg-muted/30 flex flex-col">
                 <ScrollArea className="flex-1 min-h-0">
-                  <div className="p-4 sm:p-6">
-                    <pre className="text-xs sm:text-sm whitespace-pre-wrap break-all font-mono text-foreground leading-relaxed">
+                  <div className="p-4 sm:p-6 overflow-hidden">
+                    <pre className="text-xs sm:text-sm whitespace-pre-wrap font-mono text-foreground leading-relaxed [overflow-wrap:anywhere]">
                       {finalPrompt ||
                         "Your one file (extracted content from your files) will appear here..."}
                     </pre>

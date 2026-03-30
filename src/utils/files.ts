@@ -427,11 +427,26 @@ export const processEntry = async (entry: FileSystemEntry, path: string = ''): P
 }
 
 export const generatePromptText = (files: FileWithContent[]): string => {
-  let result = '======== FILES ========\n'
-  files.forEach(file => {
-    result += `*** ${file.path} ***\n${file.content}\n\n`
-  })
-  return result
+  const parts = files.map(file => `*** ${file.path} ***\n${file.content}\n\n`)
+  return '======== FILES ========\n' + parts.join('')
+}
+
+export const generatePromptBlob = (files: FileWithContent[]): Blob => {
+  const parts: string[] = ['======== FILES ========\n']
+  for (const file of files) {
+    parts.push(`*** ${file.path} ***\n${file.content}\n\n`)
+  }
+  return new Blob(parts, { type: 'text/plain' })
+}
+
+export const calculateOutputSize = (files: FileWithContent[]): number => {
+  const HEADER_LEN = '======== FILES ========\n'.length
+  let size = HEADER_LEN
+  for (const file of files) {
+    // *** {path} ***\n{content}\n\n
+    size += 4 + file.path.length + 4 + file.content.length + 2
+  }
+  return size
 }
 
 // Compute SHA-256 hash of file content for duplicate detection

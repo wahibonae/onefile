@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useUser, useClerk, useAuth } from "@clerk/nextjs";
 import { FileWithContent } from "@/types";
+import { saveFiles } from "@/lib/fileStorage";
 
 interface UseGitHubBrowserReturn {
   isGitHubBrowserOpen: boolean;
@@ -40,13 +41,11 @@ export function useGitHubBrowser(files: FileWithContent[]): UseGitHubBrowserRetu
   }, [isSignedIn]);
 
   const handleSignInClick = (): void => {
-    // Explicitly save files before OAuth redirect (extra safety)
+    // Save files to IndexedDB before OAuth redirect (extra safety)
     if (files.length > 0) {
-      try {
-        sessionStorage.setItem("onefile-temp-files", JSON.stringify(files));
-      } catch (error) {
+      saveFiles(files).catch((error) => {
         console.error("Failed to save files before sign-in:", error);
-      }
+      });
     }
   };
 

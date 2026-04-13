@@ -9,9 +9,86 @@ import { FeaturesShowcase } from "@/components/FeaturesShowcase";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { FAQSection } from "@/components/FAQSection";
 
+const homepageFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How many files can I combine with OneFile?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "There's no limit! Combine 10, 100, or even 1,000+ files into one. The only constraint is your browser's memory, which can typically handle thousands of files without issues.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does this work with ChatGPT's free plan?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes! ChatGPT free users are limited to uploading 3 files per day. With OneFile, you can merge unlimited files into one text file and upload that single file to ChatGPT, bypassing the 3-file restriction entirely. Even Plus users benefit by avoiding the frustration of uploading files in batches of 10 for large projects.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is my data private and secure?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Text and code files are processed entirely in your browser - they never leave your computer. Documents like PDFs and Word files are temporarily processed on our server for text extraction but are never stored. Our entire codebase is open-source on GitHub, so you can verify exactly how your files are handled.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I upload an entire GitHub repository?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes! Use our GitHub import feature to browse and select files from any public repository. You can also download a repo as a ZIP, extract it, and upload the entire folder. OneFile automatically respects .gitignore files and skips node_modules, .git, and other unnecessary directories.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What file types are supported?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "OneFile supports 50+ file types including PDFs (.pdf), Microsoft Office files (.docx, .xlsx, .pptx), code files (.js, .py, .java, .cpp, .tsx, etc.), text files (.txt, .md, .csv), configuration files (.json, .yaml, .env), and many more. Images and binary files are automatically filtered out.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is OneFile really free?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, completely free with no hidden costs, no account required, and no usage limits. OneFile is open-source software released under the MIT license.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I upload more than 3 files to ChatGPT?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Combine your files into one using OneFile (free tool), then upload the single combined file to ChatGPT. This bypasses the 3-file daily limit on Free plans.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does this work with ChatGPT Free plan?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes! ChatGPT Free limits you to 3 files per day. OneFile lets you merge unlimited files into one, so you only use 1 of your 3 daily uploads while including all your content.",
+      },
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homepageFaqSchema),
+        }}
+      />
       <ScrollProgress />
       <div className="min-h-screen bg-background flex flex-col space-y-6">
         <div className="relative pb-8 sm:pb-12 md:pb-20">

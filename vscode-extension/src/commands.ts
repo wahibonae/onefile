@@ -5,8 +5,13 @@ import { PanelManager } from './panelManager'
 import { addFiles } from './webview/messageHandler'
 import { calculateOutputSize } from './outputGenerator/promptText'
 import { updateStatusBar } from './statusBar'
+import { setFiles } from './fileState'
 
-/** Restore persisted file paths from workspaceState, re-reading content from disk. */
+/**
+ * On activation, re-read file contents from disk for any paths persisted in workspaceState.
+ * Populates the in-memory fileState so the panel can serve content immediately on open.
+ * Files that no longer exist are silently dropped.
+ */
 export async function restorePersistedFiles(context: vscode.ExtensionContext): Promise<void> {
   type PersistedFile = { path: string; absolutePath: string }
   const persisted = context.workspaceState.get<PersistedFile[]>('onefile.files', [])
@@ -25,9 +30,15 @@ export async function restorePersistedFiles(context: vscode.ExtensionContext): P
     }
   }
 
-  // Write back the restored set (drops any files that no longer exist)
+  // Populate in-memory state with restored content
+  setFiles(restored)
+
+  // Write back only the files that still exist (drops missing ones)
   const persistedRestored = restored.map(f => ({ path: f.path, absolutePath: f.absolutePath }))
   await context.workspaceState.update('onefile.files', persistedRestored)
+
+  // Update status bar to reflect restored count
+  updateStatusBar(restored.length)
 }
 
 export function registerCommands(context: vscode.ExtensionContext): void {
@@ -51,8 +62,7 @@ export function registerCommands(context: vscode.ExtensionContext): void {
           },
           async () => {
             const incoming = await processUris(uris)
-            const panel = PanelManager.getOrCreate(context)
-            panel // ensure panel is open
+            PanelManager.getOrCreate(context)
             await addFiles(context, incoming)
           }
         )
@@ -65,8 +75,7 @@ export function registerCommands(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       'onefile.openPanel',
       () => {
-        const panel = PanelManager.getOrCreate(context)
-        panel // ensure panel is revealed
+        PanelManager.getOrCreate(context)
         // State will be sent when webview fires 'ready'
       }
     )
@@ -77,6 +86,7 @@ export function registerCommands(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       'onefile.clearAll',
       async () => {
+        setFiles([])
         await context.workspaceState.update('onefile.files', [])
         PanelManager.sendFileState([], calculateOutputSize([]))
         updateStatusBar(0)

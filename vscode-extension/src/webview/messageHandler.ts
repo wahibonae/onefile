@@ -5,6 +5,7 @@ import { generatePromptText, calculateOutputSize } from '../outputGenerator/prom
 import { generateMarkdownText } from '../outputGenerator/markdownText'
 import { PanelManager } from '../panelManager'
 import { updateStatusBar } from '../statusBar'
+import { getFiles, setFiles } from '../fileState'
 
 type WebviewMessage =
   | { type: 'ready' }
@@ -13,20 +14,19 @@ type WebviewMessage =
   | { type: 'removeFile'; index: number }
   | { type: 'clearAll' }
 
-function getFiles(context: vscode.ExtensionContext): FileWithContent[] {
-  return context.workspaceState.get<FileWithContent[]>('onefile.files', [])
-}
-
-async function saveFiles(
+/**
+ * Persist only { path, absolutePath } to workspaceState for cross-restart recovery.
+ * Full content is never written to disk — it lives in the in-memory fileState store.
+ */
+async function persistPaths(
   context: vscode.ExtensionContext,
   files: FileWithContent[]
 ): Promise<void> {
-  // Persist only path + absolutePath — never the full content
   const persisted = files.map(f => ({ path: f.path, absolutePath: f.absolutePath }))
   await context.workspaceState.update('onefile.files', persisted)
 }
 
-function syncPanel(context: vscode.ExtensionContext, files: FileWithContent[]): void {
+function syncPanel(files: FileWithContent[]): void {
   PanelManager.sendFileState(files, calculateOutputSize(files))
   updateStatusBar(files.length)
 }
@@ -36,16 +36,14 @@ export async function handleMessage(
   _panel: vscode.WebviewPanel,
   context: vscode.ExtensionContext
 ): Promise<void> {
-  const files = getFiles(context)
-
   switch (msg.type) {
     case 'ready': {
-      syncPanel(context, files)
+      syncPanel(getFiles())
       break
     }
 
     case 'copyToClipboard': {
-      const text = generatePromptText(files)
+      const text = generatePromptText(getFiles())
       await vscode.env.clipboard.writeText(text)
       PanelManager.postMessage({ type: 'notification', kind: 'success', message: 'Copied to clipboard!' })
       break
@@ -53,7 +51,7 @@ export async function handleMessage(
 
     case 'downloadFile': {
       const isMarkdown = msg.format === 'md'
-      const text = isMarkdown ? generateMarkdownText(files) : generatePromptText(files)
+      const text = isMarkdown ? generateMarkdownText(getFiles()) : generatePromptText(getFiles())
       const ext = isMarkdown ? 'md' : 'txt'
 
       const uri = await vscode.window.showSaveDialog({
@@ -71,29 +69,31 @@ export async function handleMessage(
     }
 
     case 'removeFile': {
-      const updated = files.filter((_, i) => i !== msg.index)
-      await saveFiles(context, updated)
-      syncPanel(context, updated)
+      const updated = getFiles().filter((_, i) => i !== msg.index)
+      setFiles(updated)
+      await persistPaths(context, updated)
+      syncPanel(updated)
       break
     }
 
     case 'clearAll': {
-      await saveFiles(context, [])
-      syncPanel(context, [])
+      setFiles([])
+      await persistPaths(context, [])
+      syncPanel([])
       break
     }
   }
 }
 
 /**
- * Called by commands.ts after files are added.
- * Merges new files into the existing list (deduplicates by path).
+ * Called by commands.ts after new files are processed.
+ * Merges into the in-memory store, persists paths, and syncs the panel.
  */
 export async function addFiles(
   context: vscode.ExtensionContext,
   incoming: FileWithContent[]
 ): Promise<void> {
-  const existing = getFiles(context)
+  const existing = getFiles()
   const existingPaths = new Set(existing.map(f => f.path))
 
   const merged = [...existing]
@@ -106,8 +106,9 @@ export async function addFiles(
     }
   }
 
-  await saveFiles(context, merged)
-  syncPanel(context, merged)
+  setFiles(merged)
+  await persistPaths(context, merged)
+  syncPanel(merged)
 
   if (added > 0) {
     PanelManager.postMessage({

@@ -37,8 +37,7 @@
       "explorer/context": [
         {
           "command": "onefile.addToOneFile",
-          "group": "navigation@99",
-          "when": "explorerResourceIsFolder || explorerResourceIsFile"
+          "group": "navigation@99"
         }
       ]
     }

@@ -4,6 +4,7 @@ import { processUris, FileWithContent } from './fileProcessor'
 import { PanelManager } from './panelManager'
 import { addFiles } from './webview/messageHandler'
 import { calculateOutputSize } from './outputGenerator/promptText'
+import { updateStatusBar } from './statusBar'
 
 /** Restore persisted file paths from workspaceState, re-reading content from disk. */
 export async function restorePersistedFiles(context: vscode.ExtensionContext): Promise<void> {
@@ -78,6 +79,7 @@ export function registerCommands(context: vscode.ExtensionContext): void {
       async () => {
         await context.workspaceState.update('onefile.files', [])
         PanelManager.sendFileState([], calculateOutputSize([]))
+        updateStatusBar(0)
         PanelManager.postMessage({ type: 'notification', kind: 'success', message: 'Cleared all files' })
       }
     )

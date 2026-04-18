@@ -4,6 +4,7 @@ import { FileWithContent } from '../fileProcessor'
 import { generatePromptText, calculateOutputSize } from '../outputGenerator/promptText'
 import { generateMarkdownText } from '../outputGenerator/markdownText'
 import { PanelManager } from '../panelManager'
+import { updateStatusBar } from '../statusBar'
 
 type WebviewMessage =
   | { type: 'ready' }
@@ -27,6 +28,7 @@ async function saveFiles(
 
 function syncPanel(context: vscode.ExtensionContext, files: FileWithContent[]): void {
   PanelManager.sendFileState(files, calculateOutputSize(files))
+  updateStatusBar(files.length)
 }
 
 export async function handleMessage(

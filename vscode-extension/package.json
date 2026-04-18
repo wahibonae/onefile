@@ -1,0 +1,61 @@
+{
+  "name": "onefile-vscode",
+  "displayName": "OneFile",
+  "description": "Combine files and folders into a single AI-ready prompt",
+  "version": "0.1.0",
+  "publisher": "onefile",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:onefile.addToOneFile",
+    "onCommand:onefile.openPanel",
+    "onCommand:onefile.clearAll"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "onefile.addToOneFile",
+        "title": "Add to OneFile"
+      },
+      {
+        "command": "onefile.openPanel",
+        "title": "OneFile: Open Panel"
+      },
+      {
+        "command": "onefile.clearAll",
+        "title": "OneFile: Clear All Files"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "onefile.addToOneFile",
+          "group": "navigation@99",
+          "when": "explorerResourceIsFolder || explorerResourceIsFile"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.config.js",
+    "watch": "node esbuild.config.js --watch",
+    "compile": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "mammoth": "^1.6.0",
+    "jszip": "^3.10.1",
+    "exceljs": "^4.4.0",
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@types/pdf-parse": "^1.1.4",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.0.0"
+  }
+}

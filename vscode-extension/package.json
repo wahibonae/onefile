@@ -4,6 +4,10 @@
   "description": "Combine files and folders into a single AI-ready prompt",
   "version": "0.1.0",
   "publisher": "onefile",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wahibonae/onefile"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },

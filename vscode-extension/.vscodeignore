@@ -3,6 +3,7 @@ node_modules/**
 esbuild.config.js
 tsconfig.json
 .eslintrc.json
-**/*.map
+package-lock.json
 **/*.ts
-!out/**
+out/**/*.map
+!out/extension.js

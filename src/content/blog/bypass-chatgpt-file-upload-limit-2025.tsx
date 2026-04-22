@@ -32,7 +32,7 @@ export default function BlogPost() {
       </p>
 
       <p>
-        Here&apos;s how to bypass ChatGPT&apos;s file upload limit for free.
+        Here&apos;s how to work around ChatGPT&apos;s file upload limit for free.
       </p>
 
       <h2>Understanding ChatGPT&apos;s File Upload Limits</h2>
@@ -142,7 +142,7 @@ export default function BlogPost() {
 
       <Callout variant="success">
         <p>
-          <span className="font-bold">Done!</span> You&apos;ve bypassed ChatGPT&apos;s 3-file limit. ChatGPT can now analyze all your files at once.
+          <span className="font-bold">Done!</span> You&apos;re past ChatGPT&apos;s 3-file limit. ChatGPT can now analyze all your files at once.
         </p>
       </Callout>
 
@@ -191,7 +191,7 @@ export default function BlogPost() {
 
       <h3>Does this work with ChatGPT Plus?</h3>
       <p>
-        Yes. Plus users bypass both the 10-file per message limit and the ~80 files per 3-hour window limit. Upload unlimited content in one file.
+        Yes. Plus users get past both the 10-file per message limit and the ~80 files per 3-hour window limit. Upload unlimited content in one file.
       </p>
 
       <h3>Will this work with Claude or Gemini?</h3>
@@ -257,7 +257,7 @@ export default function BlogPost() {
       </div>
 
       <p>
-        Whether you&apos;re a student, developer, or professional, bypassing ChatGPT&apos;s file limits is now as simple as combining files into one.
+        Whether you&apos;re a student, developer, or professional, working around ChatGPT&apos;s file limits is now as simple as combining files into one.
       </p>
     </>
   );

@@ -76,6 +76,7 @@ export const blogPosts: BlogPost[] = [
       "ChatGPT Free: 3 files/day. Plus: ~80 per 3 hours. Pro: Unlimited. Exact 2026 upload limits for every ChatGPT plan, and a free workaround to upload more.",
     image: "/blog/how-many-files-chatgpt.webp",
     publishedAt: "2026-01-07",
+    updatedAt: "2026-04-22",
     author: "Mohamed Wahib ABKARI",
     readingTime: "6 min read",
     tags: [

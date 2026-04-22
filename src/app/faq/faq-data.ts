@@ -9,7 +9,7 @@ export const faqs: FAQItem[] = [
     category: "ChatGPT Limits",
     question: "What is ChatGPT's file upload limit?",
     answer:
-      "ChatGPT Free allows 3 file uploads per day. ChatGPT Plus allows ~80 files per 3-hour rolling window (but 10 files per message). ChatGPT Pro ($200/month) offers unlimited uploads. All plans have a 512MB per-file size limit. You can bypass these limits by combining all your files into one using OneFile. See our complete guide: https://onefileapp.com/blog/how-many-files-upload-chatgpt",
+      "ChatGPT Free allows 3 file uploads per day. ChatGPT Plus allows ~80 files per 3-hour rolling window (but 10 files per message). ChatGPT Pro ($200/month) offers unlimited uploads. All plans have a 512MB per-file size limit. You can work around these caps by combining all your files into one using OneFile. See our complete guide: https://onefileapp.com/blog/how-many-files-upload-chatgpt",
   },
   {
     category: "ChatGPT Limits",
@@ -27,7 +27,7 @@ export const faqs: FAQItem[] = [
     category: "ChatGPT Limits",
     question: "How many files can I upload to ChatGPT for free?",
     answer:
-      "ChatGPT Free allows 3 file uploads per day. This limit resets every 24 hours. To upload more, either upgrade to Plus ($20/month) for ~80 files per 3 hours, or use OneFile to combine unlimited files into one. Full breakdown: https://onefileapp.com/blog/how-many-files-upload-chatgpt",
+      "ChatGPT Free allows 3 file uploads per day. This limit resets every 24 hours. To upload more, either upgrade to Plus ($20/month) for ~80 files per 3 hours, or combine your files into one before uploading.",
   },
   {
     category: "ChatGPT Limits",
@@ -39,19 +39,19 @@ export const faqs: FAQItem[] = [
     category: "ChatGPT Limits",
     question: "Is there an AI with unlimited file uploads?",
     answer:
-      "ChatGPT Pro ($200/month) offers unlimited file uploads. For other plans, use OneFile to merge all your files into one — it only uses 1 upload slot. Free, no account needed. Step-by-step guide: https://onefileapp.com/blog/bypass-chatgpt-file-upload-limit-2025",
+      "ChatGPT Pro ($200/month) is the only mainstream AI plan with truly unlimited file uploads. On every other plan, the practical workaround is to merge multiple files into one before uploading, since per-file caps (not total-content caps) are what most platforms enforce.",
   },
   {
     category: "ChatGPT Limits",
     question: "What is ChatGPT Plus file upload limit?",
     answer:
-      "ChatGPT Plus ($20/month) allows approximately 80 file uploads per 3-hour rolling window, with a maximum of 10 files per message. Each file can be up to 512MB. Need to upload more? Use OneFile to merge everything into one file. Full plan comparison: https://onefileapp.com/blog/how-many-files-upload-chatgpt",
+      "ChatGPT Plus ($20/month) allows approximately 80 file uploads per 3-hour rolling window, with a maximum of 10 files per message. Each file can be up to 512MB.",
   },
   {
     category: "ChatGPT Limits",
     question: "What is ChatGPT Go file upload limit?",
     answer:
-      "ChatGPT Go has similar limits to ChatGPT Plus: approximately 80 uploads per 3-hour window. The daily limit depends on your usage pattern within the rolling window. Use OneFile to merge your files into one, upload once, use one slot. See all plans: https://onefileapp.com/blog/how-many-files-upload-chatgpt",
+      "ChatGPT Go ($5.50/mo) allows more uploads than Free, but OpenAI has not published an exact cap. In practice it behaves similarly to Plus's rolling 3-hour window, with most users reporting a soft ceiling well below Plus's ~80-file allowance.",
   },
 
   // Getting Started
@@ -85,7 +85,7 @@ export const faqs: FAQItem[] = [
     category: "AI Platforms",
     question: "Does this work with ChatGPT's free plan?",
     answer:
-      "Yes! ChatGPT free users are limited to uploading 3 files per day. With OneFile, you can merge unlimited files into one text file and upload that single file to ChatGPT, completely bypassing the 3-file restriction. Even ChatGPT Plus users benefit by avoiding the frustration of uploading files in batches of 10 for large projects.",
+      "Yes. ChatGPT free users are limited to uploading 3 files per day. With OneFile, you can merge unlimited files into one text file and upload that single file to ChatGPT, which sidesteps the 3-file restriction. Plus users also benefit by avoiding the frustration of uploading files in batches of 10 for large projects.",
   },
   {
     category: "AI Platforms",
@@ -98,7 +98,7 @@ export const faqs: FAQItem[] = [
     question:
       "What's the difference between uploading to ChatGPT vs Claude?",
     answer:
-      "Both platforms work identically with OneFile's output. ChatGPT free limits you to 3 files per day, ChatGPT Plus to 10 files per message. Claude limits vary by plan. With OneFile, you bypass all these restrictions by uploading one combined file to either platform.",
+      "Both platforms work identically with OneFile's output. ChatGPT free limits you to 3 files per day, ChatGPT Plus to 10 files per message. Claude limits vary by plan. With OneFile, you sidestep all these restrictions by uploading one combined file to either platform.",
   },
   {
     category: "AI Platforms",
@@ -131,12 +131,6 @@ export const faqs: FAQItem[] = [
     question: "How does OneFile handle large files?",
     answer:
       "Simple text files are processed instantly in your browser. Complex documents like PDFs, DOCX, and XLSX are processed server-side via an API route. Files are handled in-memory during the request and never persisted, which takes a few seconds. The combined output is optimized for AI context windows, typically staying under 1-2MB for easy uploading.",
-  },
-  {
-    category: "File Types & Uploads",
-    question: "Can I upload files from Dropbox or Google Drive?",
-    answer:
-      "Not directly, but you can download files from Dropbox or Google Drive to your computer first, then upload them to OneFile. We may add direct cloud storage integration in the future based on user demand.",
   },
 
   // Privacy & Security
@@ -172,24 +166,6 @@ export const faqs: FAQItem[] = [
     answer:
       "If your uploaded folder contains a .gitignore file, OneFile automatically reads it and excludes any files matching those patterns. This is incredibly useful for developers, when you upload a code project, we'll automatically skip node_modules, .env files, build artifacts, and anything else in your .gitignore.",
   },
-  {
-    category: "Technical Questions",
-    question: "Does OneFile work on mobile devices?",
-    answer:
-      "Yes! OneFile is fully responsive and works on smartphones and tablets (iOS and Android). However, for the best experience with large folder uploads (especially drag-and-drop), we recommend using a desktop or laptop browser. Mobile file selection may be limited by your device's operating system.",
-  },
-  {
-    category: "Technical Questions",
-    question: "What browsers are supported?",
-    answer:
-      "OneFile works on all modern browsers including Chrome, Firefox, Safari, Edge, and Brave. We recommend using the latest version of any major browser for the best experience. Internet Explorer is not supported.",
-  },
-  {
-    category: "Technical Questions",
-    question: "Can I edit the combined output before downloading?",
-    answer:
-      "The preview area is read-only to ensure accuracy, but after copying to clipboard or downloading the file, you can edit it in any text editor (Notepad, VS Code, etc.) before uploading to your AI platform.",
-  },
 
   // Troubleshooting
   {
@@ -209,12 +185,6 @@ export const faqs: FAQItem[] = [
     question: "I got an error while uploading. What should I do?",
     answer:
       "Common solutions: 1) Check your internet connection (needed for PDF/DOCX processing), 2) Try uploading fewer files at once, 3) Remove any corrupted files, 4) Refresh the page and try again, 5) Check if specific file types are causing issues. If problems persist, please open an issue on our GitHub repository with details.",
-  },
-  {
-    category: "Troubleshooting",
-    question: "Can I combine files that are already combined?",
-    answer:
-      "Yes, but it's not recommended. You can upload a previously generated OneFile output and combine it with new files, but you'll end up with duplicate file path markers. It's better to re-upload all original files together for a clean output.",
   },
 
   // Use Cases

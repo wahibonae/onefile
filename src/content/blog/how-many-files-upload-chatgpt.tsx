@@ -42,6 +42,19 @@ export default function BlogPost() {
         restrictions.
       </p>
 
+      <Callout variant="info">
+        <p>
+          <strong>Which limit actually slows you down?</strong> On Free, it&apos;s
+          the 3-file daily cap. Most users hit this inside a single working
+          session. On Plus, the <em>10-files-per-message</em> cap bites long
+          before the 80-files-per-3-hours one. Anyone uploading a codebase or
+          a folder of PDFs runs into it on message one. On Pro, the practical
+          ceiling is ChatGPT&apos;s ~128K-token context window, not the file
+          count. Knowing which cap applies to you decides whether upgrading
+          solves the problem or just moves it.
+        </p>
+      </Callout>
+
       {/* Quick Answer Table - Early for featured snippets */}
       <h2>ChatGPT File Upload Limits (2026)</h2>
 
@@ -67,7 +80,7 @@ export default function BlogPost() {
             <tr className="border-b border-border">
               <td className="py-3 px-4">Go</td>
               <td className="py-3 px-4">$5.50/mo</td>
-              <td className="py-3 px-4">Extended (more than Free)</td>
+              <td className="py-3 px-4">Higher than Free (exact cap not published)</td>
               <td className="py-3 px-4">~10 files</td>
             </tr>
             <tr className="border-b border-border">
@@ -435,7 +448,7 @@ export default function BlogPost() {
             hours
           </li>
           <li>
-            <strong>ChatGPT Go:</strong> Extended uploads (more than Free)
+            <strong>ChatGPT Go:</strong> Higher than Free (exact cap not published by OpenAI)
           </li>
           <li>
             <strong>ChatGPT Plus:</strong> ~80 files per 3 hours, 10 per message
@@ -464,7 +477,7 @@ export default function BlogPost() {
           href="/blog/bypass-chatgpt-file-upload-limit-2025"
           className="text-primary hover:underline"
         >
-          guide to bypassing ChatGPT&apos;s file upload limit
+          guide to working around ChatGPT&apos;s file upload limit
         </Link>
         .
       </p>

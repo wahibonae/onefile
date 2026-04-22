@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     "ChatGPT Go upload limit",
     "ChatGPT free upload limit",
     "how many files ChatGPT",
-    "ChatGPT upload limit bypass",
     "AI unlimited file upload",
     "you've reached our limit of file uploads",
     "chatgpt reached limit of file uploads",
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
     description:
-      "Answers to every ChatGPT upload question. Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. Plus a free workaround to bypass limits.",
+      "Answers to every ChatGPT upload question. Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. Plus a free workaround to lift limits.",
     type: "website",
     url: "https://onefileapp.com/faq",
   },
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
     description:
-      "Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. Every ChatGPT upload limit answered, plus a free bypass.",
+      "Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. Every ChatGPT upload limit answered, plus a free workaround.",
   },
   alternates: {
     canonical: "https://onefileapp.com/faq",
@@ -43,7 +42,7 @@ function generateFAQSchema() {
     faq.question.toLowerCase().includes("chatgpt") ||
     faq.question.toLowerCase().includes("upload") ||
     faq.question.toLowerCase().includes("unlimited")
-  ).slice(0, 15);
+  ).slice(0, 8);
 
   return {
     "@context": "https://schema.org",

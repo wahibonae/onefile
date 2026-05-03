@@ -4,7 +4,41 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { GitHubStarsButton } from "@/components/GitHubStarsButton";
+import VSCode from "@/components/icons/VSCode";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from "@clerk/nextjs";
+
+const VSCODE_EXTENSION_ID = "MouhcineKhairat.onefile-vscode";
+const VSCODE_PROTOCOL_URL = `vscode:extension/${VSCODE_EXTENSION_ID}`;
+const VSCODE_MARKETPLACE_URL = `https://marketplace.visualstudio.com/items?itemName=${VSCODE_EXTENSION_ID}`;
+
+function openVSCodeExtension(): void {
+  let didLeave = false;
+  const onBlur = (): void => {
+    didLeave = true;
+  };
+  const onVisibility = (): void => {
+    if (document.hidden) didLeave = true;
+  };
+
+  window.addEventListener("blur", onBlur);
+  document.addEventListener("visibilitychange", onVisibility);
+
+  window.location.href = VSCODE_PROTOCOL_URL;
+
+  window.setTimeout(() => {
+    window.removeEventListener("blur", onBlur);
+    document.removeEventListener("visibilitychange", onVisibility);
+    if (!didLeave) {
+      window.open(VSCODE_MARKETPLACE_URL, "_blank", "noopener,noreferrer");
+    }
+  }, 1500);
+}
 
 export function Navbar() {
   const { isLoaded } = useAuth();
@@ -55,6 +89,33 @@ export function Navbar() {
                 <Link href="/about">About</Link>
               </Button>
             </div>
+
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="text-foreground/80 border-border/40 hover:text-primary hover:bg-primary/5 hover:border-1 hover:border-primary/10 transition-all duration-200"
+                    asChild
+                  >
+                    <Link
+                      href={VSCODE_MARKETPLACE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Open VS Code Extension"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        openVSCodeExtension();
+                      }}
+                    >
+                      <VSCode className="h-[1.1rem] w-[1.1rem]" />
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">VS Code Extension</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
 
             <GitHubStarsButton />
             <ThemeToggle />

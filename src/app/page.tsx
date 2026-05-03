@@ -12,6 +12,7 @@ import { FAQSection } from "@/components/FAQSection";
 const homepageFaqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  name: "OneFile FAQ: Upload Unlimited Files to AI Platforms like ChatGPT",
   mainEntity: [
     {
       "@type": "Question",

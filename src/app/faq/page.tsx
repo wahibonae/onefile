@@ -47,6 +47,7 @@ function generateFAQSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    name: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
     mainEntity: seoQuestions.map((faq) => ({
       "@type": "Question",
       name: faq.question,

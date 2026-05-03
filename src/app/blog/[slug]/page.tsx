@@ -178,57 +178,6 @@ export default async function BlogPostPage({
       }
     : null;
 
-  // HowTo schema for the bypass blog post
-  const howToSchema =
-    slug === "bypass-chatgpt-file-upload-limit-2025"
-      ? {
-          "@context": "https://schema.org",
-          "@type": "HowTo",
-          name: "How to Upload More Than 3 Files to ChatGPT",
-          description:
-            "Step-by-step guide to bypass ChatGPT's file upload limits using OneFile",
-          totalTime: "PT2M",
-          tool: {
-            "@type": "SoftwareApplication",
-            name: "OneFile",
-            url: "https://onefileapp.com",
-            applicationCategory: "WebApplication",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD",
-            },
-          },
-          step: [
-            {
-              "@type": "HowToStep",
-              position: 1,
-              name: "Go to OneFile",
-              text: "Visit onefileapp.com in your browser. No downloads or account needed.",
-              url: "https://onefileapp.com",
-            },
-            {
-              "@type": "HowToStep",
-              position: 2,
-              name: "Upload your files",
-              text: "Drag and drop your files or folders into OneFile. You can also import directly from GitHub.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 3,
-              name: "Download combined file",
-              text: "Click 'Download' to save all your files as a single .txt file.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 4,
-              name: "Upload to ChatGPT",
-              text: "Upload the single combined file to ChatGPT and ask questions about any of your files.",
-            },
-          ],
-        }
-      : null;
-
   // Article schema for all blog posts
   const articleSchema = {
     "@context": "https://schema.org",
@@ -267,14 +216,6 @@ export default async function BlogPostPage({
           __html: JSON.stringify(articleSchema),
         }}
       />
-      {howToSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(howToSchema),
-          }}
-        />
-      )}
       {faqSchema && (
         <script
           type="application/ld+json"

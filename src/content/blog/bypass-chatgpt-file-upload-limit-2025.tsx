@@ -28,11 +28,7 @@ export default function BlogPost() {
       </div>
 
       <p>
-        If you&apos;ve tried uploading multiple files to ChatGPT, you&apos;ve hit the frustrating 3-file limit. Whether you&apos;re analyzing research papers, sharing code for review, or preparing meeting documents, this restriction kills productivity.
-      </p>
-
-      <p>
-        Here&apos;s how to work around ChatGPT&apos;s file upload limit for free.
+        There are two ways to get past ChatGPT&apos;s upload caps without upgrading: merge your files into one and upload that single file, or paste the merged content directly into the chat box (pasted text isn&apos;t counted against the file limit). Both methods are covered below, with notes on when each is the better choice.
       </p>
 
       <h2>Understanding ChatGPT&apos;s File Upload Limits</h2>

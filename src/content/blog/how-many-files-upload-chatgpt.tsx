@@ -30,16 +30,9 @@ export default function BlogPost() {
       </div>
 
       <p>
-        <strong>How many files can you upload to ChatGPT?</strong> It depends on
-        your plan. ChatGPT Free allows 3 files per day. ChatGPT Plus allows
-        approximately 80 files per 3-hour window. ChatGPT Pro allows unlimited
-        uploads.
-      </p>
-
-      <p>
-        This guide covers the exact file upload limits for every ChatGPT plan in
-        2026, including per-message limits, daily caps, and file size
-        restrictions.
+        Below is the breakdown by plan, with per-message limits, rolling-window
+        behavior, file-size and file-type rules, and the practical workaround
+        when whichever cap applies to you starts getting in the way.
       </p>
 
       <Callout variant="info">

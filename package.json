@@ -2,6 +2,7 @@
   "name": "onefile",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -21,6 +22,7 @@
     "@radix-ui/react-scroll-area": "^1.2.2",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-tooltip": "^1.2.8",
     "@types/canvas-confetti": "^1.9.0",
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",

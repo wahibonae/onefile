@@ -23,7 +23,7 @@ import { useGitHubBrowser } from "@/hooks/useGitHubBrowser";
 import { useTextContentDialog } from "@/hooks/useTextContentDialog";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
 
-const IMPORT_SOURCES = ["text content", "public GitHub repos"];
+const HIGHLIGHTS = ["Download as Markdown", "OneFile is now 10x faster"];
 
 export function ToolSection() {
   const { files, handleFiles, removeFile, clearAllFiles, handleGitHubImport } =
@@ -64,7 +64,7 @@ export function ToolSection() {
     const interval = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
-        setCurrentSourceIndex((prev) => (prev + 1) % IMPORT_SOURCES.length);
+        setCurrentSourceIndex((prev) => (prev + 1) % HIGHLIGHTS.length);
         setIsVisible(true);
       }, 400);
     }, 4000);
@@ -85,14 +85,14 @@ export function ToolSection() {
                 Input
               </h2>
               <span className="hidden sm:block bg-primary/10 text-primary text-xs px-3 py-1.5 rounded-full font-medium whitespace-nowrap">
-                NEW: Import from{" "}
+                NEW:{" "}
                 <span
                   className={cn(
                     "inline-block transition-opacity duration-300",
                     isVisible ? "opacity-100" : "opacity-0"
                   )}
                 >
-                  {IMPORT_SOURCES[currentSourceIndex]}!
+                  {HIGHLIGHTS[currentSourceIndex]}
                 </span>
               </span>
             </div>

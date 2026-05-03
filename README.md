@@ -21,6 +21,12 @@ OneFile is a free, open-source tool that solves common frustrations when working
 - 📋 **Easy Export**: Copy to clipboard or download your formatted prompts with a single click
 - 🌐 **Completely FREE & open-source!**
 
+## 🧩 VS Code Extension
+
+Prefer to use OneFile without leaving your editor? A community-built VS Code extension is available on the marketplace:
+
+[**OneFile for VS Code**](https://marketplace.visualstudio.com/items?itemName=MouhcineKhairat.onefile-vscode) by Mouhcine Khairat
+
 ## 🎯 Perfect For
 
 - **Students**: Combine lecture slides, study guides, and assignments for AI-powered study help
@@ -66,13 +72,12 @@ yarn dev
 
 1. **Enter Your Prompt**: Start by typing your prompt or question in the input field
 2. **Add Files**: Either:
-   - Drag and drop files/folders into the upload area
-   - Click "Choose Files" to select individual files
-   - Click "Choose Folder" to select an entire directory
+   - Drag and drop files/folders into the upload area or click "Choose Files"
+   - Click "Import from" to select files from a GitHub repository or text content
 3. **Generate**: Your AI-ready prompt is generated automatically
 4. **Export**: Either:
    - Copy the generated prompt to your clipboard
-   - Download it as a text file
+   - Download it as a text file or markdown file
 
 ## 📝 Example Scenarios
 
@@ -83,14 +88,6 @@ yarn dev
 - **Business Professional**: "I have emails, previous meeting notes, project docs, and agenda items scattered across 25+ files – I need AI to help me prepare but keep hitting limits."
 
 - **Researcher**: "I want to combine multiple research papers and my draft thesis chapter to get AI feedback on my literature review."
-
-## 🛠️ Built With
-
-- [Next.js](https://nextjs.org/) - React framework
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Shadcn/ui](https://ui.shadcn.com/) - UI components
-- [Lucide Icons](https://lucide.dev/) - Icons
-- [React Hot Toast](https://react-hot-toast.com/) - Notifications
 
 ## 🤝 Contributing
 
@@ -115,21 +112,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - GitHub: [@wahibonae](https://github.com/wahibonae)
 - Twitter: [@wahibonae](https://twitter.com/wahibonae)
 - LinkedIn: [Mohamed Wahib ABKARI](https://www.linkedin.com/in/abkarimohamedwahib/)
-
-## 🙏 Acknowledgments
-
-- Thanks to everyone who inspired us to build OneFile
-- Thanks to the community for the support and feedback
-- Inspired by the need to streamline AI interactions with multiple files
-
-## 📊 Roadmap
-
-- [ ] Custom ignore patterns
-- [ ] Prompt templates for different use cases
-- [ ] Multiple output formats for different AI models
-- [ ] API endpoint for programmatic access
-- [ ] Batch processing for large file sets
-- [ ] Integration with popular cloud storage services
 
 ---
 

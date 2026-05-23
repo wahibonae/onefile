@@ -166,7 +166,13 @@ export default async function BlogPostPage({
     ? {
         "@context": "https://schema.org",
         "@type": "FAQPage",
+        "@id": `${BASE_URL}/blog/${slug}#faq`,
         name: post.title,
+        url: `${BASE_URL}/blog/${slug}`,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${BASE_URL}/blog/${slug}`,
+        },
         mainEntity: faqSchemaMap[slug].map((faq) => ({
           "@type": "Question",
           name: faq.question,

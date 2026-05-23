@@ -242,7 +242,12 @@ export default function BlogPost() {
         For a deeper breakdown of ChatGPT limits, see our{" "}
         <Link href="/blog/how-many-files-upload-chatgpt" className="text-primary hover:underline">
           how many files you can upload to ChatGPT
-        </Link>.
+        </Link>{" "}
+        guide or our{" "}
+        <Link href="/faq" className="text-primary hover:underline">
+          ChatGPT upload limits FAQ
+        </Link>{" "}
+        covering Free, Go, Plus, and Pro plans.
       </p>
 
       {/* Claude Section */}

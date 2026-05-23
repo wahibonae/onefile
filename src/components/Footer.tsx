@@ -46,6 +46,22 @@ export function Footer() {
                   Use Cases
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/for-students"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  For Students
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/for-researchers"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  For Researchers
+                </Link>
+              </li>
             </ul>
           </div>
 

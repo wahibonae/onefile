@@ -3,31 +3,33 @@ import FAQContent from "./FAQContent";
 import { faqs } from "./faq-data";
 
 export const metadata: Metadata = {
-  title: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
+  title: "ChatGPT Upload Limits 2026: Free, Go, Plus, Pro (Full FAQ)",
   description:
-    "Answers to every ChatGPT upload question. Free: 3 files/day. Plus: ~80/3hrs (10 per message). Pro: Unlimited. Includes a free workaround to upload unlimited files to any AI.",
+    "How many files can you upload to ChatGPT? Free: 3/day. Go: extended. Plus: ~80 files/3hrs. Pro: unlimited. 2026 limits for every plan, plus a free way to upload more.",
   keywords: [
     "ChatGPT file upload limit",
     "ChatGPT Plus file upload limit",
     "ChatGPT Go upload limit",
+    "ChatGPT Pro upload limit",
     "ChatGPT free upload limit",
     "how many files ChatGPT",
+    "how many uploads chatgpt go",
     "AI unlimited file upload",
     "you've reached our limit of file uploads",
     "chatgpt reached limit of file uploads",
   ],
   openGraph: {
-    title: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
+    title: "ChatGPT Upload Limits 2026: Free, Go, Plus, Pro (Full FAQ)",
     description:
-      "Answers to every ChatGPT upload question. Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. Plus a free workaround to lift limits.",
+      "How many files can you upload to ChatGPT? Free: 3/day. Go: extended. Plus: ~80/3hrs. Pro: unlimited. Every plan's 2026 limits, plus a free workaround.",
     type: "website",
     url: "https://onefileapp.com/faq",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
+    title: "ChatGPT Upload Limits 2026: Free, Go, Plus, Pro (Full FAQ)",
     description:
-      "Free: 3/day. Plus: ~80/3hrs. Pro: Unlimited. Every ChatGPT upload limit answered, plus a free workaround.",
+      "Free: 3/day. Go: extended. Plus: ~80/3hrs. Pro: unlimited. Every ChatGPT upload limit answered, plus a free workaround.",
   },
   alternates: {
     canonical: "https://onefileapp.com/faq",
@@ -47,7 +49,13 @@ function generateFAQSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "@id": "https://onefileapp.com/faq#faq",
     name: "ChatGPT Upload Limit FAQ (2026): How Many Files Can You Upload?",
+    url: "https://onefileapp.com/faq",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://onefileapp.com/faq",
+    },
     mainEntity: seoQuestions.map((faq) => ({
       "@type": "Question",
       name: faq.question,

@@ -17,6 +17,30 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "chatgpt-literature-review-2026",
+    title:
+      "How to Use ChatGPT for Literature Review (Even With 100+ Papers in 2026)",
+    description:
+      "Run an AI-assisted literature review across 50 to 100+ papers without hitting upload limits. The free OneFile workflow, prompts that work at scale, and how to verify AI output.",
+    metaTitle:
+      "ChatGPT Literature Review: How to Handle 100+ Papers (Free, 2026)",
+    metaDescription:
+      "Most ChatGPT literature review guides assume 5 papers. Here's how to run one across 50, 100, or 200+ papers, with prompts, verification steps, and a free workflow.",
+    image: "/blog/literature-review-chatgpt.webp",
+    publishedAt: "2026-05-23",
+    author: "Mohamed Wahib ABKARI",
+    readingTime: "11 min read",
+    tags: [
+      "Literature Review",
+      "ChatGPT",
+      "Claude",
+      "Academic Research",
+      "AI for Researchers",
+      "PhD",
+    ],
+    featured: true,
+  },
+  {
     slug: "chatgpt-file-upload-limit-error",
     title:
       "\"You've Reached Our Limit of File Uploads\" on ChatGPT: How to Fix It",
@@ -46,9 +70,9 @@ export const blogPosts: BlogPost[] = [
     description:
       "Side-by-side comparison of file upload limits for ChatGPT, Claude, Gemini, Grok, and Perplexity in 2026. Max file size, supported types, free vs paid limits, and how to bypass them all.",
     metaTitle:
-      "AI Upload Limits Compared (2026): Which AI Lets You Upload the Most?",
+      "Claude vs ChatGPT vs Gemini File Upload Limits (2026)",
     metaDescription:
-      "Which AI has unlimited uploads? We compared ChatGPT, Claude, Gemini, Grok & Perplexity file limits side by side. See the winner, plus a free tool to bypass them all.",
+      "Side-by-side comparison of Claude, ChatGPT, Gemini, Grok & Perplexity upload limits in 2026. Free vs paid caps, max file sizes, plus a free way to bypass all.",
     image: "/blog/ai-file-upload-limits-compared.webp",
     publishedAt: "2026-02-28",
     author: "Mohamed Wahib ABKARI",
@@ -71,9 +95,9 @@ export const blogPosts: BlogPost[] = [
     description:
       "ChatGPT Free: 3 files/day. Plus: ~80 files/3 hours. Pro: Unlimited. Complete breakdown of upload limits for every plan, plus how to upload more.",
     metaTitle:
-      "How Many Files Can You Upload to ChatGPT? (Free: 3, Plus: 80, Pro: Unlimited)",
+      "How Many Files Can You Upload to ChatGPT? (2026 Limits)",
     metaDescription:
-      "ChatGPT Free: 3 files/day. Plus: ~80 per 3 hours. Pro: Unlimited. Exact 2026 upload limits for every ChatGPT plan, and a free workaround to upload more.",
+      "How many files can you upload to ChatGPT in 2026? Free: 3/day. Go: extended. Plus: ~80/3hrs. Pro: unlimited. Complete breakdown + free unlimited upload tool.",
     image: "/blog/how-many-files-chatgpt.webp",
     publishedAt: "2026-01-07",
     updatedAt: "2026-04-22",

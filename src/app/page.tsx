@@ -12,7 +12,13 @@ import { FAQSection } from "@/components/FAQSection";
 const homepageFaqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "@id": "https://onefileapp.com/#faq",
   name: "OneFile FAQ: Upload Unlimited Files to AI Platforms like ChatGPT",
+  url: "https://onefileapp.com/",
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": "https://onefileapp.com/",
+  },
   mainEntity: [
     {
       "@type": "Question",
@@ -35,7 +41,7 @@ const homepageFaqSchema = {
       name: "Is my data private and secure?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Text and code files are processed entirely in your browser - they never leave your computer. Documents like PDFs and Word files are temporarily processed on our server for text extraction but are never stored. Our entire codebase is open-source on GitHub, so you can verify exactly how your files are handled.",
+        text: "Yes. Text and code files are processed entirely in your browser, they never leave your computer. Documents like PDFs and Word files are temporarily processed on our server for text extraction but are never stored. Our entire codebase is open-source on GitHub, so you can verify exactly how your files are handled.",
       },
     },
     {
@@ -56,26 +62,26 @@ const homepageFaqSchema = {
     },
     {
       "@type": "Question",
+      name: "How does OneFile handle large files?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Complex document formats like PDFs, DOCX, and XLSX are processed on our server to extract text content, while simple text files are processed instantly in your browser. The combined output is optimized for AI context windows, typically staying under 1-2MB for easy uploading.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does OneFile work on mobile devices?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes! OneFile is fully responsive and works on smartphones and tablets. However, for the best experience with large folder uploads, we recommend using a desktop or laptop browser.",
+      },
+    },
+    {
+      "@type": "Question",
       name: "Is OneFile really free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes, completely free with no hidden costs, no account required, and no usage limits. OneFile is open-source software released under the MIT license.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How do I upload more than 3 files to ChatGPT?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Combine your files into one using OneFile (free tool), then upload the single combined file to ChatGPT. This bypasses the 3-file daily limit on Free plans.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Does this work with ChatGPT Free plan?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes! ChatGPT Free limits you to 3 files per day. OneFile lets you merge unlimited files into one, so you only use 1 of your 3 daily uploads while including all your content.",
+        text: "Yes, completely free with no hidden costs, no account required, and no usage limits. OneFile is open-source software released under the MIT license. You can even host your own version if you want!",
       },
     },
   ],

@@ -55,6 +55,10 @@ export default function BlogPost() {
         These limits exist to manage server costs, but they&apos;re a bottleneck for legitimate use cases like analyzing research papers, reviewing codebases, or processing multiple documents. For a complete breakdown of all plans including Pro, Team, and Enterprise, see our{" "}
         <Link href="/blog/how-many-files-upload-chatgpt" className="text-primary hover:underline">
           exact ChatGPT upload limits by plan
+        </Link>{" "}
+        or our{" "}
+        <Link href="/faq" className="text-primary hover:underline">
+          full FAQ on ChatGPT upload limits
         </Link>.
       </p>
 

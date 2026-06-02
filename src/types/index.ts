@@ -1,6 +1,7 @@
 export interface FileWithContent {
   path: string;
   content: string;
+  truncated?: boolean;
 }
 
 declare global {

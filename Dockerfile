@@ -26,6 +26,13 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Deterministic V8 old-space ceiling, kept below the container memory limit so a
+# heap-bound runaway fails fast instead of thrashing the GC. NOTE: this bounds
+# only the V8 heap, not the off-heap Buffers/ArrayBuffers the document parsers
+# allocate, so a buffer-heavy runaway can still reach the container limit and be
+# OOM-killed rather than exiting cleanly.
+ENV NODE_OPTIONS="--max-old-space-size=1536"
+
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 

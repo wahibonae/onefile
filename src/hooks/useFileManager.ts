@@ -11,8 +11,9 @@ import {
   getFileHash,
   getUniquePath,
 } from "@/utils/files";
-import { IGNORED_PATHS } from "@/constants/files";
+import { IGNORED_PATHS, DOCUMENT_EXTENSIONS } from "@/constants/files";
 import { saveFiles, loadFiles, clearFiles } from "@/lib/fileStorage";
+import { mapWithConcurrency } from "@/utils/concurrency";
 
 interface UseFileManagerReturn {
   files: FileWithContent[];
@@ -244,9 +245,54 @@ export function useFileManager(): UseFileManagerReturn {
       });
 
       try {
-        const results = await Promise.allSettled(
-          newFiles.map(({ file, path }) => processFile(file, path))
+        // Only document files (.pdf/.docx/...) hit /api/extract-text, which sheds
+        // load with 503 past its concurrency budget. Bound those so a large folder
+        // drop does not self-inflict failures. Plain text/code files are read in
+        // the browser and never touch the server, so process them unbounded (this
+        // is the common case for OneFile, e.g. dumping a whole code repo).
+        const DOCUMENT_EXTRACTION_CONCURRENCY = 5;
+        const isDocument = (name: string): boolean =>
+          DOCUMENT_EXTENSIONS.has(`.${name.split(".").pop()?.toLowerCase()}`);
+
+        const runOne = async ({
+          file,
+          path,
+        }: {
+          file: File;
+          path: string;
+        }): Promise<PromiseSettledResult<FileWithContent>> => {
+          try {
+            return { status: "fulfilled", value: await processFile(file, path) };
+          } catch (reason) {
+            return { status: "rejected", reason };
+          }
+        };
+
+        // Results stay aligned with newFiles so downstream error reporting can map
+        // a result back to its file by index.
+        const documentIndices: number[] = [];
+        const textIndices: number[] = [];
+        newFiles.forEach((nf, i) => {
+          (isDocument(nf.file.name) ? documentIndices : textIndices).push(i);
+        });
+
+        const results = new Array<PromiseSettledResult<FileWithContent>>(
+          newFiles.length
         );
+        await Promise.all([
+          Promise.all(
+            textIndices.map(async (i) => {
+              results[i] = await runOne(newFiles[i]);
+            })
+          ),
+          mapWithConcurrency(
+            documentIndices,
+            DOCUMENT_EXTRACTION_CONCURRENCY,
+            async (i) => {
+              results[i] = await runOne(newFiles[i]);
+            }
+          ),
+        ]);
 
         const successfulFiles: FileWithContent[] = [];
         const emptyFiles: string[] = [];
@@ -297,6 +343,18 @@ export function useFileManager(): UseFileManagerReturn {
             `Failed to process ${failedFiles.length} file${
               failedFiles.length === 1 ? "" : "s"
             }`
+          );
+        }
+
+        const truncatedCount = successfulFiles.filter(
+          (f) => f.truncated
+        ).length;
+        if (truncatedCount > 0) {
+          toast(
+            `${truncatedCount} large file${
+              truncatedCount === 1 ? " was" : "s were"
+            } truncated to fit`,
+            { icon: "✂️" }
           );
         }
       } catch (processingError) {

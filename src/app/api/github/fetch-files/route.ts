@@ -2,11 +2,18 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth, clerkClient } from '@clerk/nextjs/server'
 import { Octokit } from '@octokit/rest'
 import { DOCUMENT_EXTENSIONS } from '@/constants/files'
+import { mapWithConcurrency } from '@/utils/concurrency'
 
 interface FileRequest {
   path: string
   sha: string
 }
+
+// Cap how much work a single import request can trigger. The client sends every
+// selected file in one request, so these bounds must be enforced server-side.
+const MAX_FILES_PER_IMPORT = 500 // matches the public-repo import limit
+const GITHUB_FETCH_CONCURRENCY = 5 // simultaneous GitHub API fetches
+const MAX_TOTAL_BYTES = 50 * 1024 * 1024 // 50MB of source content per import
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
@@ -27,6 +34,15 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json(
         { error: 'Invalid request. Expected repo and files array' },
         { status: 400 }
+      )
+    }
+
+    if (files.length > MAX_FILES_PER_IMPORT) {
+      return NextResponse.json(
+        {
+          error: `Too many files selected (${files.length}). Please import at most ${MAX_FILES_PER_IMPORT} files at a time.`,
+        },
+        { status: 413 }
       )
     }
 
@@ -60,8 +76,21 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       auth: githubToken,
     })
 
-    // Fetch all files in parallel
-    const filePromises = files.map(async (fileInfo) => {
+    // Fetch files with bounded concurrency. This was previously an unbounded
+    // Promise.all(files.map(...)), which fanned out one in-flight request per
+    // file and could exhaust the server heap on large repos.
+    let totalBytes = 0
+    const results = await mapWithConcurrency(files, GITHUB_FETCH_CONCURRENCY, async (fileInfo) => {
+      // Best-effort total-byte budget: once enough source content has been
+      // accumulated, skip the rest so a 500-file selection of large files cannot
+      // build an unbounded response in memory (overshoot is bounded by concurrency).
+      if (totalBytes >= MAX_TOTAL_BYTES) {
+        return {
+          path: fileInfo.path,
+          error: 'Skipped: import size budget exceeded',
+          success: false,
+        }
+      }
       try {
         const { data } = await octokit.repos.getContent({
           owner,
@@ -71,6 +100,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
         // Check if it's a file (not a directory)
         if ('content' in data && data.type === 'file') {
+          totalBytes += typeof data.size === 'number' ? data.size : 0
           const extension = '.' + fileInfo.path.split('.').pop()?.toLowerCase()
 
           if (DOCUMENT_EXTENSIONS.has(extension)) {
@@ -107,8 +137,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         }
       }
     })
-
-    const results = await Promise.all(filePromises)
 
     // Separate successful and failed fetches
     const successfulFiles = results.filter((r) => r.success)

@@ -21,6 +21,7 @@ import {
 import { toast } from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { ALLOWED_EXTENSIONS } from "@/constants/files";
+import { postExtractText } from "@/utils/files";
 import GitHub from "./icons/Github";
 
 type PublicImportState = "idle" | "downloading" | "processing" | "extracting";
@@ -185,6 +186,16 @@ export function GitHubImportDialog({
       return;
     }
 
+    // Mirror the server cap client-side so the user narrows their selection
+    // instead of hitting a 413 after submitting.
+    const MAX_FILES_PER_IMPORT = 500;
+    if (selectedFiles.size > MAX_FILES_PER_IMPORT) {
+      toast.error(
+        `You selected ${selectedFiles.size} files. Please select at most ${MAX_FILES_PER_IMPORT} to import at once.`
+      );
+      return;
+    }
+
     setImporting(true);
 
     try {
@@ -227,6 +238,8 @@ export function GitHubImportDialog({
       }
 
       const extractedFiles: Array<{ path: string; content: string }> = [];
+      let failedDocCount = 0;
+      let truncatedDocCount = 0;
 
       for (const docFile of documentFiles) {
         try {
@@ -236,25 +249,41 @@ export function GitHubImportDialog({
             byteArray[i] = byteChars.charCodeAt(i);
           }
           const blob = new Blob([byteArray]);
-          const formData = new FormData();
-          formData.append("file", blob, docFile.path.split("/").pop() || "file");
+          const fileName = docFile.path.split("/").pop() || "file";
 
-          const extractResponse = await fetch("/api/extract-text", {
-            method: "POST",
-            body: formData,
-          });
+          const extractResponse = await postExtractText(blob, fileName);
 
           if (extractResponse.ok) {
-            const { text } = await extractResponse.json();
+            const { text, truncated } = await extractResponse.json();
             if (text && text.trim()) {
               extractedFiles.push({ path: docFile.path, content: text });
+              if (truncated) truncatedDocCount++;
             }
           } else {
+            failedDocCount++;
             console.error(`Failed to extract text from ${docFile.path}`);
           }
         } catch (err) {
+          failedDocCount++;
           console.error(`Error extracting ${docFile.path}:`, err);
         }
+      }
+
+      if (failedDocCount > 0) {
+        toast.error(
+          `${failedDocCount} document${
+            failedDocCount === 1 ? "" : "s"
+          } could not be extracted`
+        );
+      }
+
+      if (truncatedDocCount > 0) {
+        toast(
+          `${truncatedDocCount} large document${
+            truncatedDocCount === 1 ? " was" : "s were"
+          } truncated`,
+          { icon: "✂️" }
+        );
       }
 
       const allFiles = [...textFiles, ...extractedFiles];
@@ -329,6 +358,8 @@ export function GitHubImportDialog({
       if (data.documentFiles && data.documentFiles.length > 0) {
         setPublicImportState("extracting");
 
+        let failedDocCount = 0;
+        let truncatedDocCount = 0;
         for (const docFile of data.documentFiles) {
           try {
             const byteChars = atob(docFile.base64Content);
@@ -337,23 +368,43 @@ export function GitHubImportDialog({
               byteArray[i] = byteChars.charCodeAt(i);
             }
             const blob = new Blob([byteArray]);
-            const formData = new FormData();
-            formData.append("file", blob, docFile.path.split("/").pop() || "file");
+            const fileName = docFile.path.split("/").pop() || "file";
 
-            const extractResponse = await fetch("/api/extract-text", {
-              method: "POST",
-              body: formData,
-            });
+            const extractResponse = await postExtractText(blob, fileName);
 
             if (extractResponse.ok) {
-              const { text } = await extractResponse.json();
+              const { text, truncated } = await extractResponse.json();
               if (text && text.trim()) {
                 allFiles.push({ path: docFile.path, content: text });
+                if (truncated) truncatedDocCount++;
               }
+            } else {
+              failedDocCount++;
+              console.error(
+                `Failed to extract ${docFile.path} (status ${extractResponse.status})`
+              );
             }
           } catch (err) {
+            failedDocCount++;
             console.error(`Failed to extract ${docFile.path}:`, err);
           }
+        }
+
+        if (failedDocCount > 0) {
+          toast.error(
+            `${failedDocCount} document${
+              failedDocCount === 1 ? "" : "s"
+            } could not be extracted`
+          );
+        }
+
+        if (truncatedDocCount > 0) {
+          toast(
+            `${truncatedDocCount} large document${
+              truncatedDocCount === 1 ? " was" : "s were"
+            } truncated`,
+            { icon: "✂️" }
+          );
         }
       }
 

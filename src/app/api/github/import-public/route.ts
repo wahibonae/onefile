@@ -5,11 +5,13 @@ import {
   IGNORED_PATHS,
   DOCUMENT_EXTENSIONS,
 } from "@/constants/files";
+import { readBodyWithLimit } from "@/utils/http";
 
 // Size limits for security
-const MAX_ZIP_SIZE = 100 * 1024 * 1024; // 100MB max download
+const MAX_ZIP_SIZE = 100 * 1024 * 1024; // 100MB max download (compressed)
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB per file
 const MAX_TOTAL_FILES = 500; // Max files to process
+const MAX_TOTAL_DECOMPRESSED = 200 * 1024 * 1024; // 200MB total decompressed
 
 interface ImportedFile {
   path: string;
@@ -147,7 +149,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         });
 
         if (response.ok) {
-          // Check content length
+          // Fast path: reject early if the server declares an oversized body.
           const contentLength = response.headers.get("content-length");
           if (contentLength && parseInt(contentLength) > MAX_ZIP_SIZE) {
             return NextResponse.json(
@@ -158,7 +160,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
             );
           }
 
-          zipBuffer = await response.arrayBuffer();
+          // Enforce the cap while streaming too, since codeload omits Content-Length.
+          const limited = await readBodyWithLimit(response, MAX_ZIP_SIZE);
+          if (limited === null) {
+            return NextResponse.json(
+              {
+                error: `Repository is too large (max ${MAX_ZIP_SIZE / 1024 / 1024}MB)`,
+              },
+              { status: 413 }
+            );
+          }
+
+          zipBuffer = limited;
           successfulBranch = branch;
           break;
         }
@@ -197,6 +210,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const textFiles: ImportedFile[] = [];
     const documentFiles: ImportedFile[] = [];
     let processedCount = 0;
+    let decompressedBytes = 0;
 
     // ZIP structure: {repo}-{branch}/... - we need to strip the root folder
     const rootFolder =
@@ -215,8 +229,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       if (!isExtensionAllowed(relativePath)) continue;
       if (gitignoreParser.shouldIgnore(relativePath)) continue;
 
-      // Check file size
+      // Check file size (and bound cumulative decompressed bytes across entries)
       const fileData = await zipEntry.async("arraybuffer");
+      decompressedBytes += fileData.byteLength;
+      if (decompressedBytes > MAX_TOTAL_DECOMPRESSED) break;
       if (fileData.byteLength > MAX_FILE_SIZE) continue;
 
       if (isDocumentFile(relativePath)) {

@@ -232,6 +232,29 @@ export const isFileAllowed = (file: File): boolean => {
   return true
 }
 
+// POST a document to the extraction API, retrying briefly on 503. The server
+// sheds load with 503 when its parse-concurrency gate is saturated; without this
+// a transient "server busy" would surface as a permanent per-file failure.
+// Returns the final Response so callers decide how to surface a persistent failure.
+export async function postExtractText(
+  file: Blob,
+  fileName: string
+): Promise<Response> {
+  const MAX_ATTEMPTS = 3
+  let response: Response | null = null
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    const formData = new FormData()
+    formData.append('file', file, fileName)
+    response = await fetch('/api/extract-text', { method: 'POST', body: formData })
+    if (response.status !== 503) return response
+    const retryAfter = Number(response.headers.get('retry-after')) || 1
+    await new Promise((resolve) =>
+      setTimeout(resolve, retryAfter * 1000 * (attempt + 1))
+    )
+  }
+  return response as Response
+}
+
 export const processFile = async (file: File, relativePath: string): Promise<FileWithContent> => {
   return new Promise(async (resolve, reject) => {
     if (!isFileAllowed(file)) {
@@ -249,14 +272,8 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
           return
         }
 
-        const formData = new FormData()
-        formData.append('file', file)
-        
-        const response = await fetch('/api/extract-text', {
-          method: 'POST',
-          body: formData,
-        })
-        
+        const response = await postExtractText(file, file.name)
+
         if (!response.ok) {
           const errData = await response.json().catch(() => null)
           throw new Error(errData?.error || `Failed to process ${extension} file`)
@@ -272,8 +289,8 @@ export const processFile = async (file: File, relativePath: string): Promise<Fil
         
         // Trim whitespace from beginning and end
         const trimmedContent = data.text.trim()
-        
-        resolve({ path: relativePath, content: trimmedContent })
+
+        resolve({ path: relativePath, content: trimmedContent, truncated: Boolean(data.truncated) })
         return
       }
 

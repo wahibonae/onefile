@@ -37,6 +37,8 @@ export function ToolSection() {
     triggerDownload,
     executeDownload,
     downloadRequested,
+    baseFileName,
+    setBaseFileName,
   } = usePromptOutput(files);
   const {
     isGitHubBrowserOpen,
@@ -75,8 +77,8 @@ export function ToolSection() {
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-7">
-        <div className="space-y-4 sm:space-y-6">
-          <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
+        <div className="h-full">
+          <div className="h-full flex flex-col bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <div className="p-2 rounded-lg bg-primary/10">
                 <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
@@ -127,8 +129,8 @@ export function ToolSection() {
           </div>
         </div>
 
-        <div className="space-y-4 sm:space-y-6">
-          <div className="bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
+        <div className="h-full">
+          <div className="h-full flex flex-col bg-card rounded-2xl border border-border shadow-sm p-4 sm:p-8">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <div className="p-2 rounded-lg bg-primary/10">
                 <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
@@ -136,14 +138,16 @@ export function ToolSection() {
               <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
                 Your One File
               </h2>
-              <a
-                href="https://github.com/wahibonae/onefile"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 bg-muted/60 hover:bg-muted text-muted-foreground text-xs px-2.5 py-1 rounded-full font-medium transition-colors"
-              >
-                Open Source
-              </a>
+              <div className="ml-auto flex items-center">
+                <input
+                  type="text"
+                  value={baseFileName}
+                  onChange={(e) => setBaseFileName(e.target.value)}
+                  className="bg-muted/30 hover:bg-muted/50 border border-border text-sm rounded-lg px-3 py-1.5 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all w-32 sm:w-48 placeholder:text-muted-foreground/50 h-9"
+                  placeholder="onefile-prompt"
+                  title="Output file name"
+                />
+              </div>
             </div>
 
             <div className="space-y-4 sm:space-y-6">

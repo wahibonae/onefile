@@ -25,6 +25,8 @@ interface UsePromptOutputReturn {
   triggerDownload: (format?: DownloadFormat) => void;
   executeDownload: () => void;
   downloadRequested: number;
+  baseFileName: string;
+  setBaseFileName: (name: string) => void;
 }
 
 function buildPreview(files: FileWithContent[], limit: number): string {
@@ -50,6 +52,7 @@ export function usePromptOutput(
   const [outputSize, setOutputSize] = useState(0);
   const [isTruncated, setIsTruncated] = useState(false);
   const [downloadRequested, setDownloadRequested] = useState(0);
+  const [baseFileName, setBaseFileName] = useState("onefile-prompt");
 
   const filesRef = useRef(files);
   filesRef.current = files;
@@ -114,7 +117,7 @@ export function usePromptOutput(
         : generatePromptBlob(currentFiles);
 
     const filename =
-      format === "md" ? "onefile-prompt.md" : "onefile-prompt.txt";
+      format === "md" ? `${baseFileName}.md` : `${baseFileName}.txt`;
 
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -124,7 +127,7 @@ export function usePromptOutput(
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  }, []);
+  }, [baseFileName]);
 
   return {
     finalPrompt,
@@ -135,5 +138,7 @@ export function usePromptOutput(
     triggerDownload,
     executeDownload,
     downloadRequested,
+    baseFileName,
+    setBaseFileName,
   };
 }

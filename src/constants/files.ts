@@ -15,6 +15,8 @@ export const ALLOWED_EXTENSIONS = new Set([
   '.pug', '.jade', '.haml', '.ejs', '.hbs', '.mustache',
   '.gradle', '.maven', '.pom', '.sbt', '.rake',
   '.gitignore', '.dockerignore', '.editorconfig',
+  // go template files extention
+' .tmpl','.tpl','.gotmpl',
   // Shell and script files
   '.ps1', '.psm1', '.bat', '.cmd', '.vbs', '.awk', '.sed',
   // Document formats
@@ -126,6 +128,8 @@ export const IGNORED_PATHS = new Set([
   'build',
   '.next',
   'out',
+ //rust compilation file
+  'target',
   // Cache directories
   '.cache',
   '__pycache__',

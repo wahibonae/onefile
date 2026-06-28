@@ -74,7 +74,7 @@ function EditableFileName({
       <span className="truncate text-sm font-mono text-primary/90">
         {sanitizeBaseFileName(value)}
       </span>
-      <Pencil className="h-3 w-3 shrink-0 text-primary/70 animate-pulse motion-reduce:animate-none" />
+      <Pencil className="h-3.5 w-3.5 shrink-0 text-primary/70 animate-pulse motion-reduce:animate-none" />
     </button>
   );
 }

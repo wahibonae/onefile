@@ -260,7 +260,7 @@ export default function AboutPage() {
               <div className="flex items-start gap-4">
                 <div className="p-2 rounded-lg bg-primary/5 shrink-0">
                   <Image
-                    src="https://icons.duckduckgo.com/ip3/getskipit.com.ico"
+                    src="/icons/skipit.ico"
                     alt=""
                     width={24}
                     height={24}
@@ -286,7 +286,7 @@ export default function AboutPage() {
               <div className="flex items-start gap-4">
                 <div className="p-2 rounded-lg bg-primary/5 shrink-0">
                   <Image
-                    src="https://icons.duckduckgo.com/ip3/chromewebstore.google.com.ico"
+                    src="/icons/hide-deepseek-thoughts.png"
                     alt=""
                     width={24}
                     height={24}

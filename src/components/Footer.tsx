@@ -201,7 +201,7 @@ export function Footer() {
                   className="group text-sm text-[#FE6F4F] hover:brightness-110 font-semibold transition-colors inline-flex items-center gap-1.5"
                 >
                   <Image
-                    src="https://icons.duckduckgo.com/ip3/getskipit.com.ico"
+                    src="/icons/skipit.ico"
                     alt=""
                     width={14}
                     height={14}
@@ -221,7 +221,7 @@ export function Footer() {
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1.5"
                 >
                   <Image
-                    src="https://icons.duckduckgo.com/ip3/chromewebstore.google.com.ico"
+                    src="/icons/hide-deepseek-thoughts.png"
                     alt=""
                     width={14}
                     height={14}

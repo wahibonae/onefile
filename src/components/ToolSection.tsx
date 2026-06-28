@@ -23,7 +23,10 @@ import { useGitHubBrowser } from "@/hooks/useGitHubBrowser";
 import { useTextContentDialog } from "@/hooks/useTextContentDialog";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
 
-const HIGHLIGHTS = ["Download as Markdown", "OneFile is now 10x faster"];
+const HIGHLIGHTS = [
+  "OneFile is now 10x faster",
+  "Rename your downloaded one files",
+];
 
 // Click-to-edit output file name, shown as an accent chip in the output card
 // header. Resting state shows the sanitized name; editing keeps the same chip

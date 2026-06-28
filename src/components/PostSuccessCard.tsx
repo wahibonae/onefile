@@ -164,7 +164,7 @@ export function PostSuccessCard({ downloadRequested, onDownload }: PostSuccessCa
                 <div className="flex items-center gap-4">
                   <div className="p-2.5 rounded-xl bg-[#FE7150]/10 shrink-0">
                     <Image
-                      src="https://icons.duckduckgo.com/ip3/getskipit.com.ico"
+                      src="/icons/skipit.ico"
                       alt=""
                       width={20}
                       height={20}

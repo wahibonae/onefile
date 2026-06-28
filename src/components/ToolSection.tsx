@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Copy, FileText, Download, ChevronDown, File } from "lucide-react";
+import { Copy, FileText, Download, ChevronDown, File, Pencil } from "lucide-react";
 import Sparkles from "@/components/icons/Sparkles";
 import { FileUpload } from "@/components/FileUpload";
 import { FileList } from "@/components/FileList";
@@ -18,12 +18,66 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useFileManager } from "@/hooks/useFileManager";
-import { usePromptOutput } from "@/hooks/usePromptOutput";
+import { usePromptOutput, sanitizeBaseFileName } from "@/hooks/usePromptOutput";
 import { useGitHubBrowser } from "@/hooks/useGitHubBrowser";
 import { useTextContentDialog } from "@/hooks/useTextContentDialog";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
 
 const HIGHLIGHTS = ["Download as Markdown", "OneFile is now 10x faster"];
+
+// Click-to-edit output file name, shown as an accent chip in the output card
+// header. Resting state shows the sanitized name; editing keeps the same chip
+// styling. A pulsing pencil hints it can be renamed.
+function EditableFileName({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (name: string) => void;
+}): React.ReactElement {
+  const [editing, setEditing] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function startEditing(): void {
+    setEditing(true);
+    requestAnimationFrame(() => inputRef.current?.select());
+  }
+
+  if (editing) {
+    return (
+      <div className="ml-auto inline-flex items-center gap-2 rounded-lg bg-primary/5 px-3 py-1.5">
+        <input
+          ref={inputRef}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={() => setEditing(false)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === "Escape") setEditing(false);
+          }}
+          size={Math.min(Math.max(value.length, 4), 24)}
+          aria-label="Output file name"
+          className="w-auto bg-transparent text-sm font-mono text-primary/90 focus:outline-none"
+        />
+        <Pencil className="h-3.5 w-3.5 shrink-0 text-primary/70 animate-pulse motion-reduce:animate-none" />
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={startEditing}
+      title="Click to rename"
+      aria-label="Rename output file"
+      className="group ml-auto inline-flex max-w-full items-center gap-2 rounded-lg bg-primary/5 px-3 py-1.5 transition-colors hover:bg-primary/10"
+    >
+      <span className="truncate text-sm font-mono text-primary/90">
+        {sanitizeBaseFileName(value)}
+      </span>
+      <Pencil className="h-3.5 w-3.5 shrink-0 text-primary/70 animate-pulse motion-reduce:animate-none" />
+    </button>
+  );
+}
 
 export function ToolSection() {
   const { files, handleFiles, removeFile, clearAllFiles, handleGitHubImport } =
@@ -37,6 +91,8 @@ export function ToolSection() {
     triggerDownload,
     executeDownload,
     downloadRequested,
+    baseFileName,
+    setBaseFileName,
   } = usePromptOutput(files);
   const {
     isGitHubBrowserOpen,
@@ -136,14 +192,12 @@ export function ToolSection() {
               <h2 className="text-xl sm:text-2xl font-semibold text-card-foreground">
                 Your One File
               </h2>
-              <a
-                href="https://github.com/wahibonae/onefile"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 bg-muted/60 hover:bg-muted text-muted-foreground text-xs px-2.5 py-1 rounded-full font-medium transition-colors"
-              >
-                Open Source
-              </a>
+              {finalPrompt && (
+                <EditableFileName
+                  value={baseFileName}
+                  onChange={setBaseFileName}
+                />
+              )}
             </div>
 
             <div className="space-y-4 sm:space-y-6">

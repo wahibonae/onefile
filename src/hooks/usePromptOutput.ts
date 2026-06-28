@@ -13,6 +13,7 @@ import { formatBytes } from "@/lib/utils";
 
 const PREVIEW_LIMIT = 50_000; // ~50KB preview
 const COPY_SIZE_LIMIT = 100 * 1024 * 1024; // 100MB safety guard for clipboard
+const DEFAULT_BASE_FILENAME = "onefile-prompt";
 
 export type DownloadFormat = "txt" | "md";
 
@@ -25,6 +26,23 @@ interface UsePromptOutputReturn {
   triggerDownload: (format?: DownloadFormat) => void;
   executeDownload: () => void;
   downloadRequested: number;
+  baseFileName: string;
+  setBaseFileName: (name: string) => void;
+}
+
+// Turn user input into a safe download filename: strip path separators and
+// characters illegal on common filesystems, drop a redundant extension, trim
+// leading/trailing dots and spaces, and cap the length. Hyphens, underscores
+// and inner spaces are kept since they are valid. Falls back to the default
+// when nothing usable remains.
+export function sanitizeBaseFileName(raw: string): string {
+  const cleaned = raw
+    .replace(/[/\\:*?"<>|]/g, "")
+    .replace(/\.(txt|md)$/i, "")
+    .replace(/^[.\s]+/, "")
+    .slice(0, 100)
+    .replace(/[.\s]+$/, "");
+  return cleaned || DEFAULT_BASE_FILENAME;
 }
 
 function buildPreview(files: FileWithContent[], limit: number): string {
@@ -50,6 +68,7 @@ export function usePromptOutput(
   const [outputSize, setOutputSize] = useState(0);
   const [isTruncated, setIsTruncated] = useState(false);
   const [downloadRequested, setDownloadRequested] = useState(0);
+  const [baseFileName, setBaseFileName] = useState(DEFAULT_BASE_FILENAME);
 
   const filesRef = useRef(files);
   filesRef.current = files;
@@ -113,8 +132,8 @@ export function usePromptOutput(
         ? generateMarkdownBlob(currentFiles)
         : generatePromptBlob(currentFiles);
 
-    const filename =
-      format === "md" ? "onefile-prompt.md" : "onefile-prompt.txt";
+    const safeName = sanitizeBaseFileName(baseFileName);
+    const filename = format === "md" ? `${safeName}.md` : `${safeName}.txt`;
 
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -124,7 +143,7 @@ export function usePromptOutput(
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  }, []);
+  }, [baseFileName]);
 
   return {
     finalPrompt,
@@ -135,5 +154,7 @@ export function usePromptOutput(
     triggerDownload,
     executeDownload,
     downloadRequested,
+    baseFileName,
+    setBaseFileName,
   };
 }

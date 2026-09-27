@@ -143,4 +143,4 @@ export const IGNORED_PATHS = new Set([
 
 export const DOCUMENT_EXTENSIONS = new Set([
   '.pdf', '.docx', '.pptx', '.xlsx', '.xls'
-]) 
+])
